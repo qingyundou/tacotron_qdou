@@ -1,4 +1,5 @@
 import librosa
+import librosa.effects
 import librosa.filters
 import math
 import numpy as np
@@ -8,7 +9,11 @@ from hparams import hparams
 
 
 def load_wav(path):
-  return librosa.core.load(path, sr=hparams.sample_rate)[0]
+  return librosa.core.load(path, sr=hparams.sample_rate)[0] # returns [audio, sample_rate]
+
+
+def remove_silence(y, top_db):
+  return librosa.effects.trim(y, top_db=top_db)[0] # returns [trimmed_signal, intervals]
 
 
 def save_wav(wav, path):

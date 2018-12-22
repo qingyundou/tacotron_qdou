@@ -12,7 +12,7 @@ def load_wav(path):
   return librosa.core.load(path, sr=hparams.sample_rate)[0] # returns [audio, sample_rate]
 
 
-def remove_silence(y, top_db):
+def remove_silence(y, top_db=18):
   return librosa.effects.trim(y, top_db=top_db)[0] # returns [trimmed_signal, intervals]
 
 

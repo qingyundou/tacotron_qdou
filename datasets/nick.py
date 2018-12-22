@@ -62,7 +62,7 @@ def _process_utterance(out_dir, index, wav_path, text):
   wav = audio.load_wav(wav_path)
 
   # Remove silence from the wav
-  silence_removed = audio.remove_silence(wav, top_db=15)
+  silence_removed = audio.remove_silence(wav)
 
   # Compute the linear-scale spectrogram from the wav:
   spectrogram = audio.spectrogram(silence_removed).astype(np.float32)

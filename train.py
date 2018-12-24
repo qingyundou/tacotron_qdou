@@ -87,8 +87,9 @@ def train(log_dir, args):
         log('Starting new training run at commit: %s' % commit, slack=True)
 
       feeder.start_in_session(sess)
+      step = 0 # initialise step variable so can use in while condition
 
-      while not coord.should_stop():
+      while not coord.should_stop() and step <= args.num_steps:
         start_time = time.time()
         step, loss, opt = sess.run([global_step, model.loss, model.optimize])
         time_window.append(time.time() - start_time)
@@ -141,6 +142,7 @@ def train(log_dir, args):
 def main():
   parser = argparse.ArgumentParser()
   parser.add_argument('--base_dir', default=os.path.expanduser('~/tacotron'))
+  parser.add_argument('--log_dir', default=os.path.expanduser('~/tacotron'))
   parser.add_argument('--input', default='training/train.txt')
   parser.add_argument('--model', default='tacotron')
   parser.add_argument('--name', help='Name of the run. Used for logging. Defaults to model name.')
@@ -154,10 +156,11 @@ def main():
   parser.add_argument('--slack_url', help='Slack webhook URL to get periodic reports.')
   parser.add_argument('--tf_log_level', type=int, default=1, help='Tensorflow C++ log level.')
   parser.add_argument('--git', action='store_true', help='If set, verify that the client is clean.')
+  parser.add_argument('--num_steps', type=int, default=100000, help='Maximum number of steps to run training for.')
   args = parser.parse_args()
   os.environ['TF_CPP_MIN_LOG_LEVEL'] = str(args.tf_log_level)
   run_name = args.name or args.model
-  log_dir = os.path.join(args.base_dir, 'logs-%s' % run_name)
+  log_dir = os.path.join(args.log_dir, 'logs-%s' % run_name)
   os.makedirs(log_dir, exist_ok=True)
   infolog.init(os.path.join(log_dir, 'train.log'), run_name, args.slack_url)
   hparams.parse(args.hparams)

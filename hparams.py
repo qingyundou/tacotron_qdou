@@ -16,6 +16,7 @@ hparams = tf.contrib.training.HParams(
   preemphasis=0.97,
   min_level_db=-100,
   ref_level_db=20,
+  pml_dimension=86,
 
   # Model:
   outputs_per_step=5,

@@ -37,7 +37,7 @@ def write_metadata(metadata, out_dir):
   frames = sum([m[2] for m in metadata])
   hours = frames * hparams.frame_shift_ms / (3600 * 1000)
   print('Wrote %d utterances, %d frames (%.2f hours)' % (len(metadata), frames, hours))
-  print('Max input length:  %d' % max(len(m[3]) for m in metadata))
+  print('Max input length:  %d' % max(len(m[5]) for m in metadata))
   print('Max output length: %d' % max(m[2] for m in metadata))
 
 

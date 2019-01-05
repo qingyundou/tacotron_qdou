@@ -1,0 +1,203 @@
+  0%|          | 0/2400 [00:00<?, ?it/s]  0%|          | 1/2400 [00:02<1:45:08,  2.63s/it]  0%|          | 2/2400 [00:02<1:16:09,  1.91s/it]  0%|          | 3/2400 [00:03<1:00:32,  1.52s/it]  0%|          | 8/2400 [00:04<45:30,  1.14s/it]    3%|▎         | 73/2400 [00:05<31:06,  1.25it/s]  3%|▎         | 76/2400 [00:05<22:40,  1.71it/s]  4%|▎         | 89/2400 [00:05<15:54,  2.42it/s]  4%|▍         | 99/2400 [00:06<11:43,  3.27it/s]  5%|▍         | 111/2400 [00:07<08:50,  4.32it/s]  5%|▍         | 115/2400 [00:08<08:57,  4.25it/s]  6%|▌         | 146/2400 [00:10<07:11,  5.23it/s]  9%|▊         | 208/2400 [00:11<04:57,  7.37it/s]  9%|▉         | 215/2400 [00:11<04:10,  8.73it/s] 10%|█         | 240/2400 [00:13<03:29, 10.30it/s] 10%|█         | 245/2400 [00:13<03:26, 10.46it/s] 11%|█         | 268/2400 [00:14<02:45, 12.90it/s] 12%|█▏        | 285/2400 [00:15<02:34, 13.70it/s] 13%|█▎        | 307/2400 [00:15<01:55, 18.15it/s] 14%|█▍        | 341/2400 [00:16<01:27, 23.65it/s] 15%|█▍        | 353/2400 [00:16<01:07, 30.40it/s] 15%|█▌        | 360/2400 [00:18<03:22, 10.09it/s] 16%|█▌        | 373/2400 [00:18<02:48, 12.06it/s] 16%|█▋        | 393/2400 [00:18<02:04, 16.15it/s] 17%|█▋        | 409/2400 [00:19<02:00, 16.51it/s] 18%|█▊        | 430/2400 [00:20<01:33, 21.06it/s] 18%|█▊        | 435/2400 [00:20<01:52, 17.46it/s] 19%|█▉        | 454/2400 [00:21<01:49, 17.69it/s] 20%|██        | 481/2400 [00:21<01:18, 24.53it/s] 20%|██        | 491/2400 [00:22<01:59, 15.98it/s] 22%|██▏       | 517/2400 [00:23<01:30, 20.71it/s] 22%|██▏       | 534/2400 [00:23<01:12, 25.82it/s] 23%|██▎       | 541/2400 [00:24<02:34, 12.04it/s] 23%|██▎       | 553/2400 [00:25<02:23, 12.85it/s] 23%|██▎       | 557/2400 [00:25<02:05, 14.66it/s] 25%|██▍       | 589/2400 [00:25<01:29, 20.26it/s] 25%|██▍       | 597/2400 [00:27<02:21, 12.71it/s] 25%|██▌       | 603/2400 [00:27<02:38, 11.36it/s] 26%|██▌       | 613/2400 [00:28<02:31, 11.82it/s] 26%|██▌       | 627/2400 [00:29<02:04, 14.20it/s] 27%|██▋       | 656/2400 [00:31<02:15, 12.83it/s] 28%|██▊       | 671/2400 [00:33<02:31, 11.43it/s] 32%|███▏      | 766/2400 [00:35<01:48, 15.05it/s] 33%|███▎      | 791/2400 [00:36<01:31, 17.63it/s] 34%|███▍      | 814/2400 [00:36<01:06, 23.70it/s] 34%|███▍      | 820/2400 [00:36<01:44, 15.11it/s] 35%|███▍      | 839/2400 [00:38<01:39, 15.70it/s] 35%|███▌      | 850/2400 [00:38<01:15, 20.56it/s] 36%|███▌      | 855/2400 [00:39<02:45,  9.35it/s] 37%|███▋      | 881/2400 [00:39<02:02, 12.42it/s] 38%|███▊      | 912/2400 [00:40<01:28, 16.84it/s] 39%|███▊      | 926/2400 [00:40<01:10, 20.91it/s] 39%|███▉      | 938/2400 [00:40<00:52, 27.64it/s] 39%|███▉      | 946/2400 [00:41<01:03, 22.81it/s] 40%|███▉      | 952/2400 [00:41<00:56, 25.55it/s] 40%|████      | 960/2400 [00:41<01:13, 19.48it/s] 40%|████      | 964/2400 [00:42<02:09, 11.07it/s] 40%|████      | 967/2400 [00:44<05:16,  4.53it/s] 43%|████▎     | 1021/2400 [00:44<03:38,  6.31it/s] 43%|████▎     | 1031/2400 [00:46<03:21,  6.80it/s] 45%|████▍     | 1069/2400 [00:46<02:21,  9.39it/s] 45%|████▍     | 1074/2400 [00:47<03:04,  7.17it/s] 46%|████▌     | 1109/2400 [00:49<02:28,  8.67it/s] 49%|████▊     | 1165/2400 [00:51<01:49, 11.28it/s] 49%|████▉     | 1176/2400 [00:51<01:37, 12.57it/s] 51%|█████     | 1214/2400 [00:52<01:08, 17.38it/s] 51%|█████     | 1221/2400 [00:53<02:19,  8.47it/s] 51%|█████     | 1226/2400 [00:54<01:55, 10.20it/s] 52%|█████▏    | 1253/2400 [00:54<01:20, 14.18it/s] 53%|█████▎    | 1263/2400 [00:54<01:16, 14.84it/s] 53%|█████▎    | 1271/2400 [00:55<01:30, 12.43it/s] 54%|█████▍    | 1300/2400 [00:56<01:06, 16.46it/s] 55%|█████▍    | 1316/2400 [00:56<00:50, 21.68it/s] 55%|█████▌    | 1329/2400 [00:56<00:45, 23.61it/s] 56%|█████▌    | 1335/2400 [00:57<00:52, 20.38it/s] 56%|█████▌    | 1343/2400 [00:58<01:20, 13.08it/s] 56%|█████▋    | 1351/2400 [00:59<01:21, 12.89it/s] 57%|█████▋    | 1378/2400 [01:00<01:10, 14.60it/s] 59%|█████▉    | 1414/2400 [01:01<00:53, 18.33it/s] 59%|█████▉    | 1420/2400 [01:03<02:25,  6.75it/s] 62%|██████▏   | 1479/2400 [01:04<01:38,  9.31it/s] 62%|██████▏   | 1497/2400 [01:04<01:20, 11.27it/s] 63%|██████▎   | 1520/2400 [01:05<01:00, 14.46it/s] 64%|██████▍   | 1533/2400 [01:06<01:01, 14.08it/s] 65%|██████▌   | 1565/2400 [01:07<00:48, 17.24it/s] 66%|██████▌   | 1578/2400 [01:08<00:57, 14.38it/s] 67%|██████▋   | 1604/2400 [01:09<00:47, 16.72it/s] 67%|██████▋   | 1612/2400 [01:10<01:10, 11.22it/s] 67%|██████▋   | 1614/2400 [01:11<02:02,  6.39it/s] 68%|██████▊   | 1638/2400 [01:12<01:29,  8.49it/s] 69%|██████▊   | 1648/2400 [01:12<01:13, 10.20it/s] 70%|███████   | 1680/2400 [01:12<00:51, 14.06it/s] 71%|███████   | 1704/2400 [01:14<00:48, 14.45it/s] 71%|███████▏  | 1713/2400 [01:15<00:58, 11.78it/s] 73%|███████▎  | 1752/2400 [01:16<00:41, 15.58it/s] 74%|███████▍  | 1777/2400 [01:17<00:39, 15.95it/s] 75%|███████▍  | 1793/2400 [01:18<00:32, 18.42it/s] 76%|███████▌  | 1815/2400 [01:18<00:24, 24.03it/s] 77%|███████▋  | 1847/2400 [01:19<00:22, 24.58it/s] 78%|███████▊  | 1870/2400 [01:19<00:15, 33.53it/s] 79%|███████▉  | 1891/2400 [01:22<00:31, 16.25it/s] 81%|████████  | 1947/2400 [01:22<00:20, 22.51it/s] 82%|████████▏ | 1960/2400 [01:23<00:16, 27.15it/s] 82%|████████▏ | 1970/2400 [01:24<00:23, 18.16it/s] 82%|████████▏ | 1977/2400 [01:25<00:34, 12.28it/s] 84%|████████▎ | 2005/2400 [01:25<00:23, 16.73it/s] 84%|████████▍ | 2026/2400 [01:26<00:20, 18.52it/s] 85%|████████▍ | 2034/2400 [01:26<00:24, 15.21it/s] 86%|████████▌ | 2064/2400 [01:28<00:20, 16.71it/s] 87%|████████▋ | 2099/2400 [01:28<00:13, 22.20it/s] 88%|████████▊ | 2107/2400 [01:29<00:13, 21.48it/s] 88%|████████▊ | 2119/2400 [01:29<00:09, 28.39it/s] 89%|████████▊ | 2126/2400 [01:29<00:09, 29.51it/s] 89%|████████▉ | 2134/2400 [01:30<00:14, 18.37it/s] 89%|████████▉ | 2139/2400 [01:30<00:13, 18.74it/s] 90%|████████▉ | 2150/2400 [01:31<00:14, 16.67it/s] 90%|█████████ | 2162/2400 [01:31<00:13, 17.93it/s] 91%|█████████ | 2173/2400 [01:32<00:14, 15.14it/s] 91%|█████████ | 2179/2400 [01:34<00:24,  9.06it/s] 93%|█████████▎| 2242/2400 [01:35<00:13, 11.93it/s] 94%|█████████▍| 2254/2400 [01:35<00:09, 14.73it/s] 94%|█████████▍| 2264/2400 [01:36<00:09, 15.10it/s] 96%|█████████▌| 2299/2400 [01:36<00:05, 19.92it/s] 96%|█████████▌| 2306/2400 [01:37<00:03, 23.62it/s] 96%|█████████▋| 2311/2400 [01:37<00:05, 15.30it/s] 97%|█████████▋| 2338/2400 [01:38<00:03, 17.62it/s] 98%|█████████▊| 2344/2400 [01:39<00:03, 16.08it/s] 99%|█████████▊| 2368/2400 [01:39<00:01, 18.76it/s]100%|█████████▉| 2392/2400 [01:40<00:00, 25.66it/s]100%|██████████| 2400/2400 [01:40<00:00, 24.00it/s]/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/scipy/signal/signaltools.py:1344: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  out = out_full[ind]
+2018-12-24 02:42:41.952182: W tensorflow/core/common_runtime/bfc_allocator.cc:273] Allocator (GPU_0_bfc) ran out of memory trying to allocate 1.00MiB.  Current allocation summary follows.
+2018-12-24 02:42:41.953769: W tensorflow/core/common_runtime/bfc_allocator.cc:277] ****************************************************************************************************
+2018-12-24 02:42:41.953802: W tensorflow/core/framework/op_kernel.cc:1192] Resource exhausted: OOM when allocating tensor with shape[16,128,128]
+2018-12-24 02:42:51.954008: W tensorflow/core/common_runtime/bfc_allocator.cc:273] Allocator (GPU_0_bfc) ran out of memory trying to allocate 3.00MiB.  Current allocation summary follows.
+2018-12-24 02:42:51.974758: W tensorflow/core/common_runtime/bfc_allocator.cc:277] ****************************************************************************************************
+2018-12-24 02:42:51.974786: W tensorflow/core/framework/op_kernel.cc:1192] Resource exhausted: OOM when allocating tensor with shape[3,2048,128]
+2018-12-24 02:43:01.975334: W tensorflow/core/common_runtime/bfc_allocator.cc:273] Allocator (GPU_0_bfc) ran out of memory trying to allocate 3.00MiB.  Current allocation summary follows.
+2018-12-24 02:43:01.976965: W tensorflow/core/common_runtime/bfc_allocator.cc:277] ********************************_*******************************************************************
+2018-12-24 02:43:01.976994: W tensorflow/core/framework/op_kernel.cc:1192] Resource exhausted: OOM when allocating tensor with shape[3,1024,256]
+Traceback (most recent call last):
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1323, in _do_call
+    return fn(*args)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1302, in _run_fn
+    status, run_metadata)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/framework/errors_impl.py", line 473, in __exit__
+    c_api.TF_GetCode(self.status.status))
+tensorflow.python.framework.errors_impl.ResourceExhaustedError: OOM when allocating tensor with shape[16,128,128]
+	 [[Node: model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Assign = Assign[T=DT_FLOAT, _class=["loc:@model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel"], use_locking=true, validate_shape=true, _device="/job:localhost/replica:0/task:0/device:GPU:0"](model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel, model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Initializer/random_uniform)]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "train.py", line 79, in train
+    sess.run(tf.global_variables_initializer())
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 889, in run
+    run_metadata_ptr)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1120, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1317, in _do_run
+    options, run_metadata)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1336, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.ResourceExhaustedError: OOM when allocating tensor with shape[16,128,128]
+	 [[Node: model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Assign = Assign[T=DT_FLOAT, _class=["loc:@model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel"], use_locking=true, validate_shape=true, _device="/job:localhost/replica:0/task:0/device:GPU:0"](model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel, model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Initializer/random_uniform)]]
+
+Caused by op 'model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Assign', defined at:
+  File "train.py", line 171, in <module>
+    main()
+  File "train.py", line 167, in main
+    train(log_dir, args)
+  File "train.py", line 64, in train
+    model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets, feeder.linear_targets)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/models/tacotron.py", line 48, in initialize
+    hp.encoder_depth)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/models/modules.py", line 24, in encoder_cbhg
+    depth=depth)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/models/modules.py", line 43, in cbhg
+    [conv1d(inputs, k, 128, tf.nn.relu, is_training, 'conv1d_%d' % k) for k in range(1, K+1)],
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/models/modules.py", line 43, in <listcomp>
+    [conv1d(inputs, k, 128, tf.nn.relu, is_training, 'conv1d_%d' % k) for k in range(1, K+1)],
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/models/modules.py", line 106, in conv1d
+    padding='same')
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/layers/convolutional.py", line 408, in conv1d
+    return layer.apply(inputs)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/layers/base.py", line 671, in apply
+    return self.__call__(inputs, *args, **kwargs)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/layers/base.py", line 559, in __call__
+    self.build(input_shapes[0])
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/layers/convolutional.py", line 143, in build
+    dtype=self.dtype)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/layers/base.py", line 458, in add_variable
+    trainable=trainable and self.trainable)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variable_scope.py", line 1203, in get_variable
+    constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variable_scope.py", line 1092, in get_variable
+    constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variable_scope.py", line 425, in get_variable
+    constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variable_scope.py", line 394, in _true_getter
+    use_resource=use_resource, constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variable_scope.py", line 805, in _get_single_variable
+    constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variables.py", line 213, in __init__
+    constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variables.py", line 346, in _init_from_args
+    validate_shape=validate_shape).op
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/state_ops.py", line 276, in assign
+    validate_shape=validate_shape)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/gen_state_ops.py", line 57, in assign
+    use_locking=use_locking, name=name)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 787, in _apply_op_helper
+    op_def=op_def)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 2956, in create_op
+    op_def=op_def)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 1470, in __init__
+    self._traceback = self._graph._extract_stack()  # pylint: disable=protected-access
+
+ResourceExhaustedError (see above for traceback): OOM when allocating tensor with shape[16,128,128]
+	 [[Node: model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Assign = Assign[T=DT_FLOAT, _class=["loc:@model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel"], use_locking=true, validate_shape=true, _device="/job:localhost/replica:0/task:0/device:GPU:0"](model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel, model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Initializer/random_uniform)]]
+

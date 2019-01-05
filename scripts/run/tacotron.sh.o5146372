@@ -1,0 +1,136 @@
+Data not found on air, no need to remove
+Data not found on air, no need to remove
+Data not found on air, no need to remove
+Moving Nick text with cmd: cp -r /home/astra2/tts/data/txt/Eng/NickDNNDemo/* /scratch/je369/tacotron/Nick/txt/
+Output (Nick text): b''
+Err (Nick text): b''
+Moving Nick audio with cmd: cp -r /home/astra2/tts/data/wav/Eng/NickDNNDemo/* /scratch/je369/tacotron/Nick/wav/
+Output (Nick audio): b''
+Err (Nick audio): b''
+Moving Nick data complete!
+# conda environments:
+#
+base                  *  /home/miproj/4thyr.oct2018/je369/miniconda3
+                         /home/miproj/4thyr.oct2018/je369/workspace/envs/tensorflow
+                         /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv
+
+/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/bin/python
+Wrote 2400 utterances, 375655 frames (1.30 hours)
+Max input length:  179
+Max output length: 781
+Checkpoint path: /scratch/je369/results/logs-tacotron-nick/model.ckpt
+Loading training data from: /scratch/je369/tacotron/training/train.txt
+Using model: tacotron
+Hyperparameters:
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  attention_depth: 256
+  batch_size: 32
+  cleaners: english_cleaners
+  decay_learning_rate: True
+  decoder_depth: 256
+  embed_depth: 256
+  encoder_depth: 256
+  frame_length_ms: 50
+  frame_shift_ms: 12.5
+  griffin_lim_iters: 60
+  initial_learning_rate: 0.002
+  max_iters: 200
+  min_level_db: -100
+  num_freq: 1025
+  num_mels: 80
+  outputs_per_step: 5
+  postnet_depth: 256
+  power: 1.5
+  preemphasis: 0.97
+  prenet_depths: [256, 128]
+  ref_level_db: 20
+  sample_rate: 20000
+  use_cmudict: False
+Loaded metadata for 2400 examples (1.30 hours)
+Initialized Tacotron model. Dimensions: 
+  embedding:               256
+  prenet out:              128
+  encoder out:             256
+  attention out:           256
+  concat attn & out:       512
+  decoder cell out:        256
+  decoder out (5 frames):  400
+  decoder out (1 frame):   80
+  postnet out:             256
+  linear out:              1025
+Exiting due to exception: OOM when allocating tensor with shape[16,128,128]
+	 [[Node: model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Assign = Assign[T=DT_FLOAT, _class=["loc:@model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel"], use_locking=true, validate_shape=true, _device="/job:localhost/replica:0/task:0/device:GPU:0"](model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel, model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Initializer/random_uniform)]]
+
+Caused by op 'model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Assign', defined at:
+  File "train.py", line 171, in <module>
+    main()
+  File "train.py", line 167, in main
+    train(log_dir, args)
+  File "train.py", line 64, in train
+    model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets, feeder.linear_targets)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/models/tacotron.py", line 48, in initialize
+    hp.encoder_depth)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/models/modules.py", line 24, in encoder_cbhg
+    depth=depth)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/models/modules.py", line 43, in cbhg
+    [conv1d(inputs, k, 128, tf.nn.relu, is_training, 'conv1d_%d' % k) for k in range(1, K+1)],
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/models/modules.py", line 43, in <listcomp>
+    [conv1d(inputs, k, 128, tf.nn.relu, is_training, 'conv1d_%d' % k) for k in range(1, K+1)],
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/models/modules.py", line 106, in conv1d
+    padding='same')
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/layers/convolutional.py", line 408, in conv1d
+    return layer.apply(inputs)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/layers/base.py", line 671, in apply
+    return self.__call__(inputs, *args, **kwargs)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/layers/base.py", line 559, in __call__
+    self.build(input_shapes[0])
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/layers/convolutional.py", line 143, in build
+    dtype=self.dtype)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/layers/base.py", line 458, in add_variable
+    trainable=trainable and self.trainable)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variable_scope.py", line 1203, in get_variable
+    constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variable_scope.py", line 1092, in get_variable
+    constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variable_scope.py", line 425, in get_variable
+    constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variable_scope.py", line 394, in _true_getter
+    use_resource=use_resource, constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variable_scope.py", line 805, in _get_single_variable
+    constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variables.py", line 213, in __init__
+    constraint=constraint)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/variables.py", line 346, in _init_from_args
+    validate_shape=validate_shape).op
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/state_ops.py", line 276, in assign
+    validate_shape=validate_shape)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/ops/gen_state_ops.py", line 57, in assign
+    use_locking=use_locking, name=name)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 787, in _apply_op_helper
+    op_def=op_def)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 2956, in create_op
+    op_def=op_def)
+  File "/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 1470, in __init__
+    self._traceback = self._graph._extract_stack()  # pylint: disable=protected-access
+
+ResourceExhaustedError (see above for traceback): OOM when allocating tensor with shape[16,128,128]
+	 [[Node: model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Assign = Assign[T=DT_FLOAT, _class=["loc:@model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel"], use_locking=true, validate_shape=true, _device="/job:localhost/replica:0/task:0/device:GPU:0"](model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel, model/inference/encoder_cbhg/conv_bank/conv1d_16/conv1d/kernel/Initializer/random_uniform)]]
+
+Moving logs with cmd: cp -r /scratch/je369/results/logs-/* /home/je369/logs//
+Output: b''
+Err: b"cp: cannot stat '/scratch/je369/results/logs-/*': No such file or directory\n"
+Moving output logs complete!
+Data Nick found on air, removing ...
+Output: 
+b''
+Err: 
+b''
+Removing Nick complete!
+Data not found on air, no need to remove
+Data training found on air, removing ...
+Output: 
+b''
+Err: 
+b''
+Removing training complete!

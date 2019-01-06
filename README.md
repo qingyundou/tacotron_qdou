@@ -143,7 +143,7 @@ Pull requests are welcome!
 Only the machines `air208` and `air209` have CUDA 9.0 installed, which seems to be required to run this code. To run on either machine, run the command:
 
 ```
-qsub -M je369@cam.ac.uk -m bea -S /bin/bash -l queue_priority=cuda-low,tests=0,mem_grab=0M,gpuclass=*,osrel=*,hostname=air209 /home/miproj/4thyr.oct2018/je369/tools/merlin_je369/exp/nick/run_grid.sh
+qsub -M je369@cam.ac.uk -m bea -S /bin/bash -l queue_priority=cuda-low,tests=0,mem_grab=0M,gpuclass=*,osrel=*,hostname=air209 /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts/run/pml_tacotron.sh
 ```
 
 

@@ -56,14 +56,48 @@ output,err = runCMD(cmd)
 print('Output (Nick PML): '+str(output))
 print('Err (Nick PML): '+str(err))
 
-# (1.1.4) message move is complete
+# (1.1.5) message move is complete
 print('Moving Nick data complete!')
 
 # (1.2) copy LJ data to air
-# src_dataset = '/home/dawna/tts/data/LJSpeech-1.1'
-# cmd = 'cp -r {s} {t}/'.format(s=src_dataset,t=tgt_directory)
-# print('Moving LJ with cmd: '+cmd)
-# output,err = runCMD(cmd)
-# print('Output (LJ): '+str(output))
-# print('Err (LJ): '+str(err))
-# print('Moving LJ complete!')
+lj_directory = 'LJSpeech-1.1'
+metadata_src_location = '/home/dawna/tts/data/LJSpeech-1.1/webData/metadata.csv'
+metadata_target_location = 'metadata.csv'
+wav_src_dataset = '/home/astra2/tts/data/wav/Eng/NickDNNDemo'
+wav_target_dir = 'wavs'
+pml_src_dataset = '/home/miproj/4thyr.oct2018/je369/tools/merlin_je369/exp/nick/data/nn_cmp'
+pml_target_dir = 'pml'
+
+# (1.2.1) check root LJ directory is created
+t = os.path.join(tgt_directory, lj_directory)
+checkMakeDir(t)
+
+# (1.2.2) copy LJ metadata.csv file to air
+t = os.path.join(tgt_directory, lj_directory, metadata_target_location)
+checkMakeDir(t)
+cmd = 'cp {s} {t}'.format(s=metadata_src_location, t=t)
+print('Moving LJ metadata.csv with cmd: '+cmd)
+output,err = runCMD(cmd)
+print('Output (LJ metadata.csv): '+str(output))
+print('Err (LJ metadata.csv): '+str(err))
+
+# (1.2.3) copy LJ wav files to air
+t = os.path.join(tgt_directory, lj_directory, wav_target_dir)
+checkMakeDir(t)
+cmd = 'cp -r {s}/* {t}/'.format(s=wav_src_dataset, t=t)
+print('Moving LJ audio with cmd: '+cmd)
+output,err = runCMD(cmd)
+print('Output (LJ audio): '+str(output))
+print('Err (LJ audio): '+str(err))
+
+# (1.2.4) copy LJ PML feature files to air
+t = os.path.join(tgt_directory, lj_directory, pml_target_dir)
+checkMakeDir(t)
+cmd = 'cp -r {s}/* {t}/'.format(s=pml_src_dataset, t=t)
+print('Moving LJ PML features with cmd: '+cmd)
+output,err = runCMD(cmd)
+print('Output (LJ PML): '+str(output))
+print('Err (LJ PML): '+str(err))
+
+# (1.2.5) message move is complete
+print('Moving LJ data complete!')

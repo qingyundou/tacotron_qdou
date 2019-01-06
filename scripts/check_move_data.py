@@ -22,6 +22,8 @@ text_src_dataset = '/home/astra2/tts/data/txt/Eng/NickDNNDemo'
 text_target_dir = 'txt'
 wav_src_dataset = '/home/astra2/tts/data/wav/Eng/NickDNNDemo'
 wav_target_dir = 'wav'
+pml_src_dataset = '/home/miproj/4thyr.oct2018/je369/tools/merlin_je369/exp/nick/data/nn_cmp'
+pml_target_dir = 'pml'
 
 # (1.1.1) check root Nick directory is created
 t = os.path.join(tgt_directory, nick_directory)
@@ -44,6 +46,15 @@ print('Moving Nick audio with cmd: '+cmd)
 output,err = runCMD(cmd)
 print('Output (Nick audio): '+str(output))
 print('Err (Nick audio): '+str(err))
+
+# (1.1.4) copy Nick PML feature files to air
+t = os.path.join(tgt_directory, nick_directory, pml_target_dir)
+checkMakeDir(t)
+cmd = 'cp -r {s}/* {t}/'.format(s=pml_src_dataset, t=t)
+print('Moving Nick PML features with cmd: '+cmd)
+output,err = runCMD(cmd)
+print('Output (Nick PML): '+str(output))
+print('Err (Nick PML): '+str(err))
 
 # (1.1.4) message move is complete
 print('Moving Nick data complete!')

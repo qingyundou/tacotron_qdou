@@ -20,7 +20,7 @@ cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron
 
 # 2.2 run the preprocess script
 which python
-python preprocess.py --base_dir /scratch/je369/tacotron/ --dataset lj
+python preprocess.py --base_dir /scratch/je369/tacotron/ --dataset ljspeech # ljspeech used as dataset key
 
 # 2.3 remove the original data
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts

@@ -33,7 +33,7 @@ def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
       pml_path = os.path.join(in_dir, 'pml', '%s.cmp' % parts[0])
       pml_features = np.fromfile(pml_path, dtype=np.float32)
 
-      futures.append(executor.submit(partial(_process_utterance, out_dir, index, wav_path, text)))
+      futures.append(executor.submit(partial(_process_utterance, out_dir, index, wav_path, text, pml_features)))
       index += 1
   return [future.result() for future in tqdm(futures)]
 

@@ -62,7 +62,7 @@ print('Moving Nick data complete!')
 # (1.2) copy LJ data to air
 lj_directory = 'LJSpeech-1.1'
 metadata_src_location = '/home/dawna/tts/data/LJSpeech-1.1/webData/metadata.csv'
-metadata_target_location = 'metadata.csv'
+metadata_target_file = 'metadata.csv'
 wav_src_dataset = '/home/dawna/tts/data/LJSpeech-1.1/webData/wavs'
 wav_target_dir = 'wavs'
 pml_src_dataset = '/home/dawna/tts/data/LJSpeech-1.1/merlinData/nn_cmp'
@@ -73,8 +73,7 @@ t = os.path.join(tgt_directory, lj_directory)
 checkMakeDir(t)
 
 # (1.2.2) copy LJ metadata.csv file to air
-t = os.path.join(tgt_directory, lj_directory, metadata_target_location)
-checkMakeDir(t)
+t = os.path.join(tgt_directory, lj_directory, metadata_target_file)
 cmd = 'cp {s} {t}'.format(s=metadata_src_location, t=t)
 print('Moving LJ metadata.csv with cmd: '+cmd)
 output,err = runCMD(cmd)

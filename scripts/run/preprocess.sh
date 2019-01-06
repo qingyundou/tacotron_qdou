@@ -2,7 +2,7 @@
 NAME=tacotron-nick #////////////////////////////////////TBC
 
 # 1 for running on grid: copy data to air
-cd /home/miproj/4thyr.oct2018/je369/workspace/scripts
+cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts
 python check_remove_data.py
 python check_move_data.py
 
@@ -22,5 +22,5 @@ which python
 python preprocess.py --base_dir /scratch/je369/tacotron/ --dataset nick
 
 # 3 for running on grid: remove data from air (optional)
-cd /home/miproj/4thyr.oct2018/je369/workspace/scripts
+cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts
 python check_remove_data.py

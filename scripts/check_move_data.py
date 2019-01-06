@@ -63,9 +63,9 @@ print('Moving Nick data complete!')
 lj_directory = 'LJSpeech-1.1'
 metadata_src_location = '/home/dawna/tts/data/LJSpeech-1.1/webData/metadata.csv'
 metadata_target_location = 'metadata.csv'
-wav_src_dataset = '/home/astra2/tts/data/wav/Eng/NickDNNDemo'
+wav_src_dataset = '/home/dawna/tts/data/LJSpeech-1.1/webData/wavs'
 wav_target_dir = 'wavs'
-pml_src_dataset = '/home/miproj/4thyr.oct2018/je369/tools/merlin_je369/exp/nick/data/nn_cmp'
+pml_src_dataset = '/home/dawna/tts/data/LJSpeech-1.1/merlinData/nn_cmp'
 pml_target_dir = 'pml'
 
 # (1.2.1) check root LJ directory is created

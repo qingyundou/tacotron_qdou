@@ -1,0 +1,3 @@
+noinst_LIBRARIES=libsp.a
+libsp_a_SOURCES=basic.cpp complex.cpp fft.cpp fileio.cpp filter.cpp kaiser.cpp matrix.cpp memory.cpp option.cpp vector.cpp voperate.cpp window.cpp basic.h  complex.h  defs.h  fft.h  fileio.h  filter.h  kaiser.h  matrix.h  memory.h  option.h  vector.h  voperate.h  window.h straight_body_sub.cpp straight_body_sub.h straight_sub.cpp straight_synth_sub.cpp straight_vconv_sub.cpp tempo_sub.cpp straight_sub.h  straight_synth_sub.h  straight_vconv_sub.h  tempo_sub.h
+libsp_a_LIBADD=basic.o complex.o fft.o fileio.o filter.o kaiser.o matrix.o memory.o option.o vector.o voperate.o window.o straight_body_sub.o straight_sub.o straight_synth_sub.o straight_vconv_sub.o tempo_sub.o

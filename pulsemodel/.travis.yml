@@ -1,0 +1,83 @@
+cache:
+  directories:
+    - $HOME/.cache/pip
+
+
+language: python
+
+os:
+    - linux
+
+branches:
+    only:
+    - master
+
+before_install:
+    - echo "before_install..."
+    - git submodule update --init --recursive
+    - git fetch --tags
+    - sleep 1
+    - git checkout $TRAVIS_BRANCH
+    - export PROJECTGITVERSION=`git describe --tags --always |sed 's/^v//'`
+    - echo $PROJECTGITVERSION
+    - echo $TRAVIS_OS_NAME
+    - echo $TRAVIS_COMMIT
+    - echo $TRAVIS_TAG
+    - export TRAVIS_TAG=`git describe --tags --exact-match HEAD 2>/dev/null`
+    - echo $TRAVIS_TAG
+
+    - sudo apt-get -qq update
+    - sudo apt-get install -y cython
+    - sudo apt-get install -y python-numpy
+    - sudo apt-get install -y python-scipy
+    - sudo apt-get install -y sox
+
+install:
+    - echo "install..."
+    - pip install codecov
+    - pip install cython
+    - pip install numpy
+    - pip install scipy
+
+script:
+    - echo "script..."
+
+    - export PACKAGENAME=pulsemodel.zip
+    - echo "Packaging sources of " $PACKAGENAME
+    - pwd
+    - ls -l
+    - mkdir ../pulsemodel_source_build
+    - cp -r * ../pulsemodel_source_build/
+    - echo $PROJECTGITVERSION > ../pulsemodel_source_build/Version
+    - rm -fr ../pulsemodel_source_build/.git*
+    - rm -fr ../pulsemodel_source_build/sigproc/.git*
+    - rm -fr ../pulsemodel_source_build/external/pyworld/.git*
+    - rm -fr ../pulsemodel_source_build/external/pyworld/lib/World/.git*
+    - cp -fr ../pulsemodel_source_build pulsemodel
+
+    - zip -r $PACKAGENAME pulsemodel
+    - ls
+    - ls -l $PACKAGENAME
+
+    - echo "Testing ..."
+    - make
+    - cd test
+    - make samples.scp
+    - cd ..
+    - pwd
+    - coverage run --source=. --omit="test/*","external/*" test/test_smoke.py
+
+
+after_success:
+    - codecov
+
+
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: BlKzFevP0b1d0vB3yfQU4D91agOQ3JA/2mX9gY+rrho0uNlVp+kZIUgPQ4+4EQROwttSdSLMzFLZdAhDmPnS8RP3mBmLdacZ4Z2B27FvhGh+Comfwobk2kT7R2WFg7jAAef9AK3/dJyRYe1bLOEdAGeNlEpa5ucjpLJ389zxKZXkm2T2UMzH+6n+YGND34utB9PKcQ9DluHA9H17FMmxFjQcYCLPiy5ytdOHNUusF9eBoYmgqJnfQ393vWpQbl88HJloPOtdCaCw1XUt6p6AwEsq9F9RP0tDL3hRIXOTk3Uwe1q94wYDR/LFt1MSL/IxQ1PptaszT/CgrHf8y2K+QUKUU2iEIeKywXjYM227+dC8E0VgruMNNWIdOAc6o/e2zJ0ORt8Exh+TYyMWIXIUe4smneLZWjZZVJSO371GWeCgQW4jLh18Ae6CN/FmFiMuhPQDzncoMCr+cJbeQCx3LdYLgaczk5euU5mL6MCJEwYa5Nk2zNKrMrDjx5BQu4cS2zqaGJcKYQ0WPSamDnlgqWFJUW91uscHifKvlkai8kDB8IpsUIRo1aWor9UAJuXPMyJiTT6D2gJxN07ZFmuOBHmGP5FuRSnDwMFN2mHxxbgnnThDu7dmG0bFMFsuCZoSAwezz3yvT15NCm+5a1l3ikZ198Ek6DKzfOLTDL+jbHQ=
+  file: $PACKAGENAME
+  on:
+    repo: gillesdegottex/pulsemodel
+    tags: true

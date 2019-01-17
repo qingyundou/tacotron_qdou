@@ -1,0 +1,29 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.61)
+AC_INIT(STRAIGHT-SYNTH, VERSION, BUG-REPORT-ADDRESS)
+AC_CONFIG_SRCDIR([straight_synth_tb06.h])
+PACKAGE=synthesis_fft
+VERSION=1.0
+AM_INIT_AUTOMAKE($PACKAGE,$VERSION,no-define)
+
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_INSTALL
+
+# Checks for libraries.
+
+# Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS([stdio.h stdlib.h string.h math.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_TYPE_SIZE_T
+
+# Checks for library functions.
+AC_CHECK_FUNCS([pow sqrt])
+
+AC_OUTPUT(Makefile)

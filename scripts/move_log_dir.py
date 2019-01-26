@@ -39,12 +39,12 @@ print('Output: '+str(output))
 print('Err: '+str(err))
 
 # (1.1.3) remove the logs from the device
-print('Removing logs directory...')
-cmd = 'rm -r ' + s
-output, err = runCMD(cmd)
-print('Output: \n'+str(output))
-print('Err: \n'+str(err))
-print('Removing complete!')
+# print('Removing logs directory...')
+# cmd = 'rm -r ' + s
+# output, err = runCMD(cmd)
+# print('Output: \n'+str(output))
+# print('Err: \n'+str(err))
+# print('Removing complete!')
 
 # (1.1.4) message move is complete
 print('Moving output logs complete!')

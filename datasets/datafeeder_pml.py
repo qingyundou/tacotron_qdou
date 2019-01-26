@@ -111,6 +111,14 @@ class DataFeederPML(threading.Thread):
     input_data = np.asarray(text_to_sequence(text, self._cleaner_names), dtype=np.int32)
     linear_target = np.load(os.path.join(self._datadir, meta[0]))
     pml_target = np.load(os.path.join(self._datadir, meta[3]))
+
+    # check the shape of the linear target
+    n_frames = linear_target.shape[0]
+    pml_frames = pml_target.shape[0]
+
+    if n_frames > pml_frames:
+      linear_target = linear_target[:pml_frames]
+
     return (input_data, pml_target, len(pml_target), linear_target, len(linear_target)) # we use the length of the PML target as a sort key
 
 

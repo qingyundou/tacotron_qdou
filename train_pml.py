@@ -53,16 +53,16 @@ def train(log_dir, args):
   # Set up DataFeeder:
   coord = tf.train.Coordinator()
   with tf.variable_scope('datafeeder') as scope:
-    if args.model == 'tacotron_pml':
-      feeder = DataFeederPML(coord, input_path, hparams)
-    else:
+    if args.model == 'tacotron':
       feeder = DataFeeder(coord, input_path, hparams)
+    else:
+      feeder = DataFeederPML(coord, input_path, hparams)
 
   # Set up model:
   global_step = tf.Variable(0, name='global_step', trainable=False)
   with tf.variable_scope('model') as scope:
     model = create_model(args.model, hparams)
-    model.initialize(feeder.inputs, feeder.input_lengths, feeder.pml_targets)
+    model.initialize(feeder.inputs, feeder.input_lengths, feeder.pml_targets, feeder.linear_targets)
     model.add_loss()
     model.add_optimizer(global_step)
     stats = add_stats(model)
@@ -138,7 +138,7 @@ def main():
   parser.add_argument('--base_dir', default=os.path.expanduser('~/tacotron'))
   parser.add_argument('--log_dir', default=os.path.expanduser('~/tacotron'))
   parser.add_argument('--input', default='training/train.txt')
-  parser.add_argument('--model', default='tacotron')
+  parser.add_argument('--model', default='tacotron_pml')
   parser.add_argument('--name', help='Name of the run. Used for logging. Defaults to model name.')
   parser.add_argument('--hparams', default='',
     help='Hyperparameter overrides as a comma-separated list of name=value pairs')

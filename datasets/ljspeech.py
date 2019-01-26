@@ -58,25 +58,32 @@ def _process_utterance(out_dir, index, wav_path, text, pml_cmp):
   # Load the audio to a numpy array:
   wav = audio.load_wav(wav_path)
 
-  # Compute the linear-scale spectrogram from the wav:
-  spectrogram = audio.spectrogram(wav).astype(np.float32)
-  n_frames = spectrogram.shape[1]
-
-  # Compute a mel-scale spectrogram from the wav:
-  mel_spectrogram = audio.melspectrogram(wav).astype(np.float32)
-
-  # Write the spectrograms to disk:
-  spectrogram_filename = 'ljspeech-spec-%05d.npy' % index
-  mel_filename = 'ljspeech-mel-%05d.npy' % index
-  np.save(os.path.join(out_dir, spectrogram_filename), spectrogram.T, allow_pickle=False)
-  np.save(os.path.join(out_dir, mel_filename), mel_spectrogram.T, allow_pickle=False)
-
   # Write the PML features to disk
   pml_filename = 'nick-pml-%05d.npy' % index
   pml_dimension = 86
   pml_features = pml_cmp.reshape((-1, pml_dimension))
   pml_frames = pml_features.shape[0]
   np.save(os.path.join(out_dir, pml_filename), pml_features, allow_pickle=False)
+
+  # Compute the linear-scale spectrogram from the wav:
+  spectrogram = audio.spectrogram(wav).astype(np.float32)
+  n_frames = spectrogram.shape[1]
+
+  if n_frames > pml_frames:
+    spectrogram = spectrogram[:, :pml_frames]
+
+  # Compute a mel-scale spectrogram from the wav:
+  mel_spectrogram = audio.melspectrogram(wav).astype(np.float32)
+  mel_frames = mel_spectrogram.shape[1]
+
+  if mel_frames > pml_frames:
+    mel_spectrogram = mel_spectrogram[:, :pml_frames]
+
+  # Write the spectrograms to disk:
+  spectrogram_filename = 'ljspeech-spec-%05d.npy' % index
+  mel_filename = 'ljspeech-mel-%05d.npy' % index
+  np.save(os.path.join(out_dir, spectrogram_filename), spectrogram.T, allow_pickle=False)
+  np.save(os.path.join(out_dir, mel_filename), mel_spectrogram.T, allow_pickle=False)
 
   # Return a tuple describing this training example:
   return (spectrogram_filename, mel_filename, n_frames, pml_filename, pml_frames, text)

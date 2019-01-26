@@ -70,15 +70,29 @@ def _process_utterance(out_dir, index, wav_path, text, pml_cmp):
   # Load the audio to a numpy array:
   wav = audio.load_wav(wav_path)
 
+  # Write the PML features to disk
+  pml_filename = 'nick-pml-%05d.npy' % index
+  pml_dimension = 86
+  pml_features = pml_cmp.reshape((-1, pml_dimension))
+  pml_frames = pml_features.shape[0]
+  np.save(os.path.join(out_dir, pml_filename), pml_features, allow_pickle=False)
+
   # Remove silence from the wav
-  silence_removed = audio.remove_silence(wav)
+  # silence_removed = audio.remove_silence(wav)
 
   # Compute the linear-scale spectrogram from the wav:
-  spectrogram = audio.spectrogram(silence_removed).astype(np.float32)
+  spectrogram = audio.spectrogram(wav).astype(np.float32)
   n_frames = spectrogram.shape[1]
 
+  if n_frames > pml_frames:
+    spectrogram = spectrogram[:, :pml_frames]
+
   # Compute a mel-scale spectrogram from the wav:
-  mel_spectrogram = audio.melspectrogram(silence_removed).astype(np.float32)
+  mel_spectrogram = audio.melspectrogram(wav).astype(np.float32)
+  mel_frames = mel_spectrogram.shape[1]
+
+  if mel_frames > pml_frames:
+    mel_spectrogram = mel_spectrogram[:, :pml_frames]
 
   # Write the spectrograms to disk:
   spectrogram_filename = 'nick-spec-%05d.npy' % index

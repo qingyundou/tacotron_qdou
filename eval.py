@@ -29,7 +29,7 @@ def get_output_base_path(checkpoint_path):
 def run_eval(args):
   print(hparams_debug_string())
   synth = Synthesizer()
-  synth.load(args.checkpoint)
+  synth.load(args.checkpoint, model_name=args.model)
   base_path = get_output_base_path(args.checkpoint)
   for i, text in enumerate(sentences):
     path = '%s-%d.wav' % (base_path, i)
@@ -43,6 +43,7 @@ def main():
   parser.add_argument('--checkpoint', required=True, help='Path to model checkpoint')
   parser.add_argument('--hparams', default='',
     help='Hyperparameter overrides as a comma-separated list of name=value pairs')
+  parser.add_argument('--model', default='tacotron')
   args = parser.parse_args()
   os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
   hparams.parse(args.hparams)

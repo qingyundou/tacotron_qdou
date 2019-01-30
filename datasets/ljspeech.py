@@ -59,7 +59,7 @@ def _process_utterance(out_dir, index, wav_path, text, pml_cmp):
   wav = audio.load_wav(wav_path)
 
   # Write the PML features to disk
-  pml_filename = 'nick-pml-%05d.npy' % index
+  pml_filename = 'ljspeech-pml-%05d.npy' % index
   pml_dimension = 86
   pml_features = pml_cmp.reshape((-1, pml_dimension))
   pml_frames = pml_features.shape[0]

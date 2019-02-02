@@ -3,7 +3,7 @@ import os
 from multiprocessing import cpu_count
 from tqdm import tqdm
 from datasets import blizzard, ljspeech, nick
-from hparams import hparams
+from hparams import hparams, hparams_debug_string
 
 
 def preprocess_blizzard(args):
@@ -47,7 +47,13 @@ def main():
   parser.add_argument('--output', default='training')
   parser.add_argument('--dataset', required=True, choices=['blizzard', 'ljspeech', 'nick'])
   parser.add_argument('--num_workers', type=int, default=cpu_count())
+  parser.add_argument('--hparams', default='',
+    help='Hyperparameter overrides as a comma-separated list of name=value pairs')
+  
   args = parser.parse_args()
+  hparams.parse(args.hparams)
+  print(hparams_debug_string())
+
   if args.dataset == 'blizzard':
     preprocess_blizzard(args)
   elif args.dataset == 'ljspeech':

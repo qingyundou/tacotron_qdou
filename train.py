@@ -158,6 +158,9 @@ def train(log_dir, args):
 
           summary_elements.append(
             tf.summary.audio('ideal-%d' % step, np.expand_dims(target_waveform, 0), hparams.sample_rate),
+          )
+
+          summary_elements.append(
             tf.summary.audio('sample-%d' % step, np.expand_dims(output_waveform, 0), hparams.sample_rate),
           )
 
@@ -173,6 +176,9 @@ def train(log_dir, args):
 
           summary_elements.append(
             tf.summary.image('attention-%d' % step, random_attention_plot),
+          )
+
+          summary_elements.append(
             tf.summary.image('fixed-attention-%d' % step, fixed_attention_plot),
           )
 

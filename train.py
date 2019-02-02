@@ -152,8 +152,9 @@ def train(log_dir, args):
             target_waveform = synth.pml_to_wav(target_pml_features)
             sp.wavwrite(os.path.join(log_dir, 'step-%d-audio.wav' % step), output_waveform, cfg.wav_sr, norm_max_ifneeded=True)
 
-          # we need to adjust the output waveform so the values lie in the interval [-1.0, 1.0]
+          # we need to adjust the output and target waveforms so the values lie in the interval [-1.0, 1.0]
           output_waveform *= 1 / np.max(np.abs(output_waveform))
+          target_waveform *= 1 / np.max(np.abs(target_waveform))
 
           summary_elements.append(
             tf.summary.audio('ideal-%d' % step, np.expand_dims(target_waveform, 0), hparams.sample_rate),

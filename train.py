@@ -140,7 +140,7 @@ def train(log_dir, args):
 
           # if the model has linear spectrogram features, use them to synthesize audio
           if hasattr(model, 'linear_targets'):
-            target_spectrogram, spectrogram = sess.run([model.linear_targets[0], model.linear_outputs[0])
+            target_spectrogram, spectrogram = sess.run([model.linear_targets[0], model.linear_outputs[0]])
             output_waveform = audio.inv_spectrogram(spectrogram.T)
             target_waveform = audio.inv_spectrogram(target_spectrogram.T)
             audio.save_wav(output_waveform, os.path.join(log_dir, 'step-%d-audio.wav' % step))

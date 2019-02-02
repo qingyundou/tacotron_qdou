@@ -1,8 +1,10 @@
 import argparse
 import os
 import re
+import sigproc as sp
 from hparams import hparams, hparams_debug_string
 from synthesizer import Synthesizer
+from pml_synthesizer import PMLSynthesizer, cfg
 
 
 sentences = [
@@ -28,14 +30,22 @@ def get_output_base_path(checkpoint_path):
 
 def run_eval(args):
   print(hparams_debug_string())
+
+  # use the correct synthesizer for the model type
+  if args.model == 'tacotron':
+    synth = Synthesizer()
+  else:
+    synth = PMLSynthesizer()
+
   synth = Synthesizer()
   synth.load(args.checkpoint, model_name=args.model)
   base_path = get_output_base_path(args.checkpoint)
+
   for i, text in enumerate(sentences):
     path = '%s-%d.wav' % (base_path, i)
     print('Synthesizing: %s' % path)
-    with open(path, 'wb') as f:
-      f.write(synth.synthesize(text))
+    wav = synth.synthesize(text)
+    sp.wavwrite(path, wav, cfg.wav_sr, norm_max_ifneeded=True, verbose=0)
 
 
 def main():

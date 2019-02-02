@@ -27,7 +27,7 @@ def runCMD(cmd):
 # (1) copy logs, checkpoints and alignments to cloud
 base_dir = '/scratch/je369/results/'
 log_directory = f'logs-{args.name}'
-tgt_directory = f'/home/miproj/4thyr.oct2018/je369/logs/{args.name}'
+tgt_directory = f'/home/miproj/4thyr.oct2018/je369/results/{args.name}'
 
 # (1.1.2) copy logs to cloud
 s = os.path.join(base_dir, log_directory)

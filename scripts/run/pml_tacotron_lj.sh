@@ -44,4 +44,4 @@ python move_log_dir.py --name $NAME
 
 # 4 for running on grid: remove data from air (optional)
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts
-python remove_training_data.py
+python remove_training_data.py --train_dir pml-training

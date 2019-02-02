@@ -8,9 +8,12 @@ import time
 import tensorflow as tf
 import traceback
 
+from datasets.datafeeder_pml import DataFeederPML
 from datasets.datafeeder import DataFeeder
 from hparams import hparams, hparams_debug_string
 from models import create_model
+from pml_synthesizer import PMLSynthesizer, cfg
+import sigproc as sp
 from text import sequence_to_text
 from util import audio, infolog, plot, ValueWindow
 log = infolog.log
@@ -25,12 +28,21 @@ def get_git_commit():
 
 def add_stats(model):
   with tf.variable_scope('stats') as scope:
-    tf.summary.histogram('linear_outputs', model.linear_outputs)
-    tf.summary.histogram('linear_targets', model.linear_targets)
-    tf.summary.histogram('mel_outputs', model.mel_outputs)
-    tf.summary.histogram('mel_targets', model.mel_targets)
-    tf.summary.scalar('loss_mel', model.mel_loss)
-    tf.summary.scalar('loss_linear', model.linear_loss)
+    if hasattr(model, 'linear_targets'):
+      tf.summary.histogram('linear_outputs', model.linear_outputs)
+      tf.summary.histogram('linear_targets', model.linear_targets)
+      tf.summary.scalar('loss_linear', model.linear_loss)
+
+    if hasattr(model, 'mel_targets'):
+      tf.summary.histogram('mel_outputs', model.mel_outputs)
+      tf.summary.histogram('mel_targets', model.mel_targets)
+      tf.summary.scalar('loss_mel', model.mel_loss)
+
+    if hasattr(model, 'pml_targets'):
+      tf.summary.histogram('pml_outputs', model.pml_outputs)
+      tf.summary.histogram('pml_targets', model.pml_targets)
+      tf.summary.scalar('loss_pml', model.pml_loss)
+
     tf.summary.scalar('learning_rate', model.learning_rate)
     tf.summary.scalar('loss', model.loss)
     gradient_norms = [tf.norm(grad) for grad in model.gradients]
@@ -55,7 +67,10 @@ def train(log_dir, args):
   # Set up DataFeeder:
   coord = tf.train.Coordinator()
   with tf.variable_scope('datafeeder') as scope:
-    feeder = DataFeeder(coord, input_path, hparams)
+    if args.model == 'tacotron':
+      feeder = DataFeeder(coord, input_path, hparams)
+    else:
+      feeder = DataFeederPML(coord, input_path, hparams)
 
   # Set up model:
   global_step = tf.Variable(0, name='global_step', trainable=False)
@@ -110,24 +125,40 @@ def train(log_dir, args):
           log('Saving checkpoint to: %s-%d' % (checkpoint_path, step))
           saver.save(sess, checkpoint_path, global_step=step)
           log('Saving audio and alignment...')
-          input_seq, target_spectrogram, spectrogram, alignment = sess.run([
-            model.inputs[0], model.linear_targets[0], model.linear_outputs[0], model.alignments[0]])
-          output_waveform = audio.inv_spectrogram(spectrogram.T)
-          target_waveform = audio.inv_spectrogram(target_spectrogram.T)
-          audio.save_wav(output_waveform, os.path.join(log_dir, 'step-%d-audio.wav' % step))
+          input_seq, alignment = sess.run([model.inputs[0], model.alignments[0]])
+          summary_elements = []
 
-          attention_plot = plot.plot_alignment(alignment, os.path.join(log_dir, 'step-%d-align.png' % step),
-            info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))
+          # if the model has linear spectrogram features, use them to synthesize audio
+          if hasattr(model, 'linear_targets'):
+            target_spectrogram, spectrogram = sess.run([model.linear_targets[0], model.linear_outputs[0])
+            output_waveform = audio.inv_spectrogram(spectrogram.T)
+            target_waveform = audio.inv_spectrogram(target_spectrogram.T)
+            audio.save_wav(output_waveform, os.path.join(log_dir, 'step-%d-audio.wav' % step))
+          # otherwise, synthesize audio from PML vocoder features
+          elif hasattr(model, 'pml_targets'):
+            target_pml_features, pml_features = sess.run([model.pml_targets[0], model.pml_outputs[0])
+            synth = PMLSynthesizer()
+            output_waveform = synth.pml_to_wav(pml_features)
+            target_waveform = synth.pml_to_wav(target_pml_features)
+            sp.wavwrite(os.path.join(log_dir, 'step-%d-audio.wav' % step), output_waveform, cfg.wav_sr, norm_max_ifneeded=True)
 
           # we need to adjust the output waveform so the values lie in the interval [-1.0, 1.0]
           output_waveform *= 1 / np.max(np.abs(output_waveform))
 
-          # save the audio and alignment to tensorboard (audio sample rate is hyperparameter)
-          merged = sess.run(tf.summary.merge([
+          summary_elements.append(
             tf.summary.audio('ideal-%d' % step, np.expand_dims(target_waveform, 0), hparams.sample_rate),
             tf.summary.audio('sample-%d' % step, np.expand_dims(output_waveform, 0), hparams.sample_rate),
-            tf.summary.image('attention-%d' % step, attention_plot)
-          ]))
+          )
+
+          attention_plot = plot.plot_alignment(alignment, os.path.join(log_dir, 'step-%d-align.png' % step),
+            info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))
+
+          summary_elements.append(
+            tf.summary.image('attention-%d' % step, attention_plot),
+          )
+
+          # save the audio and alignment to tensorboard (audio sample rate is hyperparameter)
+          merged = sess.run(tf.summary.merge(summary_elements))
 
           summary_writer.add_summary(merged, step)
 

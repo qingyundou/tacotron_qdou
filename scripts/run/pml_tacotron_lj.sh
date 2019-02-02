@@ -6,6 +6,7 @@ NAME=tacotron-lj-pml #////////////////////////////////////TBC
 conda info -e # print list of current environments for debug
 conda activate /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/
 export PATH=${PATH}:/usr/local/cuda-9.0/bin
+unset LD_PRELOAD
 export LD_PRELOAD=/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/lib/gperftools/.libs/libtcmalloc.so
 export CUDA_VISIBLE_DEVICES=$X_SGE_CUDA_DEVICE
 

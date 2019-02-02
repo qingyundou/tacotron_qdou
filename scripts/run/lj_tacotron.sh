@@ -6,6 +6,7 @@ NAME=tacotron-lj #////////////////////////////////////TBC
 conda info -e # print list of current environments for debug
 conda activate /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/venv/
 export PATH=${PATH}:/usr/local/cuda-9.0/bin
+unset LD_PRELOAD
 export LD_PRELOAD=/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/lib/gperftools/.libs/libtcmalloc.so
 export CUDA_VISIBLE_DEVICES=$X_SGE_CUDA_DEVICE
 
@@ -21,7 +22,7 @@ cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron
 
 # 2.2 run the preprocess script
 which python
-python preprocess.py --base_dir /scratch/je369/tacotron/ --dataset ljspeech
+python preprocess.py --base_dir /scratch/je369/tacotron/ --dataset ljspeech --output lj-training
 
 # 2.3 remove the original data
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts
@@ -35,7 +36,7 @@ python create_log_dir.py
 
 # 3.2 run the train scheme
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron
-python train.py --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/je369/results --num_steps 500000
+python train.py --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/je369/results --num_steps 500000 --input lj-training/train.txt
 
 # 3.3 move the logs and results back to the home directory
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts

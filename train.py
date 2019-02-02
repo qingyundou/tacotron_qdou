@@ -14,7 +14,7 @@ from hparams import hparams, hparams_debug_string
 from models import create_model
 from pml_synthesizer import PMLSynthesizer, cfg
 import sigproc as sp
-from text import sequence_to_text
+from text import sequence_to_text, text_to_sequence
 from util import audio, infolog, plot, ValueWindow
 log = infolog.log
 
@@ -93,8 +93,8 @@ def train(log_dir, args):
   seq = text_to_sequence(text, cleaner_names)
 
   feed_dict = {
-    self.model.inputs: [np.asarray(seq, dtype=np.int32)],
-    self.model.input_lengths: np.asarray([len(seq)], dtype=np.int32)
+    model.inputs: [np.asarray(seq, dtype=np.int32)],
+    model.input_lengths: np.asarray([len(seq)], dtype=np.int32)
   }
 
   # Train!
@@ -146,7 +146,7 @@ def train(log_dir, args):
             audio.save_wav(output_waveform, os.path.join(log_dir, 'step-%d-audio.wav' % step))
           # otherwise, synthesize audio from PML vocoder features
           elif hasattr(model, 'pml_targets'):
-            target_pml_features, pml_features = sess.run([model.pml_targets[0], model.pml_outputs[0])
+            target_pml_features, pml_features = sess.run([model.pml_targets[0], model.pml_outputs[0]])
             synth = PMLSynthesizer()
             output_waveform = synth.pml_to_wav(pml_features)
             target_waveform = synth.pml_to_wav(target_pml_features)

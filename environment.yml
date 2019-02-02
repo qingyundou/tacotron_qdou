@@ -42,11 +42,12 @@ dependencies:
   - astor=0.7.1=py36_0
   - blas=1.0=mkl
   - c-ares=1.15.0=h7b6447c_1
-  - ca-certificates=2018.03.07=0
+  - ca-certificates=2018.12.5=0
   - certifi=2018.11.29=py36_0
   - cudatoolkit=9.0=h13b8566_0
   - cudnn=7.1.2=cuda9.0_0
   - cupti=9.0.176=0
+  - cython=0.29.2=py36he6710b0_0
   - dbus=1.13.2=h714fa37_1
   - gast=0.2.0=py36_0
   - grpcio=1.16.1=py36hf8bcb03_1
@@ -103,3 +104,4 @@ dependencies:
     - tensorflow-tensorboard==0.4.0
     - tqdm==4.11.2
     - unidecode==0.4.20
+

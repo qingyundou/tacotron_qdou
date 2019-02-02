@@ -87,6 +87,16 @@ def train(log_dir, args):
   loss_window = ValueWindow(100)
   saver = tf.train.Saver(max_to_keep=5, keep_checkpoint_every_n_hours=2)
 
+  # Set up feed dict for consistent alignment monitoring during training
+  text = 'Scientists at the CERN laboratory say they have discovered a new particle.'
+  cleaner_names = [x.strip() for x in hparams.cleaners.split(',')]
+  seq = text_to_sequence(text, cleaner_names)
+
+  feed_dict = {
+    self.model.inputs: [np.asarray(seq, dtype=np.int32)],
+    self.model.input_lengths: np.asarray([len(seq)], dtype=np.int32)
+  }
+
   # Train!
   with tf.Session() as sess:
     try:
@@ -125,7 +135,7 @@ def train(log_dir, args):
           log('Saving checkpoint to: %s-%d' % (checkpoint_path, step))
           saver.save(sess, checkpoint_path, global_step=step)
           log('Saving audio and alignment...')
-          input_seq, alignment = sess.run([model.inputs[0], model.alignments[0]])
+          input_seq = sess.run(model.inputs[0])
           summary_elements = []
 
           # if the model has linear spectrogram features, use them to synthesize audio
@@ -150,11 +160,19 @@ def train(log_dir, args):
             tf.summary.audio('sample-%d' % step, np.expand_dims(output_waveform, 0), hparams.sample_rate),
           )
 
-          attention_plot = plot.plot_alignment(alignment, os.path.join(log_dir, 'step-%d-align.png' % step),
+          # get the alignment for the top sentence in the batch
+          random_alignment = sess.run(model.alignments[0])
+          random_attention_plot = plot.plot_alignment(random_alignment, os.path.join(log_dir, 'step-%d-random-align.png' % step),
+            info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))
+
+          # also process the alignment for a fixed sentence for comparison
+          fixed_alignment = sess.run(model.alignments[0], feed_dict=feed_dict)
+          fixed_attention_plot = plot.plot_alignment(fixed_alignment, os.path.join(log_dir, 'step-%d-fixed-align.png' % step),
             info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))
 
           summary_elements.append(
-            tf.summary.image('attention-%d' % step, attention_plot),
+            tf.summary.image('attention-%d' % step, random_attention_plot),
+            tf.summary.image('fixed-attention-%d' % step, fixed_attention_plot),
           )
 
           # save the audio and alignment to tensorboard (audio sample rate is hyperparameter)

@@ -37,7 +37,6 @@ def run_eval(args):
   else:
     synth = PMLSynthesizer()
 
-  synth = Synthesizer()
   synth.load(args.checkpoint, model_name=args.model)
   base_path = get_output_base_path(args.checkpoint)
 
@@ -45,7 +44,12 @@ def run_eval(args):
     path = '%s-%d.wav' % (base_path, i)
     print('Synthesizing: %s' % path)
     wav = synth.synthesize(text)
-    sp.wavwrite(path, wav, cfg.wav_sr, norm_max_ifneeded=True, verbose=0)
+
+    if args.model == 'tacotron':
+      with open(path, 'wb') as f:
+        f.write(wav)
+    else:
+      sp.wavwrite(path, wav, cfg.wav_sr, norm_max_ifneeded=True, verbose=0)
 
 
 def main():

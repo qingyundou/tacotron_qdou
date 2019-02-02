@@ -72,6 +72,7 @@ class PMLSynthesizer:
     
     pml_features = self.session.run(self.pml_output, feed_dict=feed_dict)
     wav = self.pml_to_wav(pml_features)
+    wav = wav[:audio.find_endpoint(wav)]
     return wav
 
   def pml_to_wav(self, pml_features, shift=0.005, dftlen=4096, nm_cont=False, verbose_level=0):

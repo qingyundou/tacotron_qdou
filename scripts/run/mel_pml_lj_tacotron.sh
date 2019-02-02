@@ -12,7 +12,7 @@ export CUDA_VISIBLE_DEVICES=$X_SGE_CUDA_DEVICE
 
 # 1 for running on grid: copy data to air
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts
-python remove_training_data.py
+python remove_training_data.py --train_dir mel-pml-lj-training
 python check_move_data.py
 
 # 2 preparation for the main code

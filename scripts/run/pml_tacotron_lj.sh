@@ -22,7 +22,7 @@ cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron
 
 # 2.2 run the preprocess script
 which python
-python preprocess.py --base_dir /scratch/je369/tacotron/ --dataset ljspeech # ljspeech used as dataset key
+python preprocess.py --base_dir /scratch/je369/tacotron/ --dataset ljspeech --output pml-training # ljspeech used as dataset key
 
 # 2.3 remove the original data
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts
@@ -36,7 +36,7 @@ python create_log_dir.py
 
 # 3.2 run the train scheme
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron
-python train_pml.py --model tacotron_pml --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/je369/results --num_steps 500000
+python train_pml.py --model tacotron_pml --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/je369/results --num_steps 500000 --input pml-training/train.txt
 
 # 3.3 move the logs and results back to the home directory
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts

@@ -106,6 +106,7 @@ def train(log_dir, args):
 
       feeder.start_in_session(sess)
       step = 0 # initialise step variable so can use in while condition
+      log('About to start training...', slack=True)
 
       while not coord.should_stop() and step <= args.num_steps:
         start_time = time.time()

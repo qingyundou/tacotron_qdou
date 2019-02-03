@@ -47,9 +47,9 @@ class DataFeeder(threading.Thread):
     self.inputs, self.input_lengths, self.mel_targets, self.linear_targets, self.pml_targets = queue.dequeue()
     self.inputs.set_shape(self._placeholders[0].shape)
     self.input_lengths.set_shape(self._placeholders[1].shape)
-    self.pml_targets.set_shape(self._placeholders[2].shape)
-    self.mel_targets.set_shape(self._placeholders[3].shape)
-    self.linear_targets.set_shape(self._placeholders[4].shape)
+    self.mel_targets.set_shape(self._placeholders[2].shape)
+    self.linear_targets.set_shape(self._placeholders[3].shape)
+    self.pml_targets.set_shape(self._placeholders[4].shape)
 
     # Load CMUDict: If enabled, this will randomly substitute some words in the training data with
     # their ARPABet equivalents, which will allow you to also pass ARPABet to the model for

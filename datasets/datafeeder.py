@@ -44,7 +44,7 @@ class DataFeeder(threading.Thread):
     # Create queue for buffering data:
     queue = tf.FIFOQueue(8, [tf.int32, tf.int32, tf.float32, tf.float32], name='input_queue')
     self._enqueue_op = queue.enqueue(self._placeholders)
-    self.inputs, self.input_lengths, self.pml_targets, self.mel_targets, self.linear_targets = queue.dequeue()
+    self.inputs, self.input_lengths, self.mel_targets, self.linear_targets, self.pml_targets = queue.dequeue()
     self.inputs.set_shape(self._placeholders[0].shape)
     self.input_lengths.set_shape(self._placeholders[1].shape)
     self.pml_targets.set_shape(self._placeholders[2].shape)
@@ -128,7 +128,7 @@ class DataFeeder(threading.Thread):
     if mel_frames > pml_frames:
       mel_target = mel_target[:mel_frames]
 
-    return (input_data, pml_target, len(pml_target), linear_target, len(linear_target), mel_target) # we use the length of the PML target as a sort key
+    return (input_data, mel_target, linear_target, len(linear_target), pml_target, len(pml_target)) # we use the length of the PML target as a sort key
 
 
   def _maybe_get_arpabet(self, word):
@@ -140,10 +140,10 @@ def _prepare_batch(batch, outputs_per_step):
   random.shuffle(batch)
   inputs = _prepare_inputs([x[0] for x in batch])
   input_lengths = np.asarray([len(x[0]) for x in batch], dtype=np.int32)
-  pml_targets = _prepare_targets([x[1] for x in batch], outputs_per_step)
-  linear_targets = _prepare_targets([x[3] for x in batch], outputs_per_step)
-  mel_targets = _prepare_targets([x[5] for x in batch], outputs_per_step)
-  return (inputs, input_lengths, pml_targets, linear_targets, mel_targets)
+  mel_targets = _prepare_targets([x[1] for x in batch], outputs_per_step)
+  linear_targets = _prepare_targets([x[2] for x in batch], outputs_per_step)
+  pml_targets = _prepare_targets([x[4] for x in batch], outputs_per_step)
+  return (inputs, input_lengths, linear_targets, mel_targets, pml_targets)
 
 
 def _prepare_inputs(inputs):

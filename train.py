@@ -85,7 +85,7 @@ def train(log_dir, args):
   saver = tf.train.Saver(max_to_keep=5, keep_checkpoint_every_n_hours=2)
 
   # Set up fixed alignment synthesizer
-  # alignment_synth = AlignmentSynthesizer()
+  alignment_synth = AlignmentSynthesizer()
 
   # Set up text for synthesis
   fixed_sentence = 'Scientists at the CERN laboratory say they have discovered a new particle.'
@@ -109,7 +109,6 @@ def train(log_dir, args):
 
       while not coord.should_stop() and step <= args.num_steps:
         start_time = time.time()
-        log('Entered training loop', slack=True)
         step, loss, opt = sess.run([global_step, model.loss, model.optimize])
         time_window.append(time.time() - start_time)
         loss_window.append(loss)
@@ -168,14 +167,14 @@ def train(log_dir, args):
           )
 
           # also process the alignment for a fixed sentence for comparison
-          # alignment_synth.load('%s-%d' % (checkpoint_path, step), model_name=args.model)
-          # fixed_alignment = alignment_synth.synthesize(fixed_sentence)
-          # fixed_attention_plot = plot.plot_alignment(fixed_alignment, os.path.join(log_dir, 'step-%d-fixed-align.png' % step),
-          #   info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))
+          alignment_synth.load('%s-%d' % (checkpoint_path, step), model_name=args.model)
+          fixed_alignment = alignment_synth.synthesize(fixed_sentence)
+          fixed_attention_plot = plot.plot_alignment(fixed_alignment, os.path.join(log_dir, 'step-%d-fixed-align.png' % step),
+            info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))
 
-          # summary_elements.append(
-          #   tf.summary.image('fixed-attention-%d' % step, fixed_attention_plot),
-          # )
+          summary_elements.append(
+            tf.summary.image('fixed-attention-%d' % step, fixed_attention_plot),
+          )
 
           # save the audio and alignment to tensorboard (audio sample rate is hyperparameter)
           merged = sess.run(tf.summary.merge(summary_elements))

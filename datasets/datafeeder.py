@@ -44,8 +44,7 @@ class DataFeeder(threading.Thread):
     # Create queue for buffering data:
     queue = tf.FIFOQueue(8, [tf.int32, tf.int32, tf.float32, tf.float32, tf.float32], name='input_queue')
     self._enqueue_op = queue.enqueue(self._placeholders)
-    queue_entry = queue.dequeue()
-    self.inputs, self.input_lengths, self.mel_targets, self.linear_targets, self.pml_targets = queue_entry
+    self.inputs, self.input_lengths, self.mel_targets, self.linear_targets, self.pml_targets = queue.dequeue()
     self.inputs.set_shape(self._placeholders[0].shape)
     self.input_lengths.set_shape(self._placeholders[1].shape)
     self.mel_targets.set_shape(self._placeholders[2].shape)

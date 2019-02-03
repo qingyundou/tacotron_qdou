@@ -29,7 +29,7 @@ class DataFeeder(threading.Thread):
     with open(metadata_filename, encoding='utf-8') as f:
       self._metadata = [line.strip().split('|') for line in f]
       hours = sum((int(x[2]) for x in self._metadata)) * hparams.frame_shift_ms / (3600 * 1000)
-      log('Loaded metadata for %d examples (%.2f hours)' % (len(self._metadata), hours), slack=True)
+      log('Loaded metadata for %d examples (%.2f hours)' % (len(self._metadata), hours))
 
     # Create placeholders for inputs and targets. Don't specify batch size because we want to
     # be able to feed different sized batches at eval time.
@@ -67,7 +67,6 @@ class DataFeeder(threading.Thread):
 
   def start_in_session(self, session):
     self._session = session
-    log('Starting data feeder in session', slack=True)
     self.start()
 
 

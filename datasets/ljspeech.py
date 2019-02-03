@@ -71,6 +71,15 @@ def _process_utterance(out_dir, index, wav_path, text, pml_cmp):
 
   # Compute a mel-scale spectrogram from the wav:
   mel_spectrogram = audio.melspectrogram(wav).astype(np.float32)
+  mel_frames = mel_spectrogram.shape[1]
+
+  # Ensure lengths of spectrograms and PML features are the same
+  if n_frames > pml_frames:
+    spectrogram = spectrogram[:, :pml_frames]
+
+  # Check the shape of the mel target
+  if mel_frames > pml_frames:
+    mel_spectrogram = mel_spectrogram[:, :mel_frames]
 
   # Write the spectrograms to disk:
   spectrogram_filename = 'ljspeech-spec-%05d.npy' % index

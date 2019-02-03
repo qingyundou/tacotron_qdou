@@ -44,7 +44,8 @@ class DataFeeder(threading.Thread):
     # Create queue for buffering data:
     queue = tf.FIFOQueue(8, [tf.int32, tf.int32, tf.float32, tf.float32, tf.float32], name='input_queue')
     self._enqueue_op = queue.enqueue(self._placeholders)
-    self.inputs, self.input_lengths, self.mel_targets, self.linear_targets, self.pml_targets = queue.dequeue()
+    queue_entry = queue.dequeue()
+    self.inputs, self.input_lengths, self.mel_targets, self.linear_targets, self.pml_targets = queue_entry
     self.inputs.set_shape(self._placeholders[0].shape)
     self.input_lengths.set_shape(self._placeholders[1].shape)
     self.mel_targets.set_shape(self._placeholders[2].shape)
@@ -115,19 +116,6 @@ class DataFeeder(threading.Thread):
     mel_target = np.load(os.path.join(self._datadir, meta[1]))
     pml_target = np.load(os.path.join(self._datadir, meta[3]))
 
-    # check the shape of the linear target
-    n_frames = linear_target.shape[0]
-    pml_frames = pml_target.shape[0]
-
-    if n_frames > pml_frames:
-      linear_target = linear_target[:pml_frames]
-
-    # check the shape of the mel target
-    mel_frames = mel_target.shape[0]
-
-    if mel_frames > pml_frames:
-      mel_target = mel_target[:mel_frames]
-
     return (input_data, mel_target, linear_target, len(linear_target), pml_target, len(pml_target)) # we use the length of the PML target as a sort key
 
 
@@ -143,7 +131,7 @@ def _prepare_batch(batch, outputs_per_step):
   mel_targets = _prepare_targets([x[1] for x in batch], outputs_per_step)
   linear_targets = _prepare_targets([x[2] for x in batch], outputs_per_step)
   pml_targets = _prepare_targets([x[4] for x in batch], outputs_per_step)
-  return (inputs, input_lengths, linear_targets, mel_targets, pml_targets)
+  return (inputs, input_lengths, mel_targets, linear_targets, pml_targets)
 
 
 def _prepare_inputs(inputs):

@@ -32,10 +32,10 @@ def run_eval(args):
   print(hparams_debug_string())
 
   # use the correct synthesizer for the model type
-  if args.model == 'tacotron':
-    synth = Synthesizer()
-  else:
+  if args.model in ['tacotron_pml', 'tacotron_mel_pml']:
     synth = PMLSynthesizer()
+  else:
+    synth = Synthesizer()
 
   synth.load(args.checkpoint, model_name=args.model)
   base_path = get_output_base_path(args.checkpoint)
@@ -45,11 +45,11 @@ def run_eval(args):
     print('Synthesizing: %s' % path)
     wav = synth.synthesize(text)
 
-    if args.model == 'tacotron':
+    if args.model in ['tacotron_pml', 'tacotron_mel_pml']:
+      sp.wavwrite(path, wav, cfg.wav_sr, norm_max_ifneeded=True, verbose=0)
+    else:
       with open(path, 'wb') as f:
         f.write(wav)
-    else:
-      sp.wavwrite(path, wav, cfg.wav_sr, norm_max_ifneeded=True, verbose=0)
 
 
 def main():

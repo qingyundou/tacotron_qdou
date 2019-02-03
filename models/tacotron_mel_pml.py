@@ -14,7 +14,7 @@ class TacotronMelPML():
     self._hparams = hparams
 
 
-  def initialize(self, inputs, input_lengths, mel_targets=None, pml_targets=None):
+  def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None):
     '''Initializes the model for inference.
 
     Sets "mel_outputs", "pml_outputs", and "alignments" fields.
@@ -27,12 +27,15 @@ class TacotronMelPML():
       mel_targets: float32 Tensor with shape [N, T_out, M] where N is batch size, T_out is number
         of steps in the output time series, M is num_mels, and values are entries in the mel
         spectrogram. Only needed for training.
+      linear_targets: float32 Tensor with shape [N, T_out, F] where N is batch_size, T_out is number
+        of steps in the output time series, F is num_freq, and values are entries in the linear
+        spectrogram. Only needed for training.
       pml_targets: float32 Tensor with shape [N, T_out, P] where N is batch_size, T_out is number of
         steps in the PML vocoder features trajectories, P is pml_dimension, and values are PML vocoder
         features. Only needed for training.
     '''
     with tf.variable_scope('inference') as scope:
-      is_training = linear_targets is not None
+      is_training = pml_targets is not None
       batch_size = tf.shape(inputs)[0]
       hp = self._hparams
 

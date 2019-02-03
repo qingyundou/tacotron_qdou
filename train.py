@@ -8,7 +8,7 @@ import time
 import tensorflow as tf
 import traceback
 
-from datasets.datafeeder_pml import DataFeederPML
+from alignment_synthesizer import AlignmentSynthesizer
 from datasets.datafeeder import DataFeeder
 from hparams import hparams, hparams_debug_string
 from models import create_model
@@ -67,16 +67,13 @@ def train(log_dir, args):
   # Set up DataFeeder:
   coord = tf.train.Coordinator()
   with tf.variable_scope('datafeeder') as scope:
-    if args.model == 'tacotron':
-      feeder = DataFeeder(coord, input_path, hparams)
-    else:
-      feeder = DataFeederPML(coord, input_path, hparams)
+    feeder = DataFeeder(coord, input_path, hparams)
 
   # Set up model:
   global_step = tf.Variable(0, name='global_step', trainable=False)
   with tf.variable_scope('model') as scope:
     model = create_model(args.model, hparams)
-    model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets, feeder.linear_targets)
+    model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets, feeder.linear_targets, feeder.pml_targets)
     model.add_loss()
     model.add_optimizer(global_step)
     stats = add_stats(model)
@@ -87,15 +84,11 @@ def train(log_dir, args):
   loss_window = ValueWindow(100)
   saver = tf.train.Saver(max_to_keep=5, keep_checkpoint_every_n_hours=2)
 
-  # Set up feed dict for consistent alignment monitoring during training
-  text = 'Scientists at the CERN laboratory say they have discovered a new particle.'
-  cleaner_names = [x.strip() for x in hparams.cleaners.split(',')]
-  seq = text_to_sequence(text, cleaner_names)
+  # Set up fixed alignment synthesizer
+  alignment_synth = AlignmentSynthesizer()
 
-  feed_dict = {
-    model.inputs: [np.asarray(seq, dtype=np.int32)],
-    model.input_lengths: np.asarray([len(seq)], dtype=np.int32)
-  }
+  # Set up text for synthesis
+  fixed_sentence = 'Scientists at the CERN laboratory say they have discovered a new particle.'
 
   # Train!
   with tf.Session() as sess:
@@ -169,14 +162,15 @@ def train(log_dir, args):
           random_attention_plot = plot.plot_alignment(random_alignment, os.path.join(log_dir, 'step-%d-random-align.png' % step),
             info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))
 
-          # also process the alignment for a fixed sentence for comparison
-          fixed_alignment = sess.run(model.alignments[0], feed_dict=feed_dict)
-          fixed_attention_plot = plot.plot_alignment(fixed_alignment, os.path.join(log_dir, 'step-%d-fixed-align.png' % step),
-            info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))
-
           summary_elements.append(
             tf.summary.image('attention-%d' % step, random_attention_plot),
           )
+
+          # also process the alignment for a fixed sentence for comparison
+          alignment_synth.load('%s-%d' % (checkpoint_path, step), model_name=args.model)
+          fixed_alignment = alignment_synth.synthesize(fixed_sentence)
+          fixed_attention_plot = plot.plot_alignment(fixed_alignment, os.path.join(log_dir, 'step-%d-fixed-align.png' % step),
+            info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))
 
           summary_elements.append(
             tf.summary.image('fixed-attention-%d' % step, fixed_attention_plot),

@@ -114,7 +114,7 @@ def train(log_dir, args):
         loss_window.append(loss)
         message = 'Step %-7d [%.03f sec/step, loss=%.05f, avg_loss=%.05f]' % (
           step, time_window.average, loss, loss_window.average)
-        log(message, slack=(step % args.checkpoint_interval == 0))
+        log(message, slack=(step % args.summary_interval == 0 or step < 10))
 
         if loss > 100 or math.isnan(loss):
           log('Loss exploded to %.05f at step %d!' % (loss, step), slack=True)

@@ -11,7 +11,7 @@ class AlignmentSynthesizer:
     inputs = tf.placeholder(tf.int32, [1, None], 'inputs')
     input_lengths = tf.placeholder(tf.int32, [1], 'input_lengths')
 
-    with tf.variable_scope('model') as scope:
+    with tf.variable_scope('alignment_model') as scope:
       self.model = create_model(model_name, hparams)
       self.model.initialize(inputs, input_lengths)
       self.alignment = self.model.alignments[0]

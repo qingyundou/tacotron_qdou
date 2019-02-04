@@ -128,18 +128,21 @@ def train(log_dir, args):
           log('Saving checkpoint to: %s-%d' % (checkpoint_path, step))
           saver.save(sess, checkpoint_path, global_step=step)
           log('Saving audio and alignment...')
-          input_seq = sess.run(model.inputs[0])
           summary_elements = []
 
           # if the model has linear spectrogram features, use them to synthesize audio
           if hasattr(model, 'linear_targets'):
-            target_spectrogram, spectrogram = sess.run([model.linear_targets[0], model.linear_outputs[0]])
+            input_seq, alignment, target_spectrogram, spectrogram = sess.run([
+              model.inputs[0], model.alignments[0], model.linear_targets[0], model.linear_outputs[0]])
+            
             output_waveform = audio.inv_spectrogram(spectrogram.T)
             target_waveform = audio.inv_spectrogram(target_spectrogram.T)
             audio.save_wav(output_waveform, os.path.join(log_dir, 'step-%d-audio.wav' % step))
           # otherwise, synthesize audio from PML vocoder features
           elif hasattr(model, 'pml_targets'):
-            target_pml_features, pml_features = sess.run([model.pml_targets[0], model.pml_outputs[0]])
+            input_seq, alignment, target_pml_features, pml_features = sess.run([
+              model.inputs[0], model.alignments[0], model.pml_targets[0], model.pml_outputs[0]])
+            
             synth = PMLSynthesizer()
             output_waveform = synth.pml_to_wav(pml_features)
             target_waveform = synth.pml_to_wav(target_pml_features)
@@ -158,8 +161,7 @@ def train(log_dir, args):
           )
 
           # get the alignment for the top sentence in the batch
-          random_alignment = sess.run(model.alignments[0])
-          random_attention_plot = plot.plot_alignment(random_alignment, os.path.join(log_dir, 'step-%d-random-align.png' % step),
+          random_attention_plot = plot.plot_alignment(alignment, os.path.join(log_dir, 'step-%d-random-align.png' % step),
             info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))
 
           summary_elements.append(
@@ -167,7 +169,7 @@ def train(log_dir, args):
           )
 
           # also process the alignment for a fixed sentence for comparison
-          alignment_synth.load('%s-%d' % (checkpoint_path, step), model_name=args.model)
+          alignment_synth.load(model_name=args.model)
           fixed_alignment = alignment_synth.synthesize(fixed_sentence)
           fixed_attention_plot = plot.plot_alignment(fixed_alignment, os.path.join(log_dir, 'step-%d-fixed-align.png' % step),
             info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))

@@ -3,23 +3,21 @@ import tensorflow as tf
 from hparams import hparams
 from models import create_model
 from text import text_to_sequence
-from util.rename import rename_scope
 
 
 class AlignmentSynthesizer:
-  def load(self, checkpoint_path, model_name='tacotron_pml', original_scope_name='model', scope_name='alignment_model'):
+  def load(self, model_name='tacotron_pml'):
     print('Constructing model: %s' % model_name)
     inputs = tf.placeholder(tf.int32, [1, None], 'inputs')
     input_lengths = tf.placeholder(tf.int32, [1], 'input_lengths')
 
-    with tf.variable_scope(scope_name, reuse=tf.AUTO_REUSE) as scope:
+    with tf.variable_scope('model', reuse=True) as scope:
       self.model = create_model(model_name, hparams)
       self.model.initialize(inputs, input_lengths)
       self.alignment = self.model.alignments[0]
 
-    print('Loading checkpoint: %s' % checkpoint_path)
     self.session = tf.Session()
-    rename_scope(self.session, checkpoint_path, original_scope_name, scope_name)
+    # Save the variables
     self.session.run(tf.global_variables_initializer())
 
   def synthesize(self, text):

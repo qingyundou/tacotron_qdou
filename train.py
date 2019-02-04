@@ -169,7 +169,7 @@ def train(log_dir, args):
           )
 
           # also process the alignment for a fixed sentence for comparison
-          alignment_synth.load(model_name=args.model)
+          alignment_synth.load('%s-%d' % (checkpoint_path, step), model_name=args.model)
           fixed_alignment = alignment_synth.synthesize(fixed_sentence)
           fixed_attention_plot = plot.plot_alignment(fixed_alignment, os.path.join(log_dir, 'step-%d-fixed-align.png' % step),
             info='%s, %s, %s, step=%d, loss=%.5f' % (args.model, commit, time_string(), step, loss))

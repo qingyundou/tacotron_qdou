@@ -111,7 +111,7 @@ class TacotronMelPML():
       log('  decoder out (%d frames):  %d' % (hp.outputs_per_step, decoder_outputs.shape[-1]))
       log('  decoder out (1 frame):   %d' % mel_outputs.shape[-1])
       log('  postnet out:             %d' % post_outputs.shape[-1])
-      log('  pml out:              %d' % pml_outputs.shape[-1])
+      log('  pml out:                 %d' % pml_outputs.shape[-1])
 
 
   def add_loss(self):

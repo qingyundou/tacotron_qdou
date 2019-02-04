@@ -94,7 +94,7 @@ def _process_utterance(out_dir, index, wav_path, text, pml_cmp):
 
   # Check the shape of the mel target
   if mel_frames > pml_frames:
-    mel_spectrogram = mel_spectrogram[:, :mel_frames]
+    mel_spectrogram = mel_spectrogram[:, :pml_frames]
 
   # Write the spectrograms to disk:
   spectrogram_filename = 'nick-spec-%05d.npy' % index

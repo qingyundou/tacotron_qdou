@@ -12,7 +12,7 @@ from alignment_synthesizer import AlignmentSynthesizer
 from datasets.datafeeder import DataFeeder
 from hparams import hparams, hparams_debug_string
 from models import create_model
-from pml_synthesizer import PMLSynthesizer, cfg
+from pml_synthesizer import PMLSynthesizer
 import sigproc as sp
 from text import sequence_to_text, text_to_sequence
 from util import audio, infolog, plot, ValueWindow
@@ -146,11 +146,12 @@ def train(log_dir, args):
             synth = PMLSynthesizer()
             output_waveform = synth.pml_to_wav(pml_features)
             target_waveform = synth.pml_to_wav(target_pml_features)
-            sp.wavwrite(os.path.join(log_dir, 'step-%d-audio.wav' % step), output_waveform, cfg.wav_sr, norm_max_ifneeded=True)
+            sp.wavwrite(os.path.join(log_dir, 'step-%d-target-audio.wav' % step), target_waveform, hparams.sample_rate, norm_max_ifneeded=True)
+            sp.wavwrite(os.path.join(log_dir, 'step-%d-audio.wav' % step), output_waveform, hparams.sample_rate, norm_max_ifneeded=True)
 
           # we need to adjust the output and target waveforms so the values lie in the interval [-1.0, 1.0]
-          output_waveform *= 1 / np.max(np.abs(output_waveform))
-          target_waveform *= 1 / np.max(np.abs(target_waveform))
+          output_waveform /= 1.05 * np.max(np.abs(output_waveform))
+          target_waveform /= 1.05 * np.max(np.abs(target_waveform))
 
           summary_elements.append(
             tf.summary.audio('ideal-%d' % step, np.expand_dims(target_waveform, 0), hparams.sample_rate),

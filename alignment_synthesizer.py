@@ -22,9 +22,12 @@ class AlignmentSynthesizer:
     saver = tf.train.Saver()
     saver.restore(self.session, checkpoint)
 
-  def synthesize(self, text):
-    cleaner_names = [x.strip() for x in hparams.cleaners.split(',')]
-    seq = text_to_sequence(text, cleaner_names)
+  def synthesize(self, text_or_sequence, is_sequence=False):
+    if is_sequence:
+      seq = text_or_sequence
+    else:
+      cleaner_names = [x.strip() for x in hparams.cleaners.split(',')]
+      seq = text_to_sequence(text_or_sequence, cleaner_names)
 
     feed_dict = {
       self.model.inputs: [np.asarray(seq, dtype=np.int32)],

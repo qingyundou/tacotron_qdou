@@ -1,5 +1,5 @@
 # 0 preparation
-NAME=tacotron-lj #////////////////////////////////////TBC
+NAME=tacotron-mel-pml-lj #////////////////////////////////////TBC
 
 # 0.1 set up environment
 . /home/miproj/4thyr.oct2018/je369/.bashrc # we need to add conda commands to the path by running bashrc setup
@@ -25,7 +25,7 @@ export PATH=${PATH}:${ProjectDir}/straight/analysis:${ProjectDir}/SPTK-3.7/bin
 
 # 1.1 run the train scheme
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron
-python train.py --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/je369/results --num_steps 500000 --input lj-training/train.txt --slack_url https://hooks.slack.com/services/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 --restore_step 123000
+python train.py --model tacotron_mel_pml --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/je369/results --num_steps 500000 --input gran-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,max_iters=1000" --slack_url https://hooks.slack.com/services/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 --restore_step 51000
 
 # 1.2 move the logs and results back to the home directory
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts
@@ -33,4 +33,4 @@ python move_log_dir.py --name $NAME
 
 # 2 for running on grid: remove data from air (optional)
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts
-# python remove_training_data.py --train_dir lj-training
+# python remove_training_data.py --train_dir gran-lj-training

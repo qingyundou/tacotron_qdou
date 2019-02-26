@@ -43,6 +43,10 @@ def add_stats(model):
       tf.summary.histogram('pml_targets', model.pml_targets)
       tf.summary.scalar('loss_pml', model.pml_loss)
 
+    if hasattr(model, 'pml_intermediates'):
+      tf.summary.histogram('pml_intermediates', model.pml_intermediates)
+      tf.summary.scalar('pml_intermediate_loss', model.pml_intermediate_loss)
+
     tf.summary.scalar('learning_rate', model.learning_rate)
     tf.summary.scalar('loss', model.loss)
     gradient_norms = [tf.norm(grad) for grad in model.gradients]

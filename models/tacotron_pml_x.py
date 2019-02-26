@@ -84,23 +84,22 @@ class TacotronPMLExtended():
         maximum_iterations=hp.max_iters)                                         # [N, T_out/r, P*r]
 
       # Reshape outputs to be one output per entry
-      pml_outputs = tf.reshape(decoder_outputs, [batch_size, -1, hp.pml_dimension])   # [N, T_out, P]
+      pml_intermediates = tf.reshape(decoder_outputs, [batch_size, -1, hp.pml_dimension])   # [N, T_out, P]
 
       # Add post-processing CBHG:
-      post_outputs = post_cbhg(pml_outputs, hp.pml_dimension, is_training,            # [N, T_out, postnet_depth=256]
+      post_outputs = post_cbhg(pml_intermediates, hp.pml_dimension, is_training,            # [N, T_out, postnet_depth=256]
                                hp.postnet_depth)
-      linear_outputs = tf.layers.dense(post_outputs, hp.num_freq)                # [N, T_out, F]
+      pml_outputs = tf.layers.dense(post_outputs, hp.pml_dimension)                # [N, T_out, P]
 
       # Grab alignments from the final decoder state:
       alignments = tf.transpose(final_decoder_state[0].alignment_history.stack(), [1, 2, 0])
 
       self.inputs = inputs
       self.input_lengths = input_lengths
+      self.pml_intermediates = pml_intermediates
       self.pml_outputs = pml_outputs
-      self.linear_outputs = linear_outputs
       self.alignments = alignments
       self.pml_targets = pml_targets
-      self.linear_targets = linear_targets
       log('Initialized Tacotron model. Dimensions: ')
       log('  embedding:               %d' % embedded_inputs.shape[-1])
       log('  prenet out:              %d' % prenet_outputs.shape[-1])
@@ -109,21 +108,18 @@ class TacotronPMLExtended():
       log('  concat attn & out:       %d' % concat_cell.output_size)
       log('  decoder cell out:        %d' % decoder_cell.output_size)
       log('  decoder out (%d frames):  %d' % (hp.outputs_per_step, decoder_outputs.shape[-1]))
-      log('  decoder out (1 frame):   %d' % pml_outputs.shape[-1])
+      log('  decoder out (1 frame):   %d' % pml_intermediates.shape[-1])
       log('  postnet out:             %d' % post_outputs.shape[-1])
-      log('  linear out:              %d' % linear_outputs.shape[-1])
+      log('  pml out:                 %d' % pml_outputs.shape[-1])
 
 
   def add_loss(self):
     '''Adds loss to the model. Sets "loss" field. initialize must have been called.'''
     with tf.variable_scope('loss') as scope:
       hp = self._hparams
+      self.pml_intermediate_loss = tf.reduce_mean(tf.abs(self.pml_targets - self.pml_intermediates))
       self.pml_loss = tf.reduce_mean(tf.abs(self.pml_targets - self.pml_outputs))
-      l1 = tf.abs(self.linear_targets - self.linear_outputs)
-      # Prioritize loss for frequencies under 3000 Hz.
-      n_priority_freq = int(3000 / (hp.sample_rate * 0.5) * hp.num_freq)
-      self.linear_loss = 0.5 * tf.reduce_mean(l1) + 0.5 * tf.reduce_mean(l1[:,:,0:n_priority_freq])
-      self.loss = self.pml_loss + self.linear_loss
+      self.loss = self.pml_intermediate_loss + self.pml_loss
 
 
   def add_optimizer(self, global_step):

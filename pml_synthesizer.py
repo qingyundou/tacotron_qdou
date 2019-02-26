@@ -72,7 +72,7 @@ class PMLSynthesizer:
     
     pml_features = self.session.run(self.pml_output, feed_dict=feed_dict)
     wav = self.pml_to_wav(pml_features)
-    wav = wav[:audio.find_endpoint(wav)]
+    wav = wav[:audio.find_endpoint(wav, threshold_db=0)]
     return wav
 
   def pml_to_wav(self, pml_features, shift=0.005, dftlen=4096, nm_cont=False, verbose_level=0):
@@ -107,14 +107,27 @@ class PMLSynthesizer:
 
 
 def main():
-  # pml_cmp = np.fromfile('/home/josh/tacotron/LJSpeech-1.1/pml/LJ010-0018.cmp', dtype=np.float32)
-  pml_cmp = np.fromfile('/home/josh/tacotron/Nick/pml/herald_1993_1.cmp', dtype=np.float32)
-  pml_dimension = 86
-  pml_features = pml_cmp.reshape((-1, pml_dimension))
+  import argparse
+
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--checkpoint')
+  args = parser.parse_args()
   verbose_level = 0
-  synth = PMLSynthesizer()
-  print('Synthesizing Audio...')
-  wav = synth.pml_to_wav(pml_features, verbose_level=verbose_level)
+
+  if 'checkpoint' in args:
+    synth = PMLSynthesizer()
+    print('Synthesizing Audio...')
+    synth.load(args.checkpoint, model_name='tacotron_pml')
+    fixed_sentence = 'and district attorney henry m. wade both testified that they saw it later that day.'
+    wav = synth.synthesize(fixed_sentence)
+  else:
+    # pml_cmp = np.fromfile('/home/josh/tacotron/LJSpeech-1.1/pml/LJ010-0018.cmp', dtype=np.float32)
+    pml_cmp = np.fromfile('/home/josh/tacotron/Nick/pml/herald_1993_1.cmp', dtype=np.float32)
+    pml_dimension = 86
+    pml_features = pml_cmp.reshape((-1, pml_dimension))
+    synth = PMLSynthesizer()
+    print('Synthesizing Audio...')
+    wav = synth.pml_to_wav(pml_features, verbose_level=verbose_level)
 
   # handle the file save
   path = 'test_pml_converter.wav'

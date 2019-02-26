@@ -2,6 +2,15 @@ import tensorflow as tf
 from tensorflow.contrib.rnn import GRUCell
 
 
+def postnet(inputs, layers, conv_width, channels, is_training):
+  x = inputs
+  with tf.variable_scope('decoder_postnet'):
+    for i in range(layers):
+      activation = tf.nn.tanh if i < layers - 1 else None
+      x = conv1d(x, conv_width, channels, activation, is_training, 'postnet_conv_%d' % i)
+  return tf.layers.dense(x, inputs.shape[2])   # Project to input shape
+
+
 def prenet(inputs, is_training, layer_sizes, scope=None):
   x = inputs
   drop_rate = 0.5 if is_training else 0.0

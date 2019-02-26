@@ -25,7 +25,7 @@ export PATH=${PATH}:${ProjectDir}/straight/analysis:${ProjectDir}/SPTK-3.7/bin
 
 # 1.1 run the train scheme
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron
-python train.py --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/je369/results --num_steps 500000 --input lj-training/train.txt --slack_url https://hooks.slack.com/services/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 --restore_step 123000
+python train.py --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/je369/results --num_steps 500000 --input lj-training/train.txt --slack_url https://hooks.slack.com/services/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 --restore_step 195000
 
 # 1.2 move the logs and results back to the home directory
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts

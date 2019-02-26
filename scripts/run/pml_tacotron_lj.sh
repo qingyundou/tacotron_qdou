@@ -1,5 +1,5 @@
 # 0 preparation
-NAME=tacotron-lj-pml #////////////////////////////////////TBC
+NAME=tacotron-lj-pml-padded #////////////////////////////////////TBC
 
 # 0.1 set up environment
 . /home/miproj/4thyr.oct2018/je369/.bashrc # we need to add conda commands to the path by running bashrc setup

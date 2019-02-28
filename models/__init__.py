@@ -3,6 +3,7 @@ from .tacotron_mel_pml import TacotronMelPML
 from .tacotron_pml import TacotronPML
 from .tacotron_pml_x import TacotronPMLExtended
 from .tacotron_pml_postnet import TacotronPMLPostnet
+from .tacotron_pml_locsens import TacotronPMLLocSens
 
 
 def create_model(name, hparams):
@@ -16,5 +17,7 @@ def create_model(name, hparams):
     return TacotronMelPML(hparams)
   elif name == 'tacotron_pml_postnet':
     return TacotronPMLPostnet(hparams)
+  elif name == 'tacotron_pml_locsens':
+    return TacotronPMLLocSens(hparams)
   else:
     raise Exception('Unknown model: ' + name)

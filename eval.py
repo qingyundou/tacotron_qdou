@@ -32,7 +32,7 @@ def run_eval(args):
   print(hparams_debug_string())
 
   # use the correct synthesizer for the model type
-  if args.model in ['tacotron_pml', 'tacotron_mel_pml']:
+  if args.model not in ['tacotron']:
     synth = PMLSynthesizer()
   else:
     synth = Synthesizer()
@@ -45,7 +45,7 @@ def run_eval(args):
     print('Synthesizing: %s' % path)
     wav = synth.synthesize(text)
 
-    if args.model in ['tacotron_pml', 'tacotron_mel_pml']:
+    if args.model not in ['tacotron']:
       sp.wavwrite(path, wav, cfg.wav_sr, norm_max_ifneeded=True, verbose=0)
     else:
       with open(path, 'wb') as f:

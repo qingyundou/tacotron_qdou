@@ -59,7 +59,7 @@ text cleaners by setting the `cleaners` hyperparameter.
   * If you don't want to transliterate, you can define a custom character set.
     This allows you to train directly on the character set used in your data.
 
-    To do so, edit [symbols.py](text/symbols.py) and change the `_characters` variable to be a
+    To do so, edit [symbols.py](tacotron/utils/symbols.py) and change the `_characters` variable to be a
     string containing the UTF-8 characters in your data. Then set the hyperparameter `cleaners=basic_cleaners`.
 
   * If you're not sure which option to use, you can evaluate the transliteration cleaners like this:

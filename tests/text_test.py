@@ -1,5 +1,5 @@
-from text import cleaners, symbols, text_to_sequence, sequence_to_text
-from unidecode import unidecode
+from tacotron.utils import symbols, text_to_sequence, sequence_to_text
+from tacotron.utils import cleaners
 
 
 def test_symbols():

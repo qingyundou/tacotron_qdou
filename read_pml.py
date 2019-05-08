@@ -1,6 +1,5 @@
 import numpy as np
 from util import audio
-from hparams import hparams
 
 point_of_interest = '001'
 

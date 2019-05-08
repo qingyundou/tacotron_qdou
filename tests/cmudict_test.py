@@ -1,5 +1,5 @@
 import io
-from text import cmudict
+from tacotron.utils import cmudict
 
 
 test_data = '''

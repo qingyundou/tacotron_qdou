@@ -131,7 +131,7 @@ Pull requests are welcome!
    ```
    Replace "185000" with the checkpoint number that you want to use, then open a browser
    to `localhost:9000` and type what you want to speak. Alternately, you can
-   run [eval.py](eval.py) at the command line:
+   run [eval.py](tacotron/eval.py) at the command line:
    ```
    python3 eval.py --checkpoint ~/tacotron/logs-tacotron/model.ckpt-185000
    ```

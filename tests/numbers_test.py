@@ -1,4 +1,4 @@
-from text.numbers import normalize_numbers
+from tacotron.utils import normalize_numbers
 
 
 def test_normalize_numbers():

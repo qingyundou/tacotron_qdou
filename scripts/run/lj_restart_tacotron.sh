@@ -18,8 +18,8 @@ export LD_PRELOAD=/home/miproj/4thyr.oct2018/je369/workspace/implementations/tac
 
 # 0.3 tools for dealing with PML features
 export ProjectDir=/home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron
-export PYTHONPATH=${PYTHONPATH}:${ProjectDir}:${ProjectDir}/straight:${ProjectDir}/pulsemodel:${ProjectDir}/sigproc:${ProjectDir}/pulsemodel/external/REAPER/build
-export PATH=${PATH}:${ProjectDir}/straight/analysis:${ProjectDir}/SPTK-3.7/bin
+export PYTHONPATH=${PYTHONPATH}:${ProjectDir}:${ProjectDir}/lib:${ProjectDir}/lib/straight:${ProjectDir}/lib/pulsemodel:${ProjectDir}/lib/sigproc:${ProjectDir}/lib/pulsemodel/external/REAPER/build
+export PATH=${PATH}:${ProjectDir}/lib/straight/analysis:${ProjectDir}/lib/SPTK-3.7/bin
 
 # 1 restart training the model
 

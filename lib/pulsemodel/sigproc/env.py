@@ -19,7 +19,7 @@ Author
 '''
 
 import numpy as np
-from lib import sigproc as sp
+import sigproc as sp
 
 
 # import matplotlib.pyplot as plt

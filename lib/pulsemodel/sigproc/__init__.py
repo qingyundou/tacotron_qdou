@@ -18,9 +18,10 @@ Author
     Gilles Degottex <gad27@cam.ac.uk>
 '''
 
-from fileio import *
-from resampling import *
-from sinusoidal import *
-from env import *
-from freqwarp import *
-from misc import *
+from .sigproc import *
+from .fileio import *
+from .resampling import *
+from .sinusoidal import *
+from .env import *
+from .freqwarp import *
+from .misc import *

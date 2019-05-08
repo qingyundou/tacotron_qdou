@@ -1,7 +1,7 @@
 import argparse
 import os
 import infolog
-import hparams
+from hparams import hparams
 from tacotron.train import train as train_tacotron
 
 log = infolog.log

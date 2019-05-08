@@ -20,6 +20,7 @@ Author
 
 from __future__ import division
 
+cimport cython
 import numpy as np
 cimport numpy as np
 
@@ -30,7 +31,7 @@ from libc.math cimport sqrt
 
 import sys
 from scipy import signal as sig
-from lib import sigproc as sp
+import sigproc as sp
 
 DTYPE = np.float64
 CDTYPE = np.complex128

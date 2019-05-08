@@ -21,12 +21,11 @@ Author
 '''
 
 import sys
-import os
 import argparse
 import numpy as np
 
 sys.path.append('/home/degottex/Research/CUED/Code')
-from lib import sigproc as sp
+import sigproc as sp
 
 if  __name__ == "__main__" :
 
@@ -39,7 +38,7 @@ if  __name__ == "__main__" :
     args, unknown = argpar.parse_known_args()
 
     SPEC = np.fromfile(args.specfile, dtype=np.float32)
-    SPEC = SPEC.reshape((-1, args.dftlen/2+1))
+    SPEC = SPEC.reshape((-1, int(args.dftlen / 2)+1))
     FWSPEC = sp.linbnd2fwbnd(np.log(SPEC), args.fs, args.dftlen, args.nbbands)
     FWSPEC.astype('float32').tofile(args.bndfwspecfile)
 

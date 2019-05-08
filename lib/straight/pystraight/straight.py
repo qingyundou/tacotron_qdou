@@ -183,7 +183,7 @@ def aperiodicity(wav, fs, f0s, dftlen, ams=None, outresidual=False):
         It should be a more accurate way to compute the aperiodicity than the
         original STRAIGHT's implementation
     '''
-    from lib.sigproc import sinusoidal
+    from sigproc import sinusoidal
 
     # Computing the overall harm signal first, then estimating the noise from the residual
     #sins = sinusoidal.estimate_sinusoidal_params(wav, fs, f0s)

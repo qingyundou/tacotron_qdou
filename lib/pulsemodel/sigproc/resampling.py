@@ -25,7 +25,7 @@ import scipy.interpolate
 from scipy import signal as sig
 
 from lib import sigproc as sp
-import fileio
+from . import fileio
 
 def resample(wav, fs, trgfs, method=2, deterministic=True):
     '''

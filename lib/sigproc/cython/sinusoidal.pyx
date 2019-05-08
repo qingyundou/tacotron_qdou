@@ -1,4 +1,3 @@
-# cython: language_level=3
 '''
 Copyright(C) 2016 Engineering Department, University of Cambridge, UK.
 
@@ -21,6 +20,7 @@ Author
 
 from __future__ import division
 
+cimport cython
 import numpy as np
 cimport numpy as np
 
@@ -29,9 +29,12 @@ cimport numpy as np
 from libc.math cimport log
 from libc.math cimport sqrt
 
+import time
 import sys
+from scipy.io import wavfile
 from scipy import signal as sig
-from lib import sigproc as sp
+import pickle as pkl
+from . import sigproc as sp
 
 DTYPE = np.float64
 CDTYPE = np.complex128
@@ -246,7 +249,7 @@ def estimate_sinusoidal_params(np.ndarray[DTYPE_t, ndim=1] wav, DTYPE_t fs, np.n
     f0s = f0s.copy()
     f0s[:,1] = np.interp(f0s[:,0], f0s[f0s[:,1]>0,0], f0s[f0s[:,1]>0,1])
 
-    #print("Sinusoidal analysis: f0 in ["+str(np.min(f0s[:,1]))+","+str(np.max(f0s[:,1]))+"]")
+    #print "Sinusoidal analysis: f0 in ["+str(np.min(f0s[:,1]))+","+str(np.max(f0s[:,1]))+"]"
 
     #sins = [None]*len(f0s[:,0])
     sins = []
@@ -254,7 +257,7 @@ def estimate_sinusoidal_params(np.ndarray[DTYPE_t, ndim=1] wav, DTYPE_t fs, np.n
     for n, t in enumerate(f0s[:,0]):
         f0 = f0s[n,1]
         if verbose>0:
-            print("\rSinusoidal analysis (cython version) t={:0.3f}s({:.0f}%) f0={:0.2f}Hz".format(t, 100*t/f0s[f0s.shape[0]-1,0], f0))
+            print "\rSinusoidal analysis (cython version) t={:0.3f}s({:.0f}%) f0={:0.2f}Hz".format(t, 100*t/f0s[f0s.shape[0]-1,0], f0),
 
         #if t<0.35: continue
         #if t<0.837: continue
@@ -309,7 +312,7 @@ def estimate_sinusoidal_params(np.ndarray[DTYPE_t, ndim=1] wav, DTYPE_t fs, np.n
             from IPython.core.debugger import  Pdb; Pdb().set_trace()
 
     if verbose>0:
-        print('\r                                                               \r')
+        print '\r                                                               \r',
 
     #end = time.time()
     #print("\nElapsed: "+str(end - start))
@@ -354,7 +357,7 @@ def synthesize_harmonics(f0s, sins, DTYPE_t fs, int wavlen, syndc=True, usephase
     # Harmonic synthesis
     H = maxnbh(sins)
     for h in range(1,H):
-        #print("\rh="+str(h)+"                                          ")
+        #print "\rh="+str(h)+"                                          ",
 
         if T==1:
             # Add only where frequency < nyquist
@@ -380,7 +383,7 @@ def synthesize_harmonics(f0s, sins, DTYPE_t fs, int wavlen, syndc=True, usephase
             idx = h*f1<fs/2.0
             wav[idx] = wav[idx] + 2*am[idx]*np.cos(pm[idx])
 
-    #print('\r')
+    #print '\r',
 
     return wav
 

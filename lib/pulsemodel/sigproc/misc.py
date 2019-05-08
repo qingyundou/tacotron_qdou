@@ -18,11 +18,10 @@ Author
     Gilles Degottex <gad27@cam.ac.uk>
 '''
 
+import sigproc
 import os
 import errno
 import distutils.spawn
-
-import sigproc
 
 
 def makedirs(path):

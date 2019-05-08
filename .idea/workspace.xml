@@ -2,249 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99777bf0-4bd8-4738-82c5-90e41c355dac" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/tacotron.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/acep" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/acep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/acorr" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/acorr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/agcep" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/agcep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/amcep" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/amcep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/average" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/average" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/b2mc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/b2mc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/bcp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/bcp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/bcut" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/bcut" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/bell" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/bell" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/c2acr" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/c2acr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/c2ir" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/c2ir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/c2ndps" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/c2ndps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/c2sp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/c2sp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/cat2" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/cat2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/cdist" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/cdist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/clip" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/clip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/da" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/da" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/dawrite" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/dawrite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/dct" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/dct" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/decimate" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/decimate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/delay" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/delay" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/delta" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/delta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/df2" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/df2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/dfs" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/dfs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/dmp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/dmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/ds" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/ds" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/dtw" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/dtw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/echo2" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/echo2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/excite" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/excite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/extract" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/extract" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/fd" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/fd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/fdrw" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/fdrw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/fft" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/fft" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/fft2" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/fft2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/fftcep" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/fftcep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/fftr" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/fftr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/fftr2" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/fftr2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/fig" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/fig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/frame" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/frame" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/freqt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/freqt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/gc2gc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/gc2gc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/gcep" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/gcep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/glogsp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/glogsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/glsadf" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/glsadf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/gmm" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/gmm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/gmmp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/gmmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/gnorm" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/gnorm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/grlogsp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/grlogsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/grpdelay" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/grpdelay" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/gseries" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/gseries" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/gwave" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/gwave" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/histogram" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/histogram" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/idct" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/idct" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/ifft" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/ifft" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/ifft2" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/ifft2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/ifftr" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/ifftr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/ignorm" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/ignorm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/impulse" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/impulse" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/imsvq" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/imsvq" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/interpolate" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/interpolate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/ivq" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/ivq" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/lbg" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/lbg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/levdur" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/levdur" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/linear_intpl" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/linear_intpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/lmadf" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/lmadf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/lpc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/lpc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/lpc2c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/lpc2c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/lpc2lsp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/lpc2lsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/lpc2par" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/lpc2par" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/lsp2lpc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/lsp2lpc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/lsp2sp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/lsp2sp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/lspcheck" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/lspcheck" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/lspdf" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/lspdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/ltcdf" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/ltcdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mc2b" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mc2b" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mcep" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mcep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/merge" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/merge" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mfcc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mfcc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mgc2mgc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mgc2mgc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mgc2mgclsp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mgc2mgclsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mgc2sp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mgc2sp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mgcep" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mgcep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mgclsp2mgc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mgclsp2mgc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mglsadf" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mglsadf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/minmax" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/minmax" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mlpg" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mlpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mlsacheck" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mlsacheck" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/mlsadf" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/mlsadf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/msvq" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/msvq" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/nan" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/nan" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/ndps2c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/ndps2c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/norm0" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/norm0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/nrand" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/nrand" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/par2lpc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/par2lpc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/pca" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/pca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/pcas" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/pcas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/phase" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/phase" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/pitch" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/pitch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/poledf" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/poledf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/psgr" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/psgr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/ramp" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/ramp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/raw2wav" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/raw2wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/rawtowav" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/rawtowav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/reverse" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/reverse" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/rmse" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/rmse" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/root_pol" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/root_pol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/sin" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/sin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/smcep" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/smcep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/snr" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/snr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/sopr" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/sopr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/spec" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/spec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/step" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/step" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/swab" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/swab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/symmetrize" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/symmetrize" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/train" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/train" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/transpose" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/transpose" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/uels" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/uels" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/ulaw" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/ulaw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/us" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/us" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/us16" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/us16" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/uscd" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/uscd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/vc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/vc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/vopr" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/vopr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/vq" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/vq" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/vstat" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/vstat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/vsum" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/vsum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/wav2raw" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/wav2raw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/window" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/window" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/x2x" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/x2x" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/xgr" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/xgr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/zcross" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/zcross" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SPTK-3.7/bin/zerodf" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SPTK-3.7/bin/zerodf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TRAINING_DATA.md" beforeDir="false" afterPath="$PROJECT_DIR$/TRAINING_DATA.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alignment_synthesizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/alignment_synthesizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/datafeeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/datafeeder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/eval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eval_pml.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/eval_pml.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/attention.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/helpers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/modules.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/rnn_wrappers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/tacotron.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/tacotron_mel_pml.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/tacotron_pml.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/tacotron_pml_locsens.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/tacotron_pml_postnet.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/tacotron_pml_x.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/tacotron_pml_x_locsens.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pml_synthesizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/pml_synthesizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/analysis.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/CMakeLists.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/core/file_resource.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/core/file_resource.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/core/float_matrix-inl.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/core/float_matrix.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/core/float_matrix.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/core/track.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/core/track.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/epoch_tracker/epoch_tracker.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/epoch_tracker/epoch_tracker.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/epoch_tracker/fd_filter.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/epoch_tracker/fd_filter.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/epoch_tracker/fft.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/epoch_tracker/fft.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/epoch_tracker/lpc_analyzer.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/epoch_tracker/lpc_analyzer.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/epoch_tracker_main.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/wave/codec_api-inl.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/wave/codec_api.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/wave/codec_riff.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/wave/codec_riff.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/wave/wave.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/wave/wave.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/wave/wave_io-inl.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/wave/wave_io.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/REAPER/wave/wave_io.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/.gitmodules" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/MANIFEST.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/appveyor.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/demo/demo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/demo/utterance/vaiueo2d.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/pyworld/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/pyworld/pyworld.pyx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/setup.cfg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/external/pyworld/setup.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/cython/sinusoidal.pyx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/env.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/fileio.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/freqwarp.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/interfaces.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/misc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/pystraight/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/pystraight/straight.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/resampling.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/scripts/bndspec2spec.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/scripts/norm_m26.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/scripts/spec2bndfwspec.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/scripts/spec2spec.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/setup.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/sigproc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/sigproc/sigproc_wavstats.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/synthesis.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/test/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pulsemodel/test/test_smoke.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/read_pml.py" beforeDir="false" afterPath="$PROJECT_DIR$/read_pml.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/lj_restart_tacotron.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/lj_restart_tacotron.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/lj_tacotron.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/lj_tacotron.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/locsens_pml_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/locsens_pml_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/locsens_pml_x_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/locsens_pml_x_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/mel_pml_lj_restart_tacotron.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/mel_pml_lj_restart_tacotron.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/mel_pml_lj_tacotron.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/mel_pml_lj_tacotron.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/pml_tacotron_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/pml_tacotron_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/postnet_pml_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/postnet_pml_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/restart_pml_tacotron_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/restart_pml_tacotron_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/resume_postnet_pml_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/resume_postnet_pml_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/tacotron_pml_x_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/tacotron_pml_x_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/tacotron_restart_pml_x_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/tacotron_restart_pml_x_lj.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pulsemodel/analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/cython/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/fileio.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/freqwarp.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/interfaces.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/misc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/pystraight/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/pystraight/straight.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/resampling.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/scripts/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/scripts/bndspec2spec.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/scripts/spec2bndfwspec.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/scripts/spec2spec.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/sigproc/sigproc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/synthesis.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pulsemodel/synthesis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pulsemodel/test/test_smoke.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pulsemodel/test/test_smoke.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sigproc/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sigproc/LICENSE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sigproc/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sigproc/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sigproc/cython/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sigproc/misc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sigproc/scripts/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sigproc/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sigproc/sigproc_wavstats.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/straight/pystraight/straight.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/straight/pystraight/straight.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sigproc/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sigproc/LICENSE.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sigproc/Makefile" beforeDir="false" />
@@ -256,7 +41,6 @@
       <change beforePath="$PROJECT_DIR$/sigproc/freqwarp.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sigproc/interfaces.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sigproc/misc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sigproc/pystraight/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sigproc/pystraight/straight.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sigproc/resampling.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sigproc/scripts/bndspec2spec.py" beforeDir="false" />
@@ -266,143 +50,14 @@
       <change beforePath="$PROJECT_DIR$/sigproc/setup.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sigproc/sigproc.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sigproc/sigproc_wavstats.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/AUTHORS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/COPYING" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/ChangeLog" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/INSTALL" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/Makefile.am" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/Makefile.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/NEWS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/aclocal.m4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/Makefile.am" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/Makefile.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/aclocal.m4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/autom4te.cache/output.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/autom4te.cache/output.1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/autom4te.cache/requests" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/autom4te.cache/traces.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/autom4te.cache/traces.1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/config.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/config.status" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/configure" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/configure.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/depcomp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/install-sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/main.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/main_ap.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/missing" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/straight_bndap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/straight_body_c03.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/straight_body_c03.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/straight_mcep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/voice_strength.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/analysis/voice_strength.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/autom4te.cache/output.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/autom4te.cache/output.1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/autom4te.cache/requests" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/autom4te.cache/traces.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/autom4te.cache/traces.1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/compile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/config.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/config.status" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/configure" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/configure.ac" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/depcomp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/install-sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/missing" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/pystraight/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/pystraight/aper2bndap.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/pystraight/bndap2aper.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/pystraight/straight.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/Makefile.am" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/Makefile.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/aclocal.m4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/basic.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/basic.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/complex.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/complex.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/config.status" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/configure" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/configure.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/defs.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/depcomp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/fft.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/fft.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/fileio.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/fileio.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/filter.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/filter.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/install-sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/kaiser.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/kaiser.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/libsp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/matrix.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/matrix.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/memory.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/memory.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/missing" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/option.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/option.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/straight_body_sub.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/straight_body_sub.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/straight_sub.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/straight_sub.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/straight_synth_sub.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/straight_synth_sub.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/straight_vconv_sub.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/straight_vconv_sub.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/tempo_sub.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/tempo_sub.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/vector.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/vector.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/voperate.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/voperate.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/window.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/sp/window.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/AUTHORS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/COPYING" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/ChangeLog" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/INSTALL" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/Makefile.am" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/Makefile.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/NEWS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/aclocal.m4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/configure" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/configure.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/main.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/straight_synth_tb06.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/straight_synth_tb06.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/straight_synth_tb06_unit_org.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/synthesis/synthesis_fft" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/Makefile.am" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/Makefile.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/aclocal.m4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/config.status" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/configure" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/configure.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/depcomp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/install-sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/main.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/missing" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/tempo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/tempo.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/straight/tempo/tempo.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/synthesizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/synthesizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/cmudict_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/cmudict_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/numbers_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/numbers_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/text_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/text_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/utils/text.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text/cleaners.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/utils/cleaners.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text/cmudict.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/utils/cmudict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text/numbers.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/utils/numbers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text/symbols.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/utils/symbols.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/infolog.py" beforeDir="false" afterPath="$PROJECT_DIR$/infolog.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/utils/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tacotron/models/tacotron.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/tacotron.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tacotron/models/variants/tacotron.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/variants/tacotron.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tacotron/models/variants/tacotron_mel_pml.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/variants/tacotron_mel_pml.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tacotron/models/variants/tacotron_pml.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/variants/tacotron_pml.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tacotron/models/variants/tacotron_pml_locsens.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/variants/tacotron_pml_locsens.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tacotron/models/variants/tacotron_pml_postnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/variants/tacotron_pml_postnet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tacotron/models/variants/tacotron_pml_x.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/variants/tacotron_pml_x.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -412,9 +67,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/sigproc/misc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+              <folding>
+                <element signature="e#684#688#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/sigproc/cython/sinusoidal.pyx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="36" column="16" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/sigproc/cython/sinusoidal.c">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/tacotron/models/tacotron.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+              <folding>
+                <element signature="e#0#23#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -435,25 +127,39 @@
       <find>create_model</find>
       <find>from util import log</find>
       <find>cleaners</find>
-      <find>sigproc</find>
       <find>from lib import sigproc</find>
+      <find>cython/</find>
+      <find>cython</find>
       <find>import sigproc</find>
+      <find>from lib import sigproc as sp</find>
       <find>import sigproc as sp</find>
+      <find>sigproc</find>
+      <find>sp.</find>
+      <find>sp</find>
+      <find>hparams</find>
+      <find>hparams_deu</find>
+      <find>from tacotron.utils import symbols</find>
     </findStrings>
     <replaceStrings>
       <replace>export PYTHONPATH=${PYTHONPATH}:${ProjectDir}:${ProjectDir}/straight:${ProjectDir}/pulsemodel:${ProjectDir}/sigproc:${ProjectDir}/pulsemodel/external/REAPER/build</replace>
       <replace>export PYTHONPATH=${PYTHONPATH}:${ProjectDir}:${ProjectDir}/lib:${ProjectDir}/lib/straight:${ProjectDir}/lib/pulsemodel:${ProjectDir}/lib/sigproc:${ProjectDir}/lib/pulsemodel/external/REAPER/build</replace>
       <replace>export PATH=${PATH}:${ProjectDir}/lib/straight/analysis:${ProjectDir}/lib/SPTK-3.7/bin</replace>
       <replace>from infolog import log</replace>
-      <replace>args.variant</replace>
       <replace>import lib.sigproc</replace>
       <replace>import sigproc</replace>
+      <replace>args.variant</replace>
+      <replace>import sigproc as sp</replace>
+      <replace>modules</replace>
       <replace>from lib import sigproc as sp</replace>
+      <replace>from tacotron.utils.symbols import symbols</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/scripts/run</dir>
       <dir>$PROJECT_DIR$/tacotron/models</dir>
       <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/lib/pulsemodel/sigproc</dir>
+      <dir>$PROJECT_DIR$/lib/sigproc</dir>
+      <dir>$PROJECT_DIR$/tacotron</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -475,12 +181,26 @@
         <option value="$PROJECT_DIR$/tacotron/models/__init__.py" />
         <option value="$PROJECT_DIR$/scripts/run/locsens_pml_x_lj.sh" />
         <option value="$PROJECT_DIR$/tacotron/train.py" />
-        <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/tacotron/models/variants/tacotron.py" />
         <option value="$PROJECT_DIR$/tacotron/utils/text.py" />
         <option value="$PROJECT_DIR$/lib/__init__.py" />
         <option value="$PROJECT_DIR$/tacotron/pml_synthesizer.py" />
+        <option value="$PROJECT_DIR$/lib/sigproc/modules/sinusoidal.c" />
+        <option value="$PROJECT_DIR$/lib/sigproc/modules/sinusoidal.pyx" />
+        <option value="$PROJECT_DIR$/lib/sigproc/setup.py" />
+        <option value="$PROJECT_DIR$/lib/pulsemodel/sigproc/__init__.py" />
+        <option value="$PROJECT_DIR$/lib/sigproc/__init__.py" />
+        <option value="$PROJECT_DIR$/lib/sigproc/sigproc_wavstats.py" />
+        <option value="$PROJECT_DIR$/lib/sigproc/sigproc.py" />
+        <option value="$PROJECT_DIR$/lib/sigproc/interfaces.py" />
+        <option value="$PROJECT_DIR$/lib/sigproc/freqwarp.py" />
+        <option value="$PROJECT_DIR$/lib/sigproc/fileio.py" />
+        <option value="$PROJECT_DIR$/lib/sigproc/env.py" />
+        <option value="$PROJECT_DIR$/lib/sigproc/misc.py" />
+        <option value="$PROJECT_DIR$/lib/sigproc/resampling.py" />
         <option value="$PROJECT_DIR$/lib/sigproc/cython/sinusoidal.pyx" />
+        <option value="$PROJECT_DIR$/train.py" />
+        <option value="$PROJECT_DIR$/tacotron/models/tacotron.py" />
       </list>
     </option>
   </component>
@@ -526,18 +246,14 @@
               <item name="tacotron" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="sigproc" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tacotron" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tacotron" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="sigproc" type="462c0819:PsiDirectoryNode" />
               <item name="cython" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tacotron" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tacotron" type="462c0819:PsiDirectoryNode" />
-              <item name="scripts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tacotron" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tacotron" type="462c0819:PsiDirectoryNode" />
-              <item name="scripts" type="462c0819:PsiDirectoryNode" />
-              <item name="run" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="tacotron" type="b2602c69:ProjectViewProjectNode" />
@@ -573,7 +289,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/pulsemodel" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -582,11 +298,14 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/pulsemodel" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/tacotron/models/variants" />
       <recent name="$PROJECT_DIR$/tacotron" />
       <recent name="$PROJECT_DIR$/tacotron/utils" />
-      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
@@ -612,18 +331,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1557332388695</updated>
-      <workItem from="1557332391694" duration="7830000" />
+      <workItem from="1557332391694" duration="12059000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7830000" />
+    <option name="totallyTimeSpent" value="12059000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="27" width="1246" height="1413" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24958263" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24958263" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
@@ -632,7 +352,7 @@
       <window_info anchor="bottom" id="Terminal" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32969603" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -649,72 +369,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="7" lean-forward="true" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/run/restart_pml_tacotron_lj.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/run/locsens_pml_lj.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tacotron/models/variants/tacotron_pml_x.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1173">
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datasets/ljspeech.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/preprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/read_pml.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/infolog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/util/test_audio.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -822,13 +476,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tacotron/models/tacotron.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tacotron/models/rnn_wrappers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -881,26 +528,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tacotron/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="928">
-          <caret line="221" column="27" selection-start-line="221" selection-start-column="27" selection-end-line="221" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="34" lean-forward="true" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tacotron/models/variants/tacotron.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
@@ -908,13 +535,6 @@
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tacotron/utils/symbols.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -938,25 +558,210 @@
     <entry file="file://$PROJECT_DIR$/lib/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/run/lj_restart_tacotron.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="88" selection-start-line="8" selection-end-line="8" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/pulsemodel/sigproc/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#684#705#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sigproc/cython/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/cython/sinusoidal.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/pulsemodel/sigproc/cython/sinusoidal.pyx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+          <folding>
+            <element signature="e#684#715#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/resampling.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="27" column="7" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/interfaces.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
+          <caret line="29" column="7" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
+          <caret line="30" column="7" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
+          <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/freqwarp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/fileio.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
+          <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/cython/sinusoidal.pyx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="38" column="18" lean-forward="true" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
+          <folding>
+            <element signature="e#684#715#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/misc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/env.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="e#684#702#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#684#706#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/sigproc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#684#693#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/sigproc_wavstats.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sigproc/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tacotron/pml_synthesizer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+        <state relative-caret-position="68">
+          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/sigproc/cython/sinusoidal.pyx">
+    <entry file="file://$PROJECT_DIR$/lib/sigproc/resampling.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="29" column="27" lean-forward="true" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+        <state relative-caret-position="442">
+          <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/sigproc/cython/sinusoidal.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="2518" column="33" selection-start-line="2518" selection-start-column="26" selection-end-line="2518" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sigproc/misc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+          <folding>
+            <element signature="e#684#688#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sigproc/cython/sinusoidal.pyx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="16" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hparams.py">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tacotron/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="49" selection-start-line="12" selection-end-line="12" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tacotron/utils/symbols.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tacotron/models/tacotron.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

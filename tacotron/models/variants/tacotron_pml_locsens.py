@@ -1,7 +1,7 @@
 import tensorflow as tf
 from tensorflow.contrib.rnn import GRUCell, MultiRNNCell, OutputProjectionWrapper, ResidualWrapper
 from tensorflow.contrib.seq2seq import BasicDecoder, AttentionWrapper
-from tacotron.utils import symbols
+from tacotron.utils.symbols import symbols
 from infolog import log
 from tacotron.models.attention import LocationSensitiveAttention
 from tacotron.models.helpers import TacoTestHelper, TacoTrainingHelper

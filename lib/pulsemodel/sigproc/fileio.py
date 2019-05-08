@@ -27,9 +27,8 @@ import datetime
 
 import scipy.io
 
-from lib import sigproc as sp
-import resampling
-
+import sigproc as sp
+from . import resampling
 
 def avread(filename):
     '''
@@ -54,7 +53,8 @@ def wavread(filename):
         wav, fs, enc = pysndfile.sndio.read(filename)
     else:
         fs, wav = scipy.io.wavfile.read(filename)
-        wav = wav / float(np.iinfo(wav.dtype).max)
+        if wav.dtype!='float32' and wav.dtype!='float16':
+            wav = wav / float(np.iinfo(wav.dtype).max)
         enc = wav.dtype
 
     return wav, fs, enc
@@ -86,9 +86,11 @@ def wavwrite(filename, wav, fs, enc=None, norm_max_ifneeded=False, norm_max=Fals
         if enc==None: enc='pcm16'
         pysndfile.sndio.write(filename, wav, rate=fs, format='wav', enc=enc)
     else:
-        if enc==None:        enc = np.int16
-        elif enc=='pcm16':   enc = np.int16
-        elif enc=='float32': raise ValueError('float not supported by scipy.io.wavfile')
+        if enc==None: enc = np.int16
+        elif enc=='pcm16':
+            enc = np.int16
+        elif enc=='float32' or enc==dtype('float32'):
+            raise ValueError('float not supported by scipy.io.wavfile')
         wav = wav.copy()
         wav = enc(np.iinfo(enc).max*wav)
         scipy.io.wavfile.write(filename, fs, wav)
@@ -101,7 +103,8 @@ def exportfile( srcf,               # Source file to export
                 highpass_fcut=None, # [Hz] High-pass the waveform according to the given frequency
                 normalize=None,     # [dB] Normalise the overall file amplitude to the given amplitude (e.g. -32dB)
                 aligndelayref=None, # [filepath] Align temporally the source waveform to the given waveform file.
-                usepcm16=False      # Save the waveform using PCM16 sample format
+                usepcm16=False,     # Save the waveform using PCM16 sample format
+                channelid=0         # Use only the first channel (left) if multiple channels are found.
                 ):
 
     orifs = None
@@ -111,6 +114,8 @@ def exportfile( srcf,               # Source file to export
         shutil.copy2(srcf, destf)
     else:
         wav, orifs, enc = wavread(srcf)
+        if len(wav.shape)>1:
+            wav = wav[:,channelid] # Keep only channelid in case multiple tracks are present.
         wavfs = orifs
         ##print("{:10.3f}".format(len(wav)/float(wavfs))+'s '+str(wavfs)+'Hz '+enc)
         if usepcm16:

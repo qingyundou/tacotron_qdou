@@ -108,7 +108,7 @@ def analysis_spec(wav, fs, f0s, shift, dftlen, keeplen=False):
         if ret>0: raise ValueError('ERROR during execution of straight_mcep')
 
         SPEC = np.fromfile(tmpspecfile, dtype='float32')
-        SPEC = SPEC.reshape((-1, int(dftlen/2)+1))
+        SPEC = SPEC.reshape((-1, int(dftlen / 2)+1))
     except:
         if os.path.exists(tmprawwavfile): os.remove(tmprawwavfile)
         if os.path.exists(tmpf0file): os.remove(tmpf0file)
@@ -164,7 +164,7 @@ def analysis_aper(wav, fs, f0s, shift, dftlen):
         if ret>0: raise ValueError('ERROR during execution of straight_bndap')
 
         APER = np.fromfile(tmpaperfile, dtype='float32')
-        APER = APER.reshape((-1, dftlen/2+1))
+        APER = APER.reshape((-1, int(dftlen / 2)+1))
     except:
         if os.path.exists(tmprawwavfile): os.remove(tmprawwavfile)
         if os.path.exists(tmpf0file): os.remove(tmpf0file)
@@ -220,9 +220,9 @@ def analysis(wav, fs, f0s, shift, dftlen):
         os.system(cmd)
 
         SPEC = np.fromfile(tmpspecfile, dtype='float32')
-        SPEC = SPEC.reshape((-1, dftlen/2+1))
+        SPEC = SPEC.reshape((-1, int(dftlen / 2)+1))
         APER = np.fromfile(tmpaperfile, dtype='float32')
-        APER = APER.reshape((-1, dftlen/2+1))
+        APER = APER.reshape((-1, int(dftlen / 2)+1))
     except:
         if os.path.exists(tmprawwavfile): os.remove(tmprawwavfile)
         if os.path.exists(tmpf0file): os.remove(tmpf0file)

@@ -22,7 +22,7 @@ Author
 
 import sys
 
-from lib import sigproc as sp
+import sigproc as sp
 
 if __name__ == "__main__":
     print('Normalise {}'.format(sys.argv[1]))

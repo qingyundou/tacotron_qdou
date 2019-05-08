@@ -41,8 +41,9 @@ import numpy as np
 np.random.seed(123) # Generate always the same "random" numbers, for debugging.
 from scipy import signal as sig
 
-from lib import sigproc as sp, sigproc
-import lib.sigproc.interfaces
+from lib import sigproc as sp
+import sigproc
+import sigproc.interfaces
 
 # Add the path for REAPER f0 estimator
 os.environ["PATH"] += os.pathsep + os.path.join(os.path.split(os.path.realpath(__file__))[0],'external/REAPER/build')
@@ -59,7 +60,7 @@ def analysis_f0postproc(wav, fs, f0s=None, f0_min=60, f0_max=600,
     '''
     if f0s is None:
         # TODO Switch f0 estimator using `f0estimator`
-        f0s = lib.sigproc.interfaces.reaper(wav, fs, shift, f0_min, f0_max)
+        f0s = sigproc.interfaces.reaper(wav, fs, shift, f0_min, f0_max)
 
     # If only values are given, make two column matrix [time[s], value[Hz]] (ljuvela)
     if len(f0s.shape)==1:
@@ -96,7 +97,7 @@ def analysis_spec(wav, fs, f0s,
     Estimate the amplitude spectral envelope.
     '''
 
-    if lib.sigproc.pystraight.isanalysiseavailable():   # pragma: no cover
+    if sigproc.pystraight.isanalysiseavailable():   # pragma: no cover
                                                # Cannot be tested since STRAIGHT
                                                # is not openly available.
         warnings.warn('''\n\nWARNING: straight_mcep is available,
@@ -105,9 +106,9 @@ def analysis_spec(wav, fs, f0s,
         ''', RuntimeWarning)
 
         # Use STRAIGHT's envelope if available (as in PML's publications)
-        SPEC = lib.sigproc.pystraight.analysis_spec(wav, fs, f0s, shift, dftlen, keeplen=True)
+        SPEC = sigproc.pystraight.analysis_spec(wav, fs, f0s, shift, dftlen, keeplen=True)
 
-    elif lib.sigproc.interfaces.worldvocoder_is_available():
+    elif sigproc.interfaces.worldvocoder_is_available():
 
         # Then try WORLD vocoder
         import pyworld

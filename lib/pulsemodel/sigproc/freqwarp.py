@@ -21,8 +21,8 @@ Author
 import os
 import numpy as np
 
-from lib import sigproc as sp
-import misc
+import sigproc as sp
+from . import misc
 
 def bark_alpha(fs):
     '''
@@ -53,10 +53,10 @@ def loghspec2fwcep(C, fs, order=-1):
     dftlen = (len(C)-1)*2
 
     if order==-1:
-        order = dftlen/2
+        order = int(dftlen / 2)
 
     # Compute the warping function
-    freqlin = fs*np.arange(dftlen/2+1)/dftlen
+    freqlin = fs*np.arange(int(dftlen / 2) + 1)/dftlen
     freqmel = 0.5*fs*sp.lin2mel(freqlin)/sp.lin2mel(0.5*fs)
 
     # Warp the spectrum
@@ -89,13 +89,13 @@ def fwcep2loghspec(fwcep, fs, dftlen):
     '''
 
     if len(fwcep.shape)>1:
-        C = np.zeros((fwcep.shape[0], dftlen/2+1))
+        C = np.zeros((fwcep.shape[0], int(dftlen / 2) + 1))
         for n in range(C.shape[0]):
             C[n,:] = fwcep2loghspec(fwcep[n,:], fs, dftlen)
         return C
 
     # Compute the warping function
-    freqlin = fs*np.arange(dftlen/2+1)/dftlen
+    freqlin = fs*np.arange(int(dftlen / 2) + 1)/dftlen
     freqmel = 0.5*fs*sp.lin2mel(freqlin)/sp.lin2mel(0.5*fs)
 
     # Decode the spectrum from the cepstral coefficients
@@ -113,7 +113,7 @@ def linbnd2fwbnd(X, fs, dftlen, nbbnds):
     '''
 
     # Compute the warping function
-    freqlin = fs*np.arange(dftlen/2+1)/dftlen
+    freqlin = fs*np.arange(int(dftlen / 2) + 1)/dftlen
     freqmel = 0.5*fs*sp.lin2mel(freqlin)/sp.lin2mel(0.5*fs)
 
     # Warp the spectrum
@@ -123,8 +123,8 @@ def linbnd2fwbnd(X, fs, dftlen, nbbnds):
         Y = np.interp(freqlin, freqmel, X[t,:])
         # Split in multiple bands
         for k in np.arange(nbbnds):
-            ids = int((float(k)/nbbnds)*(dftlen/2+1))
-            ide = int((float(k+1)/nbbnds)*(dftlen/2+1))
+            ids = int((float(k)/nbbnds)*(int(dftlen / 2) + 1))
+            ide = int((float(k+1)/nbbnds)*(int(dftlen / 2) + 1))
             Z[t,k] = np.mean(Y[ids:ide])
 
     return Z
@@ -134,7 +134,7 @@ def freq2fwspecidx(freq, fs, nbbnds, dftlen=4096):
     Retrieve the closest index to a frequency in frequency-warped spectrum.
     '''
     # TODO That's a bit whatever, should just use sp.lin2mel, bcs linbnd2fwbnd is actually averaging values in bands
-    FF = fs*np.arange(dftlen/2+1)/float(dftlen)
+    FF = fs*np.arange(int(dftlen / 2) + 1)/float(dftlen)
     fwFF = linbnd2fwbnd(FF[np.newaxis,:], fs, dftlen, nbbnds)
     return np.min(np.where(fwFF>freq)[1])
 
@@ -146,22 +146,22 @@ def fwbnd2linbnd(Z, fs, dftlen, smooth=False):
     nbbnds = Z.shape[1]
 
     # Compute the warping function
-    freqlin = fs*np.arange(dftlen/2+1)/dftlen
+    freqlin = fs*np.arange(int(dftlen / 2) + 1)/dftlen
     freqmel = 0.5*fs*sp.lin2mel(freqlin)/sp.lin2mel(0.5*fs)
 
     # Warp the spectrum
-    X = np.zeros((Z.shape[0],dftlen/2+1))
+    X = np.zeros((Z.shape[0],int(dftlen / 2) + 1))
     for t in np.arange(X.shape[0]):
 
         # Decode the mel spectral data from the bands
         for k in np.arange(nbbnds):
-            ids = int((float(k)/nbbnds)*(dftlen/2+1))
-            ide = int((float(k+1)/nbbnds)*(dftlen/2+1))
+            ids = int((float(k)/nbbnds)*(int(dftlen / 2) + 1))
+            ide = int((float(k+1)/nbbnds)*(int(dftlen / 2) + 1))
             X[t,ids:ide] = Z[t,k]
 
         if smooth:
             rcc = np.fft.irfft(X[t,:])
-            rcc = rcc[:dftlen/2+1]
+            rcc = rcc[:int(dftlen / 2) + 1]
             rcc[1:] *= 2
             rcc = rcc[:nbbnds]
             X[t,:] = np.real(np.fft.rfft(rcc, dftlen))
@@ -211,7 +211,7 @@ def mcep2spec(MCEP, alpha, dftlen):
         ret = os.system(cmd)
         if ret>0: raise ValueError('ERROR during execution of mgc2sp')
         SPEC = np.fromfile(outspecfile, dtype=np.float32)
-        SPEC = SPEC.reshape((-1, dftlen/2+1))
+        SPEC = SPEC.reshape((-1, int(dftlen / 2) + 1))
     except:
         if os.path.exists(tmpspecfile): os.remove(tmpspecfile)
         if os.path.exists(outspecfile): os.remove(outspecfile)

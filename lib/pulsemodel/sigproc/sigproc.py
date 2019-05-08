@@ -18,20 +18,16 @@ Author
     Gilles Degottex <gad27@cam.ac.uk>
 '''
 
-import sys
 import os
-import errno
 import getpass
 import uuid
 import numpy as np
-import warnings
 
-import misc
-import resampling
+from . import misc, resampling
 
 use_pysndfile = False
 if use_pysndfile:
-    import pysndfile
+    pass
 else:
     import scipy.io.wavfile
 
@@ -97,7 +93,7 @@ def spec_ener(S):
 
 # delay [samples]
 def spec_delay(delay, dftlen):
-    return np.exp((delay*2j*np.pi/dftlen)*np.arange(dftlen/2+1))
+    return np.exp((delay*2j*np.pi/dftlen)*np.arange(int(dftlen / 2) + 1))
 
 
 # Circular mean from phase gravity center
@@ -132,7 +128,7 @@ def butter2hspec(fc, o, fs, dftlen, high=False):
     fs: sampling frequency [Hz]
     '''
 
-    F = fs*np.arange(dftlen/2+1)/dftlen
+    F = fs*np.arange(int(dftlen / 2) + 1)/dftlen
     H = 1.0/np.sqrt(1.0 + (F/fc)**(2*o))
 
     if high:
@@ -145,7 +141,7 @@ def hspec2minphasehspec(X, replacezero=False):
         X[X==0.0] = np.finfo(X[0]).resolution
     dftlen = (len(X)-1)*2
     cc = np.fft.irfft(np.log(X))
-    cc = cc[:dftlen/2+1]
+    cc = cc[:int(dftlen / 2) + 1]
     cc[1:-1] *= 2
     return np.exp(np.fft.rfft(cc, dftlen))
 
@@ -253,7 +249,7 @@ def align_delay(wav, fs, refwav, reffs):
     cc = np.fft.fftshift(np.fft.irfft(CC))
 
     # Get the delay
-    delayi = np.argmax(cc)-dftlen/2
+    delayi = np.argmax(cc)-int(dftlen / 2)
 
     if delayi<0:
         aligned = wav[int(-delayi):]

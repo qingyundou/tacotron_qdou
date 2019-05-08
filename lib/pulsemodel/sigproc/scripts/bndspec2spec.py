@@ -25,7 +25,7 @@ import argparse
 import numpy as np
 
 sys.path.append('/home/degottex/Research/CUED/Code')
-from lib import sigproc as sp
+import sigproc as sp
 
 if  __name__ == "__main__" :
 

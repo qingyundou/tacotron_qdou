@@ -97,7 +97,7 @@ class TestSmoke(unittest.TestCase):
         dftlen = 512
 
         from lib import pulsemodel
-        from lib import sigproc as sp
+        import sigproc as sp
 
         wav, fs, _ = sp.wavread('test/'+fname)
 

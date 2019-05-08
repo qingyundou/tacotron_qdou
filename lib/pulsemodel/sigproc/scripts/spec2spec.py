@@ -37,7 +37,7 @@ if  __name__ == "__main__" :
     args, unknown = argpar.parse_known_args()
 
     SPEC = np.fromfile(args.intspecfile, dtype=np.float32)
-    SPEC = SPEC.reshape((-1, int(args.dftlen/2)+1))
+    SPEC = SPEC.reshape((-1, int(args.dftlen / 2)+1))
     RSPEC = np.zeros((SPEC.shape[0], int(args.outdftlen/2)+1))
     for n in xrange(SPEC.shape[0]):
         rcc = np.fft.irfft(np.log(abs(SPEC[n,:])))

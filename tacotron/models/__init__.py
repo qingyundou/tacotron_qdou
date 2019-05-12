@@ -4,12 +4,15 @@ from tacotron.models.variants.tacotron_pml import TacotronPML
 from tacotron.models.variants.tacotron_pml_x import TacotronPMLExtended
 from tacotron.models.variants.tacotron_pml_postnet import TacotronPMLPostnet
 from tacotron.models.variants.tacotron_pml_locsens import TacotronPMLLocSens
+from tacotron.models.variants.tacotron_simpl import TacotronPMLSimplifiedLocSens
 from .tacotron import TacotronPMLExtendedLocSens
 
 
 def create_model(name, hparams):
   if name == 'tacotron':
     return TacotronPMLExtendedLocSens(hparams)
+  elif name == 'tacotron_simpl':
+    return TacotronPMLSimplifiedLocSens(hparams)
   elif name == 'tacotron_orig':
     return Tacotron(hparams)
   elif name == 'tacotron_pml':

@@ -26,10 +26,27 @@ hparams = tf.contrib.training.HParams(
   postnet_depth=256,
   attention_depth=256,
   decoder_depth=256,
+
+  # Simplified Model Features
+  # Embedding:
+  embedding_dim=512,
+  # Encoder:
+  encoder_conv_layers=3,
+  encoder_conv_width=5,
+  encoder_conv_channels=512,
+  encoder_gru_units=256,  # for each direction
+  # Decoder:
+  decoder_gru_layers=1,
+  decoder_gru_units=1024,
   # Postnet:
   postnet_conv_layers=5,
   postnet_conv_width=5,
   postnet_conv_channels=512,
+  # Expand Network
+  expand_conv_layers=5,
+  expand_conv_width=5,
+  expand_conv_channels=512,
+  expand_gru_units=256,  # for each direction
 
   # Training:
   batch_size=32,

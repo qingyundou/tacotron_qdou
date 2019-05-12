@@ -15,7 +15,8 @@ class TacotronPMLExtendedLocSens():
     self._hparams = hparams
 
 
-  def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None):
+  def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None,
+                 is_training=False, gta=False):
     '''Initializes the model for inference.
 
     Sets "mel_outputs", "linear_outputs", and "alignments" fields.
@@ -34,9 +35,10 @@ class TacotronPMLExtendedLocSens():
       pml_targets: float32 Tensor with shape [N, T_out, P] where N is batch_size, T_out is number of
         steps in the PML vocoder features trajectories, P is pml_dimension, and values are PML vocoder
         features. Only needed for training.
+      is_training: boolean flag that is set to True during training
+      gta: boolean flag that is set to True when ground truth alignment is required
     '''
     with tf.variable_scope('inference') as scope:
-      is_training = pml_targets is not None
       batch_size = tf.shape(inputs)[0]
       hp = self._hparams
 
@@ -75,7 +77,7 @@ class TacotronPMLExtendedLocSens():
       output_cell = OutputProjectionWrapper(decoder_cell, hp.pml_dimension * hp.outputs_per_step)
       decoder_init_state = output_cell.zero_state(batch_size=batch_size, dtype=tf.float32)
 
-      if is_training:
+      if is_training or gta:
         helper = TacoTrainingHelper(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step)
       else:
         helper = TacoTestHelper(batch_size, hp.pml_dimension, hp.outputs_per_step)
@@ -102,16 +104,18 @@ class TacotronPMLExtendedLocSens():
       self.alignments = alignments
       self.pml_targets = pml_targets
       log('Initialized Tacotron model. Dimensions: ')
-      log('  embedding:               %d' % embedded_inputs.shape[-1])
-      log('  prenet out:              %d' % prenet_outputs.shape[-1])
-      log('  encoder out:             %d' % encoder_outputs.shape[-1])
-      log('  attention out:           %d' % attention_cell.output_size)
-      log('  concat attn & out:       %d' % concat_cell.output_size)
-      log('  decoder cell out:        %d' % decoder_cell.output_size)
-      log('  decoder out (%d frames):  %d' % (hp.outputs_per_step, decoder_outputs.shape[-1]))
-      log('  decoder out (1 frame):   %d' % pml_intermediates.shape[-1])
-      log('  postnet out:             %d' % post_outputs.shape[-1])
-      log('  pml out:                 %d' % pml_outputs.shape[-1])
+      log('  Train mode:              {}'.format(is_training))
+      log('  GTA mode:                {}'.format(is_training))
+      log('  Embedding:               {}'.format(embedded_inputs.shape[-1]))
+      log('  Prenet out:              {}'.format(prenet_outputs.shape[-1]))
+      log('  Encoder out:             {}'.format(encoder_outputs.shape[-1]))
+      log('  Attention out:           {}'.format(attention_cell.output_size))
+      log('  Concat attn & out:       {}'.format(concat_cell.output_size))
+      log('  Decoder cell out:        {}'.format(decoder_cell.output_size))
+      log('  Decoder out ({} frames):  {}'.format(hp.outputs_per_step, decoder_outputs.shape[-1]))
+      log('  Decoder out (1 frame):   {}'.format(pml_intermediates.shape[-1]))
+      log('  Postnet out:             {}'.format(post_outputs.shape[-1]))
+      log('  PML out:                 {}'.format(pml_outputs.shape[-1]))
 
 
   def add_loss(self):

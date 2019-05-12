@@ -77,19 +77,22 @@ def run_synthesis(args, checkpoint_path, output_dir, hparams):
         log('Loaded metadata for %d examples (%.2f hours)' % (len(metadata), hours))
 
     log('Starting Synthesis')
-    pml_dir = os.path.join(args.input_dir, 'mels')
+    pml_dir = os.path.join(args.input_dir, 'pmls')
     wav_dir = os.path.join(args.input_dir, 'wavs')
 
     with open(os.path.join(synth_dir, 'map.txt'), 'w') as file:
         for i, meta in enumerate(tqdm(metadata)):
             texts = [m[5] for m in meta]
-            mel_filenames = [os.path.join(pml_dir, m[1]) for m in meta]
+            pml_filenames = [os.path.join(pml_dir, m[1]) for m in meta]
             wav_filenames = [os.path.join(wav_dir, m[0]) for m in meta]
-            basenames = [os.path.basename(m).replace('.npy', '').replace('mel-', '') for m in mel_filenames]
-            mel_output_filenames, speaker_ids = synth.synthesize(texts, basenames, synth_dir, None, mel_filenames)
+            basenames = [os.path.basename(p).replace('.npy', '').replace('pml-', '') for p in pml_filenames]
+            pml_output_filenames, speaker_ids = synth.synthesize(texts, basenames, synth_dir, None, pml_filenames)
 
-            for elems in zip(wav_filenames, mel_filenames, mel_output_filenames, speaker_ids, texts):
+            for elems in zip(wav_filenames, pml_filenames, pml_output_filenames, speaker_ids, texts):
                 file.write('|'.join([str(x) for x in elems]) + '\n')
+
+    log('Synthesized PML features at {}'.format(synth_dir))
+    return os.path.join(synth_dir, 'map.txt')
 
 
 def main():

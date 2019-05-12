@@ -2,33 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99777bf0-4bd8-4738-82c5-90e41c355dac" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/ljspeech.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/ljspeech.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hparams.py" beforeDir="false" afterPath="$PROJECT_DIR$/hparams.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/preprocess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/locsens_pml_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/locsens_pml_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/locsens_pml_x_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/locsens_pml_x_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/mel_pml_lj_restart_tacotron.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/mel_pml_lj_restart_tacotron.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/mel_pml_lj_tacotron.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/mel_pml_lj_tacotron.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/pml_tacotron_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/pml_tacotron_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/pml_tacotron_lj_checkpoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/pml_tacotron_lj_checkpoint.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/pml_tacotron_nick.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/pml_tacotron_nick.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/postnet_pml_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/postnet_pml_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/restart_pml_tacotron_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/restart_pml_tacotron_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/resume_postnet_pml_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/resume_postnet_pml_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/tacotron_pml_x_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/tacotron_pml_x_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/run/tacotron_restart_pml_x_lj.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run/tacotron_restart_pml_x_lj.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tacotron/datafeeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/datafeeder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tacotron/eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/eval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tacotron/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tacotron/models/attention.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/attention.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tacotron/models/modules.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/modules.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tacotron/models/rnn_wrappers.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/rnn_wrappers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tacotron/models/tacotron.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/models/tacotron.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tacotron/pml_synthesizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/pml_synthesizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tacotron/synthesizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/synthesizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tacotron/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,61 +11,29 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="vertical" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/datasets/__init__.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17">
-                  <caret line="1" column="7" selection-start-line="1" selection-end-line="1" selection-end-column="7" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tacotron/eval.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1224">
-                  <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
-                  <folding>
-                    <element signature="e#0#15#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/tacotron/datafeeder.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="425">
-                  <caret line="130" column="39" selection-start-line="130" selection-start-column="39" selection-end-line="130" selection-end-column="39" />
-                  <folding>
-                    <element signature="e#0#18#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/datasets/ljspeech.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="438">
-                  <caret line="101" column="25" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="25" />
-                  <folding>
-                    <element signature="e#0#50#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datasets/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="7" selection-start-line="1" selection-end-line="1" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tacotron/eval.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="331">
+              <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -201,11 +143,11 @@
         <option value="$PROJECT_DIR$/tacotron/models/__init__.py" />
         <option value="$PROJECT_DIR$/tacotron/models/variants/tacotron_simpl.py" />
         <option value="$PROJECT_DIR$/scripts/run/simplified_pml_lj.sh" />
-        <option value="$PROJECT_DIR$/tacotron/eval.py" />
         <option value="$PROJECT_DIR$/datasets/__init__.py" />
         <option value="$PROJECT_DIR$/datasets/ljspeech.py" />
         <option value="$PROJECT_DIR$/tacotron/train.py" />
         <option value="$PROJECT_DIR$/tacotron/datafeeder.py" />
+        <option value="$PROJECT_DIR$/tacotron/eval.py" />
       </list>
     </option>
   </component>
@@ -320,12 +262,12 @@
       <updated>1557332388695</updated>
       <workItem from="1557332391694" duration="13101000" />
       <workItem from="1557398129517" duration="8253000" />
-      <workItem from="1557661282451" duration="6150000" />
+      <workItem from="1557661282451" duration="8182000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27504000" />
+    <option name="totallyTimeSpent" value="29536000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="27" width="1247" height="1411" extended-state="0" />
@@ -342,7 +284,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32943013" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32969603" />
       <window_info anchor="bottom" id="Terminal" order="11" />
@@ -446,19 +388,6 @@
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tacotron/synthesizer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tacotron/synthesize.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/tacotron/pml_synthesizer.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -649,16 +578,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tacotron/eval.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/datasets/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -678,10 +597,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tacotron/datafeeder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="130" column="39" selection-start-line="130" selection-start-column="39" selection-end-line="130" selection-end-column="39" />
+        <state relative-caret-position="416">
+          <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tacotron/synthesize.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tacotron/synthesizer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tacotron/eval.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -41,9 +41,8 @@ import numpy as np
 np.random.seed(123) # Generate always the same "random" numbers, for debugging.
 from scipy import signal as sig
 
-from lib import sigproc as sp
-import sigproc
-import sigproc.interfaces
+from lib import sigproc
+from lib.sigproc import interfaces
 
 # Add the path for REAPER f0 estimator
 os.environ["PATH"] += os.pathsep + os.path.join(os.path.split(os.path.realpath(__file__))[0],'external/REAPER/build')

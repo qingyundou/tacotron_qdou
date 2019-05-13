@@ -25,7 +25,7 @@ import numpy as np
 
 import scipy.signal
 
-import sigproc
+from lib import sigproc
 from . import fileio, misc, resampling
 
 def worldvocoder_is_available():

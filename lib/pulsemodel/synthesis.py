@@ -53,7 +53,7 @@ import numpy as np
 np.random.seed(123) # Generate always the same "random" numbers, for debugging.
 import scipy
 
-import sigproc as sp
+from lib import sigproc as sp
 
 
 def getwinlen(f0, fs, nbper):

@@ -133,12 +133,12 @@ class TacotronPMLSimplifiedLocSens():
     def add_loss(self):
         """Adds loss to the model. Sets "loss" field. initialize must have been called."""
         with tf.variable_scope('loss') as scope:
-            # self.pml_intermediate_loss = tf.reduce_mean(tf.abs(self.pml_targets - self.pml_intermediates))
-            # self.pml_loss = tf.reduce_mean(tf.abs(self.pml_targets - self.pml_outputs))
-            # self.loss = self.pml_intermediate_loss + self.pml_loss
+            self.pml_intermediate_loss = tf.reduce_mean(tf.abs(self.pml_targets - self.pml_intermediates))
+            self.pml_loss = tf.reduce_mean(tf.abs(self.pml_targets - self.pml_outputs))
+            self.loss = self.pml_intermediate_loss + self.pml_loss
 
             # compute a simple mean squared error loss on PML targets
-            self.loss = tf.losses.mean_squared_error(self.pml_targets, self.pml_outputs)
+            # self.loss = tf.losses.mean_squared_error(self.pml_targets, self.pml_outputs)
 
     def add_optimizer(self, global_step):
         """

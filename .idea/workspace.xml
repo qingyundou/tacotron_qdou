@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99777bf0-4bd8-4738-82c5-90e41c355dac" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/tacotron/eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/eval.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hparams.py" beforeDir="false" afterPath="$PROJECT_DIR$/hparams.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/preprocess.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tacotron/eval.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tacotron/synthesize.py" beforeDir="false" afterPath="$PROJECT_DIR$/tacotron/synthesize.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,23 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/datasets/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="7" selection-start-line="1" selection-end-line="1" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tacotron/eval.py">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="493">
+              <caret line="29" column="20" lean-forward="true" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -44,14 +38,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>placeholde</find>
-      <find>pml</find>
-      <find>linear_targets</find>
-      <find>tf.placeholder</find>
-      <find>pml_output</find>
-      <find>get_next_example</find>
-      <find>examples</find>
-      <find>length</find>
       <find>targets</find>
       <find>prepare_targets</find>
       <find>_pad</find>
@@ -74,6 +60,14 @@
       <find>--m</find>
       <find>specto</find>
       <find>args.model</find>
+      <find>__reduce__cyth</find>
+      <find>__reduce__cytho</find>
+      <find>sigproc</find>
+      <find>import sigproc</find>
+      <find>eval.py</find>
+      <find>sentences</find>
+      <find>CPP_M</find>
+      <find>hparams_</find>
     </findStrings>
     <replaceStrings>
       <replace>export PYTHONPATH=${PYTHONPATH}:${ProjectDir}:${ProjectDir}/straight:${ProjectDir}/pulsemodel:${ProjectDir}/sigproc:${ProjectDir}/pulsemodel/external/REAPER/build</replace>
@@ -93,11 +87,12 @@
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/tacotron/models</dir>
-      <dir>$PROJECT_DIR$</dir>
       <dir>$PROJECT_DIR$/lib/pulsemodel/sigproc</dir>
-      <dir>$PROJECT_DIR$/lib/sigproc</dir>
       <dir>$PROJECT_DIR$/tacotron</dir>
       <dir>$PROJECT_DIR$/scripts/run</dir>
+      <dir>$PROJECT_DIR$/lib</dir>
+      <dir>$PROJECT_DIR$/lib/sigproc</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -123,7 +118,6 @@
         <option value="$PROJECT_DIR$/lib/sigproc/__init__.py" />
         <option value="$PROJECT_DIR$/lib/sigproc/sigproc_wavstats.py" />
         <option value="$PROJECT_DIR$/lib/sigproc/sigproc.py" />
-        <option value="$PROJECT_DIR$/lib/sigproc/interfaces.py" />
         <option value="$PROJECT_DIR$/lib/sigproc/freqwarp.py" />
         <option value="$PROJECT_DIR$/lib/sigproc/fileio.py" />
         <option value="$PROJECT_DIR$/lib/sigproc/env.py" />
@@ -134,12 +128,10 @@
         <option value="$PROJECT_DIR$/tacotron/models/tacotron.py" />
         <option value="$PROJECT_DIR$/tacotron/pml_synthesizer.py" />
         <option value="$PROJECT_DIR$/tacotron/synthesizer.py" />
-        <option value="$PROJECT_DIR$/preprocess.py" />
         <option value="$PROJECT_DIR$/tacotron/models/attention.py" />
         <option value="$PROJECT_DIR$/tacotron/models/tacotron_simpl.py" />
         <option value="$PROJECT_DIR$/tacotron/models/modules.py" />
         <option value="$PROJECT_DIR$/tacotron/models/rnn_wrappers.py" />
-        <option value="$PROJECT_DIR$/hparams.py" />
         <option value="$PROJECT_DIR$/tacotron/models/__init__.py" />
         <option value="$PROJECT_DIR$/tacotron/models/variants/tacotron_simpl.py" />
         <option value="$PROJECT_DIR$/scripts/run/simplified_pml_lj.sh" />
@@ -147,15 +139,24 @@
         <option value="$PROJECT_DIR$/datasets/ljspeech.py" />
         <option value="$PROJECT_DIR$/tacotron/train.py" />
         <option value="$PROJECT_DIR$/tacotron/datafeeder.py" />
+        <option value="$PROJECT_DIR$/lib/pulsemodel/synthesis.py" />
+        <option value="$PROJECT_DIR$/lib/pulsemodel/analysis.py" />
+        <option value="$PROJECT_DIR$/lib/sigproc/interfaces.py" />
         <option value="$PROJECT_DIR$/tacotron/eval.py" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/preprocess.py" />
+        <option value="$PROJECT_DIR$/hparams.py" />
+        <option value="$PROJECT_DIR$/tacotron/synthesize.py" />
+        <option value="$PROJECT_DIR$/synthesize.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="4">
     <option name="x" value="67" />
-    <option name="y" value="27" />
+    <option name="y" value="25" />
     <option name="width" value="1247" />
-    <option name="height" value="1411" />
+    <option name="height" value="1413" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -165,6 +166,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -210,19 +212,19 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="add_unversioned_files" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts/run" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -263,28 +265,31 @@
       <workItem from="1557332391694" duration="13101000" />
       <workItem from="1557398129517" duration="8253000" />
       <workItem from="1557661282451" duration="8182000" />
+      <workItem from="1557744895353" duration="1534000" />
+      <workItem from="1557827506556" duration="2524000" />
+      <workItem from="1557830053388" duration="43000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29536000" />
+    <option name="totallyTimeSpent" value="33637000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="27" width="1247" height="1411" extended-state="0" />
+    <frame x="67" y="25" width="1247" height="1413" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2585488" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2735613" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32969603" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3291829" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32943013" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.3289166" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32969603" />
       <window_info anchor="bottom" id="Terminal" order="11" />
@@ -300,37 +305,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/scripts/run/lj_restart_tacotron.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="88" selection-start-line="8" selection-end-line="8" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/pulsemodel/sigproc/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-          <folding>
-            <element signature="e#684#705#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/sigproc/cython/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/sigproc/cython/sinusoidal.c" />
-    <entry file="file://$PROJECT_DIR$/lib/pulsemodel/sigproc/cython/sinusoidal.pyx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
-          <folding>
-            <element signature="e#684#715#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sigproc/resampling.py" />
-    <entry file="file://$PROJECT_DIR$/sigproc/interfaces.py" />
     <entry file="file://$PROJECT_DIR$/sigproc/freqwarp.py" />
     <entry file="file://$PROJECT_DIR$/sigproc/fileio.py" />
     <entry file="file://$PROJECT_DIR$/sigproc/cython/sinusoidal.pyx" />
@@ -383,16 +357,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="963">
           <caret line="75" column="33" selection-start-line="75" selection-start-column="26" selection-end-line="75" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tacotron/pml_synthesizer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="59" column="34" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -472,13 +436,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hparams.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="48" column="45" selection-start-line="48" selection-start-column="45" selection-end-line="48" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tacotron/models/variants/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -499,16 +456,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/run/mel_pml_lj_restart_tacotron.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -520,16 +467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="26" column="27" lean-forward="true" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/preprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="48" column="79" selection-start-line="48" selection-start-column="79" selection-end-line="48" selection-end-column="79" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -568,33 +505,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tacotron/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="36" column="40" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datasets/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="7" selection-start-line="1" selection-end-line="1" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datasets/ljspeech.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="101" column="25" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tacotron/datafeeder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -605,8 +515,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tacotron/synthesize.py">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/lib/pulsemodel/analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="44" column="7" lean-forward="true" selection-start-line="44" selection-start-column="7" selection-end-line="44" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sigproc/interfaces.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="30" column="32" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
+          <folding>
+            <element signature="e#684#693#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/pulsemodel/synthesis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="44" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tacotron/pml_synthesizer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datasets/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="7" selection-start-line="1" selection-end-line="1" selection-end-column="7" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tacotron/synthesizer.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -618,13 +563,89 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tacotron/eval.py">
+    <entry file="file://$PROJECT_DIR$/tacotron/eval.py" />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="482">
+            <caret line="136" column="6" lean-forward="true" selection-start-line="136" selection-start-column="6" selection-end-line="136" selection-end-column="6" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preprocess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
+        <state relative-caret-position="765">
+          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datasets/ljspeech.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1644">
+          <caret line="101" column="25" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_sentences.txt" />
+    <entry file="file://$PROJECT_DIR$/hparams.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1029">
+          <caret line="63" column="27" lean-forward="true" selection-start-line="63" selection-start-column="27" selection-end-line="63" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tacotron/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="938">
+          <caret line="232" column="58" selection-start-line="232" selection-start-column="58" selection-end-line="232" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="39" lean-forward="true" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tacotron/synthesize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="751">
+          <caret line="75" column="34" selection-start-line="75" selection-start-column="34" selection-end-line="75" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/synthesize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="29" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="20" lean-forward="true" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
         </state>
       </provider>
     </entry>

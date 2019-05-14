@@ -12,7 +12,10 @@ def preprocess_blizzard(args):
     out_dir = os.path.join(args.base_dir, args.output)
     os.makedirs(out_dir, exist_ok=True)
     metadata = blizzard.build_from_path(in_dir, out_dir, args.num_workers, tqdm=tqdm)
-    write_metadata(metadata, out_dir)
+    write_metadata(metadata[:-args.validation_size], out_dir)
+
+    if args.validation_size > 0:
+        write_validation(metadata[-args.validation_size:], out_dir)
 
 
 def preprocess_ljspeech(args):
@@ -20,7 +23,10 @@ def preprocess_ljspeech(args):
     out_dir = os.path.join(args.base_dir, args.output)
     os.makedirs(out_dir, exist_ok=True)
     metadata = ljspeech.build_from_path(in_dir, out_dir, args.num_workers, tqdm=tqdm)
-    write_metadata(metadata, out_dir)
+    write_metadata(metadata[:-args.validation_size], out_dir)
+
+    if args.validation_size > 0:
+        write_validation(metadata[-args.validation_size:], out_dir)
 
 
 def preprocess_nick(args):
@@ -28,11 +34,14 @@ def preprocess_nick(args):
     out_dir = os.path.join(args.base_dir, args.output)
     os.makedirs(out_dir, exist_ok=True)
     metadata = nick.build_from_path(in_dir, out_dir, args.num_workers, tqdm=tqdm)
-    write_metadata(metadata, out_dir)
+    write_metadata(metadata[:-args.validation_size], out_dir)
+
+    if args.validation_size > 0:
+        write_validation(metadata[-args.validation_size:], out_dir)
 
 
-def write_metadata(metadata, out_dir):
-    with open(os.path.join(out_dir, 'train.txt'), 'w', encoding='utf-8') as f:
+def write_metadata(metadata, out_dir, filename='train.txt'):
+    with open(os.path.join(out_dir, filename), 'w', encoding='utf-8') as f:
         for m in metadata:
             f.write('|'.join([str(x) for x in m]) + '\n')
     frames = sum([m[2] for m in metadata])
@@ -40,6 +49,12 @@ def write_metadata(metadata, out_dir):
     log('Wrote %d utterances, %d frames (%.2f hours)' % (len(metadata), frames, hours))
     log('Max input length:  %d' % max(len(m[5]) for m in metadata))
     log('Max output length: %d' % max(m[2] for m in metadata))
+
+
+def write_validation(metadata, out_dir, filename='validation.txt'):
+    with open(os.path.join(out_dir, filename), 'w', encoding='utf-8') as f:
+        for m in metadata:
+            f.write('|'.join([str(x) for x in m]) + '\n')
 
 
 def main():
@@ -50,6 +65,7 @@ def main():
     parser.add_argument('--num_workers', type=int, default=cpu_count())
     parser.add_argument('--hparams', default='',
                         help='Hyperparameter overrides as a comma-separated list of name=value pairs')
+    parser.add_argument('--validation_size', type=int, default=0)
 
     args = parser.parse_args()
     hparams.parse(args.hparams)

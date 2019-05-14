@@ -131,9 +131,9 @@ Pull requests are welcome!
    ```
    Replace "185000" with the checkpoint number that you want to use, then open a browser
    to `localhost:9000` and type what you want to speak. Alternately, you can
-   run [eval.py](tacotron/eval.py) at the command line:
+   run [synthesize.py](tacotron/synthesize.py) at the command line:
    ```
-   python3 eval.py --checkpoint ~/tacotron/logs-tacotron/model.ckpt-185000
+   python3 synthesize.py --checkpoint ~/tacotron/logs-tacotron/model.ckpt-185000
    ```
    If you set the `--hparams` flag when training, set the same value here.
 

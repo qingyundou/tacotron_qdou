@@ -1,3 +1,9 @@
+"""
+Example usage:
+
+python synthesize.py --checkpoint ~/tacotron/logs-tacotron-pml-x-lj/model.ckpt-131000 --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5" --mode synthesis
+"""
+
 import argparse
 import os
 from hparams import hparams
@@ -26,6 +32,11 @@ def main():
     parser.add_argument('--gta', default='True',
                         help='Ground truth aligned synthesis, defaults to True, only considered in synthesis mode')
     parser.add_argument('--mode', default='eval', help='Mode of synthesis run, can be one of {}'.format(accepted_modes))
+    parser.add_argument('--text_list', default='',
+                        help='Text file contains list of texts to be synthesized. Valid if mode=eval')
+    parser.add_argument('--output_dir', default='output', help='Folder to contain synthesized PML features')
+    parser.add_argument('--input_dir', default='training', help='folder to contain inputs sentences/targets')
+    parser.add_argument('--base_dir', default='')
     args = parser.parse_args()
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     hparams.parse(args.hparams)

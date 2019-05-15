@@ -52,7 +52,7 @@ def run_synthesis(args, checkpoint_path, output_dir, hparams):
         # create the output path if it does not exist
         os.makedirs(synth_dir, exist_ok=True)
 
-    metadata_filename = os.path.join(args.input_dir, 'train.txt')
+    metadata_filename = os.path.join(args.base_dir, args.input_dir, 'train.txt')
     log(hparams_debug_string())
 
     synth = PMLSynthesizer()
@@ -64,8 +64,8 @@ def run_synthesis(args, checkpoint_path, output_dir, hparams):
         log('Loaded metadata for %d examples (%.2f hours)' % (len(metadata), hours))
 
     log('Starting Synthesis')
-    pml_dir = os.path.join(args.input_dir, 'pmls')
-    wav_dir = os.path.join(args.input_dir, 'wavs')
+    pml_dir = os.path.join(args.base_dir, args.input_dir, 'pmls')
+    wav_dir = os.path.join(args.base_dir, args.input_dir, 'wavs')
 
     with open(os.path.join(synth_dir, 'map.txt'), 'w') as file:
         for i, meta in enumerate(tqdm(metadata)):
@@ -84,13 +84,6 @@ def run_synthesis(args, checkpoint_path, output_dir, hparams):
 
 def tacotron_synthesize(args, hparams, checkpoint, sentences=None):
     output_dir = 'tacotron_' + args.output_dir
-
-    # check the checkpoint path is working correctly
-    try:
-        checkpoint_path = tf.train.get_checkpoint_state(checkpoint).model_checkpoint_path
-        log('Loaded model at {}'.format(checkpoint_path))
-    except:
-        raise RuntimeError('Failed to load checkpoint at {}'.format(checkpoint))
 
     if args.mode == 'synthesis':
         return run_synthesis(args, checkpoint, output_dir, hparams)

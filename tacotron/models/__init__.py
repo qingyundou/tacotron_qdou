@@ -5,6 +5,7 @@ from tacotron.models.variants.tacotron_pml_x import TacotronPMLExtended
 from tacotron.models.variants.tacotron_pml_postnet import TacotronPMLPostnet
 from tacotron.models.variants.tacotron_pml_locsens import TacotronPMLLocSens
 from tacotron.models.variants.tacotron_simpl import TacotronPMLSimplifiedLocSens
+from tacotron.models.variants.tacotron_simpl_lstm import TacotronPMLSimplifiedLocSensLSTM
 from .tacotron import TacotronPMLExtendedLocSens
 
 
@@ -27,5 +28,7 @@ def create_model(name, hparams):
     return TacotronPMLLocSens(hparams)
   elif name == 'tacotron_pml_x_locsens':
     return TacotronPMLExtendedLocSens(hparams)
+  elif name == 'tacotron_simpl_lstm':
+    return TacotronPMLSimplifiedLocSensLSTM(hparams)
   else:
     raise Exception('Unknown model: ' + name)

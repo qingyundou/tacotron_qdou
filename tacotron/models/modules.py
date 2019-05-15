@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.contrib.rnn import GRUCell
+from tensorflow.contrib.rnn import GRUCell, LSTMBlockCell
 
 
 def postnet(inputs, layers, conv_width, channels, is_training):
@@ -40,6 +40,29 @@ def conv_and_gru(inputs, input_lengths, conv_layers, conv_width, conv_channels,
             sequence_length=input_lengths,
             dtype=tf.float32,
             scope='{}_gru'.format(scope))
+
+        # concatenate forwards and backwards
+        return tf.concat(outputs, axis=2)
+
+def conv_and_lstm(inputs, input_lengths, conv_layers, conv_width, conv_channels,
+                 lstm_units_unidirectional, is_training, scope):
+    with tf.variable_scope(scope):
+        # convolutional layers
+        convolved_inputs = inputs
+
+        for i in range(conv_layers):
+            activation = tf.nn.relu if i < conv_layers - 1 else None
+            convolved_inputs = conv1d(convolved_inputs, conv_width,
+                                      conv_channels, activation, is_training, 'conv_{}'.format(i))
+
+        # bidirectional LSTM
+        outputs, states = tf.nn.bidirectional_dynamic_rnn(
+            LSTMBlockCell(lstm_units_unidirectional),
+            LSTMBlockCell(lstm_units_unidirectional),
+            convolved_inputs,
+            sequence_length=input_lengths,
+            dtype=tf.float32,
+            scope='{}_lstm'.format(scope))
 
         # concatenate forwards and backwards
         return tf.concat(outputs, axis=2)

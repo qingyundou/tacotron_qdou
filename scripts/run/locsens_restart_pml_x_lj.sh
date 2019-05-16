@@ -23,8 +23,8 @@ export PATH=${PATH}:${ProjectDir}/lib/straight/analysis:${ProjectDir}/lib/SPTK-3
 
 # 1 for running on grid: copy data to air
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts
-# python remove_training_data.py --train_dir gran-lj-training
-# python check_move_data.py
+python remove_training_data.py --train_dir gran-lj-training
+python check_move_data.py
 
 # 2 preparation for the main code
 
@@ -33,7 +33,7 @@ cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron
 
 # 2.2 run the preprocess script
 which python
-# python preprocess.py --base_dir /scratch/je369/tacotron/ --dataset ljspeech --output gran-lj-training --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5" # ljspeech used as dataset key
+python preprocess.py --base_dir /scratch/je369/tacotron/ --dataset ljspeech --output gran-lj-training --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5" --validation_size 30 # ljspeech used as dataset key
 
 # 2.3 remove the original data
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts

@@ -6,7 +6,8 @@ from tacotron.synthesizer import Synthesizer
 from tacotron.pml_synthesizer import PMLSynthesizer, cfg
 from infolog import log
 from tqdm import tqdm
-import tensorflow as tf
+import numpy as np
+from datasets import pml_dir, wav_dir
 
 
 def get_output_base_path(checkpoint_path):
@@ -44,11 +45,11 @@ def run_synthesis(args, checkpoint_path, output_dir, hparams):
     gta = (args.gta == 'True')
 
     if gta:
-        synth_dir = os.path.join(output_dir, 'gta')
+        synth_dir = os.path.join(args.base_dir, output_dir, 'gta')
         # create the output path if it does not exist
         os.makedirs(synth_dir, exist_ok=True)
     else:
-        synth_dir = os.path.join(output_dir, 'natural')
+        synth_dir = os.path.join(args.base_dir, output_dir, 'natural')
         # create the output path if it does not exist
         os.makedirs(synth_dir, exist_ok=True)
 
@@ -64,18 +65,24 @@ def run_synthesis(args, checkpoint_path, output_dir, hparams):
         log('Loaded metadata for %d examples (%.2f hours)' % (len(metadata), hours))
 
     log('Starting Synthesis')
-    pml_dir = os.path.join(args.base_dir, args.input_dir, 'pmls')
-    wav_dir = os.path.join(args.base_dir, args.input_dir, 'wavs')
+    pml_path = os.path.join(args.base_dir, args.input_dir, pml_dir)
+    wav_path = os.path.join(args.base_dir, args.input_dir, wav_dir)
 
     with open(os.path.join(synth_dir, 'map.txt'), 'w') as file:
         for i, meta in enumerate(tqdm(metadata)):
-            texts = [m[5] for m in meta]
-            pml_filenames = [os.path.join(pml_dir, m[1]) for m in meta]
-            wav_filenames = [os.path.join(wav_dir, m[0]) for m in meta]
+            texts = [meta[5]]
+            pml_filenames = [os.path.join(pml_path, meta[3])]
+            wav_filenames = [os.path.join(wav_path, meta[6])]
             basenames = [os.path.basename(p).replace('.npy', '').replace('pml-', '') for p in pml_filenames]
-            pml_output_filenames, speaker_ids = synth.synthesize(texts, basenames, synth_dir, None, pml_filenames)
+            pml_features = synth.synthesize(texts, pml_filenames)
+            pml_output_filenames = []
 
-            for elems in zip(wav_filenames, pml_filenames, pml_output_filenames, speaker_ids, texts):
+            for j, basename in enumerate(basenames):
+                pml_filename = os.path.join(synth_dir, 'pml-{}.npy'.format(basename))
+                np.save(pml_filename, pml_features[j], allow_pickle=False)
+                pml_output_filenames.append(pml_filename)
+
+            for elems in zip(wav_filenames, pml_filenames, pml_output_filenames, texts):
                 file.write('|'.join([str(x) for x in elems]) + '\n')
 
     log('Synthesized PML features at {}'.format(synth_dir))

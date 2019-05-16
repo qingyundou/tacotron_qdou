@@ -47,8 +47,8 @@ _pad = 0
 class PMLSynthesizer:
     def load(self, checkpoint_path, hparams, gta=False, model_name='tacotron_pml'):
         print('Constructing model: %s' % model_name)
-        inputs = tf.placeholder(tf.int32, [1, None], 'inputs')
-        input_lengths = tf.placeholder(tf.int32, [1], 'input_lengths')
+        inputs = tf.placeholder(tf.int32, [None, None], 'inputs')
+        input_lengths = tf.placeholder(tf.int32, [None], 'input_lengths')
         targets = tf.placeholder(tf.float32, [None, None, hparams.pml_dimension], 'pml_targets')
 
         with tf.variable_scope('model') as scope:
@@ -79,11 +79,15 @@ class PMLSynthesizer:
     def synthesize(self, texts, pml_filenames=None, to_wav=False):
         hparams = self._hparams
         cleaner_names = [x.strip() for x in hparams.cleaners.split(',')]
-        seq = text_to_sequence(texts, cleaner_names)
+
+        seqs = []
+
+        for text in texts:
+            seqs.append(text_to_sequence(text, cleaner_names))
 
         feed_dict = {
-            self.model.inputs: [np.asarray(seq, dtype=np.int32)],
-            self.model.input_lengths: np.asarray([len(seq)], dtype=np.int32)
+            self.model.inputs: np.asarray(seqs, dtype=np.int32),
+            self.model.input_lengths: np.asarray([len(seq) for seq in seqs], dtype=np.int32)
         }
 
         if self.gta:

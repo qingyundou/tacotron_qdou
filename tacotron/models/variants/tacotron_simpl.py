@@ -71,11 +71,8 @@ class TacotronPMLSimplifiedLocSens():
             concat_cell = ConcatOutputAndAttentionWrapper(attention_cell)  # [N, T_in, 2*attention_depth=512]
 
             # Decoder (layers specified bottom to top):
-            decoder_cell = MultiRNNCell([
-                concat_cell,
-                GRUCell(hp.decoder_gru_units),
-                GRUCell(hp.decoder_gru_units)
-            ], state_is_tuple=True)  # [N, T_in, decoder_depth=1024]
+            cells = [GRUCell(hp.decoder_gru_units) for _ in range(hp.decoder_gru_layers)]
+            decoder_cell = MultiRNNCell([concat_cell] + cells, state_is_tuple=True)  # [N, T_in, decoder_depth=1024]
 
             # Project onto r PML feature vectors (predict r outputs at each RNN step):
             output_cell = OutputProjectionWrapper(decoder_cell, hp.pml_dimension * hp.outputs_per_step)

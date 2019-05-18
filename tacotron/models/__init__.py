@@ -1,4 +1,5 @@
 from tacotron.models.variants.tacotron import Tacotron
+from tacotron.models.variants.tacotron_lstm_short import TacotronPMLShortLSTM
 from tacotron.models.variants.tacotron_mel_pml import TacotronMelPML
 from tacotron.models.variants.tacotron_pml import TacotronPML
 from tacotron.models.variants.tacotron_pml_x import TacotronPMLExtended
@@ -12,6 +13,8 @@ from .tacotron import TacotronPMLExtendedLocSens
 def create_model(name, hparams):
   if name == 'tacotron':
     return TacotronPMLExtendedLocSens(hparams)
+  elif name == 'tacotron_lstm_short':
+    return TacotronPMLShortLSTM(hparams)
   elif name == 'tacotron_simpl':
     return TacotronPMLSimplifiedLocSens(hparams)
   elif name == 'tacotron_orig':

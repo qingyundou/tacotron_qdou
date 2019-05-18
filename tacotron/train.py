@@ -66,10 +66,10 @@ def time_string():
     return datetime.now().strftime('%Y-%m-%d %H:%M')
 
 
-def train(log_dir, args):
+def train(log_dir, args, input):
     commit = get_git_commit() if args.git else 'None'
     checkpoint_path = os.path.join(log_dir, 'model.ckpt')
-    input_path = os.path.join(args.base_dir, args.input)
+    input_path = os.path.join(args.base_dir, input)
     log('Checkpoint path: %s' % checkpoint_path)
     log('Loading training data from: %s' % input_path)
     log('Using model: %s' % args.variant)
@@ -237,7 +237,7 @@ def main():
     infolog.init(os.path.join(log_dir, 'train.log'), run_name, args.slack_url)
     log('Initialised log file')
     hparams.parse(args.hparams)
-    train(log_dir, args)
+    train(log_dir, args, args.input)
 
 
 if __name__ == '__main__':

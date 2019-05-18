@@ -1,3 +1,4 @@
+import numpy as np
 import tensorflow as tf
 
 # Default hyperparameters:
@@ -71,7 +72,64 @@ hparams = tf.contrib.training.HParams(
         'The buses aren\'t the problem, they actually provide a solution.',
         'Does the quick brown fox jump over the lazy dog?',
         'Talib Kweli confirmed to AllHipHop that he will be releasing an album in the next year.',
-    ]
+    ],
+
+    #Wavenet
+	# Input type:
+	# 1. raw [-1, 1]
+	# 2. mulaw [-1, 1]
+	# 3. mulaw-quantize [0, mu]
+	# If input_type is raw or mulaw, network assumes scalar input and
+	# discretized mixture of logistic distributions output, otherwise one-hot
+	# input and softmax output are assumed.
+	#Model general type
+	input_type="raw", #Raw has better quality but harder to train. mulaw-quantize is easier to train but has lower quality.
+	quantize_channels=2**16,  # 65536 (16-bit) (raw) or 256 (8-bit) (mulaw or mulaw-quantize) // number of classes = 256 <=> mu = 255
+	use_bias = True, #Whether to use bias in convolutional layers of the Wavenet
+	legacy = True, #Whether to use legacy mode: Multiply all skip outputs but the first one with sqrt(0.5) (True for more early training stability, especially for large models)
+	residual_legacy = True, #Whether to scale residual blocks outputs by a factor of sqrt(0.5) (True for input variance preservation early in training and better overall stability)
+
+	#Model Losses parmeters
+	#Minimal scales ranges for MoL and Gaussian modeling
+	log_scale_min=float(np.log(1e-14)), #Mixture of logistic distributions minimal log scale
+	log_scale_min_gauss = float(np.log(1e-7)), #Gaussian distribution minimal allowed log scale
+	#Loss type
+	cdf_loss = False, #Whether to use CDF loss in Gaussian modeling. Advantages: non-negative loss term and more training stability. (Automatically True for MoL)
+
+	#model parameters
+	#To use Gaussian distribution as output distribution instead of mixture of logistics, set "out_channels = 2" instead of "out_channels = 10 * 3". (UNDER TEST)
+	out_channels = 2, #This should be equal to quantize channels when input type is 'mulaw-quantize' else: num_distributions * 3 (prob, mean, log_scale).
+	layers = 20, #Number of dilated convolutions (Default: Simplified Wavenet of Tacotron-2 paper)
+	stacks = 2, #Number of dilated convolution stacks (Default: Simplified Wavenet of Tacotron-2 paper)
+	residual_channels = 128, #Number of residual block input/output channels.
+	gate_channels = 256, #split in 2 in gated convolutions
+	skip_out_channels = 128, #Number of residual block skip convolution channels.
+	kernel_size = 3, #The number of inputs to consider in dilated convolutions.
+
+	#Upsampling parameters (local conditioning)
+	cin_channels = 86, #Set this to -1 to disable local conditioning, else it must be equal to num_mels!!
+	#Upsample types: ('1D', '2D', 'Resize', 'SubPixel', 'NearestNeighbor')
+	#All upsampling initialization/kernel_size are chosen to omit checkerboard artifacts as much as possible. (Resize is designed to omit that by nature).
+	#To be specific, all initial upsample weights/biases (when NN_init=True) ensure that the upsampling layers act as a "Nearest neighbor upsample" of size "hop_size" (checkerboard free).
+	#1D spans all frequency bands for each frame (channel-wise) while 2D spans "freq_axis_kernel_size" bands at a time. Both are vanilla transpose convolutions.
+	#Resize is a 2D convolution that follows a Nearest Neighbor (NN) resize. For reference, this is: "NN resize->convolution".
+	#SubPixel (2D) is the ICNR version (initialized to be equivalent to "convolution->NN resize") of Sub-Pixel convolutions. also called "checkered artifact free sub-pixel conv".
+	#Finally, NearestNeighbor is a non-trainable upsampling layer that just expands each frame (or "pixel") to the equivalent hop size. Ignores all upsampling parameters.
+	upsample_type = 'SubPixel', #Type of the upsampling deconvolution. Can be ('1D' or '2D', 'Resize', 'SubPixel' or simple 'NearestNeighbor').
+	upsample_activation = 'Relu', #Activation function used during upsampling. Can be ('LeakyRelu', 'Relu' or None)
+	upsample_scales = [5, 16], #prod(upsample_scales) should be equal to hop_size
+	freq_axis_kernel_size = 3, #Only used for 2D upsampling types. This is the number of requency bands that are spanned at a time for each frame.
+	leaky_alpha = 0.4, #slope of the negative portion of LeakyRelu (LeakyRelu: y=x if x>0 else y=alpha * x)
+	NN_init = True, #Determines whether we want to initialize upsampling kernels/biases in a way to ensure upsample is initialize to Nearest neighbor upsampling. (Mostly for debug)
+	NN_scaler = 0.3, #Determines the initial Nearest Neighbor upsample values scale. i.e: upscaled_input_values = input_values * NN_scaler (1. to disable)
+
+	#global conditioning
+	gin_channels = -1, #Set this to -1 to disable global conditioning, Only used for multi speaker dataset. It defines the depth of the embeddings (Recommended: 16)
+	use_speaker_embedding = True, #whether to make a speaker embedding
+	n_speakers = 5, #number of speakers (rows of the embedding)
+	speakers_path = None, #Defines path to speakers metadata. Can be either in "speaker\tglobal_id" (with header) tsv format, or a single column tsv with speaker names. If None, use "speakers".
+	speakers = ['speaker0', 'speaker1', #List of speakers used for embeddings visualization. (Consult "wavenet_vocoder/train.py" if you want to modify the speaker names source).
+				'speaker2', 'speaker3', 'speaker4'], #Must be consistent with speaker ids specified for global conditioning for correct visualization.
 )
 
 

@@ -3,6 +3,7 @@ import os
 import infolog
 from hparams import hparams
 from tacotron.train import train as train_tacotron
+from wavenet_vocoder.train import train as wavenet_train
 
 log = infolog.log
 
@@ -11,7 +12,8 @@ def main():
   parser = argparse.ArgumentParser()
   parser.add_argument('--base_dir', default=os.path.expanduser('~/tacotron'))
   parser.add_argument('--log_dir', default=os.path.expanduser('~/tacotron'))
-  parser.add_argument('--input', default='training/train.txt')
+  parser.add_argument('--tacotron_input', default='training/train.txt')
+  parser.add_argument('--wavenet_input', default='tacotron_output/gta/map.txt')
   parser.add_argument('--model', default='tacotron')
   parser.add_argument('--variant', default='tacotron')
   parser.add_argument('--name', help='Name of the run. Used for logging. Defaults to model name.')
@@ -26,6 +28,7 @@ def main():
   parser.add_argument('--tf_log_level', type=int, default=1, help='Tensorflow C++ log level.')
   parser.add_argument('--git', action='store_true', help='If set, verify that the client is clean.')
   parser.add_argument('--num_steps', type=int, default=100000, help='Maximum number of steps to run training for.')
+  parser.add_argument('--wavenet_num_steps', type=int, default=500000, help='Maximum number of steps to run wavenet training for')
   args = parser.parse_args()
 
   accepted_models = ['tacotron', 'wavenet']
@@ -42,9 +45,9 @@ def main():
   hparams.parse(args.hparams)
 
   if args.model == 'tacotron':
-      train_tacotron(log_dir, args)
-  # elif args.model == 'wavenet':
-      # wavenet_train(args, log_dir, hparams, args.wavenet_input)
+      train_tacotron(log_dir, args, args.tacotron_input)
+  elif args.model == 'wavenet':
+      wavenet_train(args, log_dir, hparams, args.wavenet_input)
   else:
       raise ValueError('Model provided {} unknown! {}'.format(args.model, accepted_models))
 

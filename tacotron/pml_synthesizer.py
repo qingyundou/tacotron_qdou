@@ -5,6 +5,7 @@ from tacotron.utils.text import text_to_sequence
 from util import audio
 from lib import sigproc as sp
 from infolog import log
+import os
 
 
 # simplified port of the configuration from Merlin proper
@@ -12,8 +13,8 @@ class Configuration(object):
     def __init__(self):
         self.acoustic_feature_type = 'PML'
         self.acoustic_features = ['mgc', 'lf0', 'bap']
-        self.acoustic_in_dimension_dict = {'mgc': 60, 'lf0': 1, 'bap': 25}
-        self.acoustic_out_dimension_dict = {'mgc': 60, 'lf0': 1, 'bap': 25}
+        self.acoustic_in_dimension_dict = {'mgc': 129, 'lf0': 1, 'bap': 33}
+        self.acoustic_out_dimension_dict = {'mgc': 129, 'lf0': 1, 'bap': 33}
 
         self.acoustic_start_index = {
             'mgc': 0,
@@ -36,7 +37,7 @@ class Configuration(object):
             self.acoustic_out_dimension_dict.values())
         self.nn_feature_dims['wav'] = self.wav_sr / 200
 
-        self.cmp_dim = self.nn_feature_dims['cmp']  # 86
+        self.cmp_dim = self.nn_feature_dims['cmp']  # 86 or 163
 
 
 cfg = Configuration()
@@ -76,7 +77,7 @@ class PMLSynthesizer:
         saver = tf.train.Saver()
         saver.restore(self.session, checkpoint_path)
 
-    def synthesize(self, texts, pml_filenames=None, to_wav=False):
+    def synthesize(self, texts, pml_filenames=None, to_wav=False, mean_norm=None, std_norm=None):
         hparams = self._hparams
         cleaner_names = [x.strip() for x in hparams.cleaners.split(',')]
 
@@ -102,7 +103,7 @@ class PMLSynthesizer:
             wavs = []
 
             for pml_features in pml_features_matrix:
-                wav = self.pml_to_wav(pml_features)
+                wav = self.pml_to_wav(pml_features, mean_norm=mean_norm, std_norm=std_norm)
                 wav = wav[:audio.find_endpoint(wav, threshold_db=0)]
                 wavs.append(wav)
 
@@ -110,8 +111,12 @@ class PMLSynthesizer:
 
         return pml_features_matrix
 
-    def pml_to_wav(self, pml_features, shift=0.005, dftlen=4096, nm_cont=False, verbose_level=0):
+    def pml_to_wav(self, pml_features, shift=0.005, dftlen=4096, nm_cont=False, verbose_level=0, mean_norm=None, std_norm=None):
         from lib.pulsemodel.synthesis import synthesize
+
+        # get the mean and variance, and denormalise
+        if mean_norm is not None and std_norm is not None:
+            pml_features = pml_features * std_norm + mean_norm
 
         # f0s is from flf0
         f0 = pml_features[:, cfg.acoustic_start_index['lf0']:
@@ -166,11 +171,11 @@ def main():
         print('Synthesizing Audio...')
         synth.load(args.checkpoint, model_name='tacotron_pml')
         fixed_sentence = 'and district attorney henry m. wade both testified that they saw it later that day.'
-        wav = synth.synthesize(fixed_sentence)
+        wav = synth.synthesize(fixed_sentence, to_wav=True)
     else:
         # pml_cmp = np.fromfile('/home/josh/tacotron/LJSpeech-1.1/pml/LJ010-0018.cmp', dtype=np.float32)
         pml_cmp = np.fromfile('/home/josh/tacotron/Nick/pml/herald_1993_1.cmp', dtype=np.float32)
-        pml_dimension = 86
+        pml_dimension = 163
         pml_features = pml_cmp.reshape((-1, pml_dimension))
         synth = PMLSynthesizer()
         print('Synthesizing Audio...')

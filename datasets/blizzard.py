@@ -18,7 +18,7 @@ books = [
   # 'TheAdventuresOfTomSawyer',
 ]
 
-def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
+def build_from_path(in_dir, out_dir, hparams, num_workers=1, tqdm=lambda x: x):
   executor = ProcessPoolExecutor(max_workers=num_workers)
   futures = []
   index = 1

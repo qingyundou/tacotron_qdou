@@ -103,6 +103,16 @@ def train(log_dir, args, input):
     # Set up text for synthesis
     fixed_sentence = 'Scientists at the CERN laboratory say they have discovered a new particle.'
 
+    # Set up denormalisation parameters for synthesis
+    mean_path = os.path.abspath(os.path.join(args.base_dir, input, '..', 'pml_data/mean4norm.dat'))
+    std_path = os.path.abspath(os.path.join(args.base_dir, input, '..', 'pml_data/std4norm.dat'))
+    mean_norm = None
+    std_norm = None
+
+    if os.path.isfile(mean_path) and os.path.isfile(std_path):
+        mean_norm = np.fromfile(mean_path, 'float32')
+        std_norm = np.fromfile(std_path, 'float32')
+
     # Train!
     with tf.Session() as sess:
         try:
@@ -157,8 +167,8 @@ def train(log_dir, args, input):
                             model.inputs[0], model.alignments[0], model.pml_targets[0], model.pml_outputs[0]])
 
                         synth = PMLSynthesizer()
-                        output_waveform = synth.pml_to_wav(pml_features)
-                        target_waveform = synth.pml_to_wav(target_pml_features)
+                        output_waveform = synth.pml_to_wav(pml_features, mean_norm=mean_norm, std_norm=std_norm)
+                        target_waveform = synth.pml_to_wav(target_pml_features, mean_norm=mean_norm, std_norm=std_norm)
                         sp.wavwrite(os.path.join(log_dir, 'step-%d-target-audio.wav' % step), target_waveform,
                                     hparams.sample_rate, norm_max_ifneeded=True)
                         sp.wavwrite(os.path.join(log_dir, 'step-%d-audio.wav' % step), output_waveform,

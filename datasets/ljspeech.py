@@ -1,13 +1,14 @@
 from concurrent.futures import ProcessPoolExecutor
 from functools import partial
+import glob
 import numpy as np
 import os
 from util import audio
 import shutil
-from datasets import linear_dir, mel_dir, pml_dir, wav_dir
+from datasets import linear_dir, mel_dir, pml_dir, pml_data_dir, wav_dir
 
 
-def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
+def build_from_path(in_dir, out_dir, hparams, num_workers=1, tqdm=lambda x: x):
     '''Preprocesses the LJ Speech dataset from a given input path into a given output directory.
 
       Args:
@@ -25,6 +26,7 @@ def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
     executor = ProcessPoolExecutor(max_workers=num_workers)
     futures = []
     index = 1
+
     with open(os.path.join(in_dir, 'metadata.csv'), encoding='utf-8') as f:
         for line in f:
             parts = line.strip().split('|')
@@ -35,12 +37,20 @@ def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
             pml_path = os.path.join(in_dir, 'pml', '%s.cmp' % parts[0])
             pml_features = np.fromfile(pml_path, dtype=np.float32)
 
-            futures.append(executor.submit(partial(_process_utterance, out_dir, index, wav_path, text, pml_features)))
+            futures.append(executor.submit(partial(_process_utterance, out_dir, index, wav_path, text, pml_features, hparams)))
             index += 1
+
+    # copy the data files, if they exist
+    files = glob.iglob(os.path.join(in_dir, 'pml', '*.dat'))
+
+    for file in files:
+        if os.path.isfile(file):
+            shutil.copy2(file, os.path.join(out_dir, pml_data_dir))
+
     return [future.result() for future in tqdm(futures)]
 
 
-def _process_utterance(out_dir, index, wav_path, text, pml_cmp):
+def _process_utterance(out_dir, index, wav_path, text, pml_cmp, hparams):
     '''Preprocesses a single utterance audio/text pair.
 
     This writes the mel and linear scale spectrograms to disk and returns a tuple to write
@@ -71,7 +81,7 @@ def _process_utterance(out_dir, index, wav_path, text, pml_cmp):
 
     # Write the PML features to disk
     pml_filename = 'ljspeech-pml-%05d.npy' % index
-    pml_dimension = 86
+    pml_dimension = hparams.pml_dimension
     pml_features = pml_cmp.reshape((-1, pml_dimension))
     pml_frames = pml_features.shape[0]
     np.save(os.path.join(out_dir, pml_dir, pml_filename), pml_features, allow_pickle=False)

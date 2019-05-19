@@ -7,33 +7,33 @@ from hparams import hparams, hparams_debug_string
 from infolog import log
 
 
-def preprocess_blizzard(args):
+def preprocess_blizzard(args, hparams):
     in_dir = os.path.join(args.base_dir, 'Blizzard2012')
     out_dir = os.path.join(args.base_dir, args.output)
     os.makedirs(out_dir, exist_ok=True)
-    metadata = blizzard.build_from_path(in_dir, out_dir, args.num_workers, tqdm=tqdm)
+    metadata = blizzard.build_from_path(in_dir, out_dir, hparams, args.num_workers, tqdm=tqdm)
     write_metadata(metadata[:-args.validation_size], out_dir)
 
     if args.validation_size > 0:
         write_validation(metadata[-args.validation_size:], out_dir)
 
 
-def preprocess_ljspeech(args):
+def preprocess_ljspeech(args, hparams):
     in_dir = os.path.join(args.base_dir, 'LJSpeech-1.1')
     out_dir = os.path.join(args.base_dir, args.output)
     os.makedirs(out_dir, exist_ok=True)
-    metadata = ljspeech.build_from_path(in_dir, out_dir, args.num_workers, tqdm=tqdm)
+    metadata = ljspeech.build_from_path(in_dir, out_dir, hparams, args.num_workers, tqdm=tqdm)
     write_metadata(metadata[:-args.validation_size], out_dir)
 
     if args.validation_size > 0:
         write_validation(metadata[-args.validation_size:], out_dir)
 
 
-def preprocess_nick(args):
+def preprocess_nick(args, hparams):
     in_dir = os.path.join(args.base_dir, 'Nick')
     out_dir = os.path.join(args.base_dir, args.output)
     os.makedirs(out_dir, exist_ok=True)
-    metadata = nick.build_from_path(in_dir, out_dir, args.num_workers, tqdm=tqdm)
+    metadata = nick.build_from_path(in_dir, out_dir, hparams, args.num_workers, tqdm=tqdm)
     write_metadata(metadata[:-args.validation_size], out_dir)
 
     if args.validation_size > 0:
@@ -72,11 +72,11 @@ def main():
     log(hparams_debug_string())
 
     if args.dataset == 'blizzard':
-        preprocess_blizzard(args)
+        preprocess_blizzard(args, hparams)
     elif args.dataset == 'ljspeech':
-        preprocess_ljspeech(args)
+        preprocess_ljspeech(args, hparams)
     elif args.dataset == 'nick':
-        preprocess_nick(args)
+        preprocess_nick(args, hparams)
 
 
 if __name__ == "__main__":

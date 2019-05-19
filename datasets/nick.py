@@ -5,7 +5,7 @@ import os
 from util import audio
 
 
-def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
+def build_from_path(in_dir, out_dir, hparams, num_workers=1, tqdm=lambda x: x):
   '''Preprocesses the Nick dataset from a given input path into a given output directory.
 
     Args:
@@ -44,13 +44,13 @@ def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
     # then open and read pml features from text file
     pml_features = np.fromfile(pml_path, dtype=np.float32)
 
-    futures.append(executor.submit(partial(_process_utterance, out_dir, index, wav_path, text, pml_features)))
+    futures.append(executor.submit(partial(_process_utterance, out_dir, index, wav_path, text, pml_features, hparams)))
     index += 1
 
   return [future.result() for future in tqdm(futures)]
 
 
-def _process_utterance(out_dir, index, wav_path, text, pml_cmp):
+def _process_utterance(out_dir, index, wav_path, text, pml_cmp, hparams):
   '''Preprocesses a single utterance audio/text pair.
 
   This writes the mel and linear scale spectrograms to disk and returns a tuple to write
@@ -72,7 +72,7 @@ def _process_utterance(out_dir, index, wav_path, text, pml_cmp):
 
   # Write the PML features to disk
   pml_filename = 'nick-pml-%05d.npy' % index
-  pml_dimension = 86
+  pml_dimension = hparams.pml_dimension
   pml_features = pml_cmp.reshape((-1, pml_dimension))
   pml_frames = pml_features.shape[0]
   np.save(os.path.join(out_dir, pml_filename), pml_features, allow_pickle=False)
@@ -101,13 +101,6 @@ def _process_utterance(out_dir, index, wav_path, text, pml_cmp):
   mel_filename = 'nick-mel-%05d.npy' % index
   np.save(os.path.join(out_dir, spectrogram_filename), spectrogram.T, allow_pickle=False)
   np.save(os.path.join(out_dir, mel_filename), mel_spectrogram.T, allow_pickle=False)
-
-  # Write the PML features to disk
-  pml_filename = 'nick-pml-%05d.npy' % index
-  pml_dimension = 86
-  pml_features = pml_cmp.reshape((-1, pml_dimension))
-  pml_frames = pml_features.shape[0]
-  np.save(os.path.join(out_dir, pml_filename), pml_features, allow_pickle=False)
 
   # Return a tuple describing this training example:
   return (spectrogram_filename, mel_filename, n_frames, pml_filename, pml_frames, text)

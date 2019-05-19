@@ -15,7 +15,8 @@ wav = audio.load_wav(f'/home/josh/tacotron/Nick/wav/herald_{point_of_interest}_1
 spectrogram = audio.spectrogram(wav).astype(np.float32)
 
 # try to reshape the Nick PML features into an 86 x something matrix
-pml_dimension = 86
+# pml_dimension = 86
+pml_dimension = 163
 pml_features = CMP.reshape((-1, pml_dimension))
 
 # Get the saved spectrogram

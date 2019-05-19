@@ -33,7 +33,7 @@ cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron
 
 # 2.2 run the preprocess script
 which python
-python preprocess.py --base_dir /scratch/je369/tacotron/ --dataset ljspeech --output corrected-lj-training --hparams "sample_rate=22050,frame_length_ms=20,frame_shift_ms=5" --validation_size 150 # ljspeech used as dataset key
+python preprocess.py --base_dir /scratch/je369/tacotron/ --dataset ljspeech --output corrected-lj-training --hparams "sample_rate=22050,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163" --validation_size 150 # ljspeech used as dataset key
 
 # 2.3 remove the original data
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts
@@ -47,7 +47,7 @@ python create_log_dir.py
 
 # 3.2 run the train scheme
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron
-python train.py --variant tacotron_lstm_short --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/je369/results --num_steps 150000 --input corrected-lj-training/train.txt --hparams "sample_rate=22050,frame_length_ms=20,frame_shift_ms=5" --slack_url https://hooks.slack.com/services/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
+python train.py --variant tacotron_lstm_short --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/je369/results --num_steps 150000 --input corrected-lj-training/train.txt --hparams "sample_rate=22050,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163" --slack_url https://hooks.slack.com/services/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
 
 # 3.3 move the logs and results back to the home directory
 cd /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts

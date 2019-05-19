@@ -65,7 +65,8 @@ metadata_src_location = '/home/dawna/tts/data/LJSpeech-1.1/webData/metadata.csv'
 metadata_target_file = 'metadata.csv'
 wav_src_dataset = '/home/dawna/tts/data/LJSpeech-1.1/webData/wavs'
 wav_target_dir = 'wavs'
-pml_src_dataset = '/home/dawna/tts/data/LJSpeech-1.1/merlinData/nn_cmp'
+# pml_src_dataset = '/home/dawna/tts/data/LJSpeech-1.1/merlinData/nn_cmp'
+pml_src_dataset = '/home/dawna/tts/data/LJSpeech-1.1/merlinData/wav_PML_cmp_lf0_fwlspec129_fwnm33_nmnoscale'
 pml_target_dir = 'pml'
 
 # (1.2.1) check root LJ directory is created

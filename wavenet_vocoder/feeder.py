@@ -4,7 +4,7 @@ import time
 
 import numpy as np
 import tensorflow as tf
-from datasets import audio
+from util import audio
 from infolog import log
 from keras.utils import np_utils
 from sklearn.model_selection import train_test_split

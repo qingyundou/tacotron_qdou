@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 import tensorflow as tf
-from datasets.audio import save_wavenet_wav, get_hop_size, melspectrogram
+from util.audio import save_wavenet_wav, get_hop_size, melspectrogram
 from infolog import log
 from wavenet_vocoder.models import create_model
 from wavenet_vocoder.train import create_shadow_saver, load_averaged_model

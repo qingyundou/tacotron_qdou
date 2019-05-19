@@ -1,0 +1,3 @@
+[submodule "sampleRNN"]
+	path = sampleRNN
+	url = git@github.com:qingyundou/sampleRNN_QDOU

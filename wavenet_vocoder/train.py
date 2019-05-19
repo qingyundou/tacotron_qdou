@@ -138,7 +138,7 @@ def eval_step(sess, global_step, model, plot_dir, wav_dir, summary_writer, hpara
 def save_log(sess, global_step, model, plot_dir, wav_dir, hparams, model_name):
     log('\nSaving intermediate states at step {}'.format(global_step))
     idx = 0
-    y_hat, y, loss, length, input_mel, upsampled_features = sess.run([model.tower_y_hat_log[0][idx],
+    y_hat, y, loss, length, input_pml_features, upsampled_features = sess.run([model.tower_y_hat_log[0][idx],
                                                                       model.tower_y_log[0][idx],
                                                                       model.loss,
                                                                       model.tower_input_lengths[0][idx],
@@ -167,7 +167,7 @@ def save_log(sess, global_step, model, plot_dir, wav_dir, hparams, model_name):
     generated_mel = _interp(melspectrogram(y_hat, hparams).T, T2_output_range)
     util.plot_spectrogram(generated_mel, mel_path,
                           title='Local Condition vs Reconst. Mel-Spectrogram, step={}, loss={:.5f}'.format(
-                              global_step, loss), target_spectrogram=input_mel.T)
+                              global_step, loss), target_spectrogram=input_pml_features.T)
     util.plot_spectrogram(upsampled_features.T, upsampled_path,
                           title='Upsampled Local Condition features, step={}, loss={:.5f}'.format(
                               global_step, loss), auto_aspect=True)

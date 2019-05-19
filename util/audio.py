@@ -58,13 +58,8 @@ def inv_spectrogram_tensorflow(spectrogram):
 
 
 def get_hop_size(hparams):
-    hop_size = hparams.hop_size
-
-    if hop_size is None:
-        assert hparams.frame_shift_ms is not None
-        hop_size = int(hparams.frame_shift_ms / 1000 * hparams.sample_rate)
-
-    return hop_size
+    assert hparams.frame_shift_ms is not None
+    return int(hparams.frame_shift_ms / 1000 * hparams.sample_rate)
 
 
 def melspectrogram(y):
@@ -179,3 +174,39 @@ def _denormalize(S):
 
 def _denormalize_tensorflow(S):
     return (tf.clip_by_value(S, 0, 1) * -hparams.min_level_db) + hparams.min_level_db
+
+
+# Those are only correct when using lws!!! (This was messing with Wavenet quality for a long time!)
+def num_frames(length, fsize, fshift):
+    """Compute number of time frames of spectrogram
+    """
+    pad = (fsize - fshift)
+    if length % fshift == 0:
+        M = (length + pad * 2 - fsize) // fshift + 1
+    else:
+        M = (length + pad * 2 - fsize) // fshift + 2
+    return M
+
+
+def pad_lr(x, fsize, fshift):
+    """Compute left and right padding
+    """
+    M = num_frames(len(x), fsize, fshift)
+    pad = (fsize - fshift)
+    T = len(x) + 2 * pad
+    r = (M - 1) * fshift + fsize - T
+    return pad, pad + r
+
+
+##########################################################
+# Librosa correct padding
+def librosa_pad_lr(x, fsize, fshift, pad_sides=1):
+    '''compute right padding (final frame) or both sides padding (first and final frames)
+    '''
+    assert pad_sides in (1, 2)
+    # return int(fsize // 2)
+    pad = (x.shape[0] // fshift + 1) * fshift - x.shape[0]
+    if pad_sides == 1:
+        return 0, pad
+    else:
+        return pad // 2, pad // 2 + pad % 2

@@ -47,7 +47,7 @@ def main():
   if args.model == 'tacotron':
       train_tacotron(log_dir, args, args.tacotron_input)
   elif args.model == 'wavenet':
-      wavenet_train(args, log_dir, hparams, args.wavenet_input)
+      wavenet_train(log_dir, args, hparams, args.wavenet_input)
   else:
       raise ValueError('Model provided {} unknown! {}'.format(args.model, accepted_models))
 

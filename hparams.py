@@ -17,6 +17,8 @@ hparams = tf.contrib.training.HParams(
     min_level_db=-100,
     ref_level_db=20,
     pml_dimension=86,
+    rescale=True,  # Whether to rescale audio prior to preprocessing
+    rescaling_max=0.999,  # Rescaling value
 
     # Model:
     outputs_per_step=5,
@@ -73,6 +75,8 @@ hparams = tf.contrib.training.HParams(
         'Does the quick brown fox jump over the lazy dog?',
         'Talib Kweli confirmed to AllHipHop that he will be releasing an album in the next year.',
     ],
+
+    ###########################################################################################################################################
 
     # Wavenet
     # Input type:
@@ -144,6 +148,73 @@ hparams = tf.contrib.training.HParams(
               # List of speakers used for embeddings visualization. (Consult "wavenet_vocoder/train.py" if you want to modify the speaker names source).
               'speaker2', 'speaker3', 'speaker4'],
     # Must be consistent with speaker ids specified for global conditioning for correct visualization.
+
+    # Use LWS (https://github.com/Jonathan-LeRoux/lws) for STFT and phase reconstruction
+    # It's preferred to set True to use with https://github.com/r9y9/wavenet_vocoder
+    # Does not work if n_ffit is not multiple of hop_size!!
+    use_lws=False,
+    # Only used to set as True if using WaveNet, no difference in performance is observed in either cases.
+    silence_threshold=2,  # silence threshold used for sound trimming for wavenet preprocessing
+
+    # train samples of lengths between 3sec and 14sec are more than enough to make a model capable of generating consistent speech.
+    clip_pmls_length=False,
+    # For cases of OOM (Not really recommended, only use if facing unsolvable OOM errors, also consider clipping your samples to smaller chunks)
+    max_pml_frames=2500,
+    # Only relevant when clip_pmls_length = True, please only use after trying output_per_steps=3 and still getting OOM errors.
+
+    ###########################################################################################################################################
+
+    # Wavenet Training
+    wavenet_random_seed=5339,  # S=5, E=3, D=9 :)
+    wavenet_data_random_state=1234,  # random state for train test split repeatability
+
+    # performance parameters
+    wavenet_swap_with_cpu=False,
+    # Whether to use cpu as support to gpu for synthesis computation (while loop).(Not recommended: may cause major slowdowns! Only use when critical!)
+
+    # train/test split ratios, mini-batches sizes
+    wavenet_batch_size=8,  # batch size used to train wavenet.
+    # During synthesis, there is no max_time_steps limitation so the model can sample much longer audio than 8k(or 13k) steps. (Audio can go up to 500k steps, equivalent to ~21sec on 24kHz)
+    # Usually your GPU can handle ~2x wavenet_batch_size during synthesis for the same memory amount during training (because no gradients to keep and ops to register for backprop)
+    wavenet_synthesis_batch_size=10 * 2,
+    # This ensure that wavenet synthesis goes up to 4x~8x faster when synthesizing multiple sentences. Watch out for OOM with long audios.
+    wavenet_test_size=None,  # % of data to keep as test data, if None, wavenet_test_batches must be not None
+    wavenet_test_batches=1,  # number of test batches.
+
+    # Learning rate schedule
+    wavenet_lr_schedule='exponential',  # learning rate schedule. Can be ('exponential', 'noam')
+    wavenet_learning_rate=1e-3,  # wavenet initial learning rate
+    wavenet_warmup=float(4000),  # Only used with 'noam' scheme. Defines the number of ascending learning rate steps.
+    wavenet_decay_rate=0.5,  # Only used with 'exponential' scheme. Defines the decay rate.
+    wavenet_decay_steps=200000,  # Only used with 'exponential' scheme. Defines the decay steps.
+
+    # Optimization parameters
+    wavenet_adam_beta1=0.9,  # Adam beta1
+    wavenet_adam_beta2=0.999,  # Adam beta2
+    wavenet_adam_epsilon=1e-6,  # Adam Epsilon
+
+    # Regularization parameters
+    wavenet_clip_gradients=True,  # Whether the clip the gradients during wavenet training.
+    wavenet_ema_decay=0.9999,  # decay rate of exponential moving average
+    wavenet_weight_normalization=False,
+    # Whether to Apply Saliman & Kingma Weight Normalization (reparametrization) technique. (Used in DeepVoice3, not critical here)
+    wavenet_init_scale=1.,
+    # Only relevent if weight_normalization=True. Defines the initial scale in data dependent initialization of parameters.
+    wavenet_dropout=0.05,  # drop rate of wavenet layers
+    wavenet_gradient_max_norm=100.0,  # Norm used to clip wavenet gradients
+    wavenet_gradient_max_value=5.0,  # Value used to clip wavenet gradients
+
+    # training samples length
+    max_time_sec=None,  # Max time of audio for training. If None, we use max_time_steps.
+    max_time_steps=11000,
+    # Max time steps in audio used to train wavenet (decrease to save memory) (Recommend: 8000 on modest GPUs, 13000 on stronger ones)
+
+    # Evaluation parameters
+    wavenet_natural_eval=False,
+    # Whether to use 100% natural eval (to evaluate autoregressivity performance) or with teacher forcing to evaluate overfit and model consistency.
+
+    # Tacotron-2 integration parameters
+    train_with_GTA=True,  # Whether to use GTA mels to train WaveNet instead of ground truth mels.
 )
 
 

@@ -12,10 +12,13 @@ def preprocess_blizzard(args, hparams):
     out_dir = os.path.join(args.base_dir, args.output)
     os.makedirs(out_dir, exist_ok=True)
     metadata = blizzard.build_from_path(in_dir, out_dir, hparams, args.num_workers, tqdm=tqdm)
-    write_metadata(metadata[:-args.validation_size], out_dir)
+    write_metadata(metadata[:-args.validation_size-args.test_size], out_dir)
 
     if args.validation_size > 0:
-        write_validation(metadata[-args.validation_size:], out_dir)
+        write_validation(metadata[-args.validation_size-args.test_size:-args.test_size], out_dir)
+
+    if args.test_size > 0:
+        write_validation(metadata[-args.test_size:], out_dir, filename='test.txt')
 
 
 def preprocess_ljspeech(args, hparams):
@@ -23,10 +26,13 @@ def preprocess_ljspeech(args, hparams):
     out_dir = os.path.join(args.base_dir, args.output)
     os.makedirs(out_dir, exist_ok=True)
     metadata = ljspeech.build_from_path(in_dir, out_dir, hparams, args.num_workers, tqdm=tqdm)
-    write_metadata(metadata[:-args.validation_size], out_dir)
+    write_metadata(metadata[:-args.validation_size-args.test_size], out_dir)
 
     if args.validation_size > 0:
-        write_validation(metadata[-args.validation_size:], out_dir)
+        write_validation(metadata[-args.validation_size-args.test_size:-args.test_size], out_dir)
+
+    if args.test_size > 0:
+        write_validation(metadata[-args.test_size:], out_dir, filename='test.txt')
 
 
 def preprocess_nick(args, hparams):
@@ -34,10 +40,13 @@ def preprocess_nick(args, hparams):
     out_dir = os.path.join(args.base_dir, args.output)
     os.makedirs(out_dir, exist_ok=True)
     metadata = nick.build_from_path(in_dir, out_dir, hparams, args.num_workers, tqdm=tqdm)
-    write_metadata(metadata[:-args.validation_size], out_dir)
+    write_metadata(metadata[:-args.validation_size-args.test_size], out_dir)
 
     if args.validation_size > 0:
-        write_validation(metadata[-args.validation_size:], out_dir)
+        write_validation(metadata[-args.validation_size-args.test_size:-args.test_size], out_dir)
+
+    if args.test_size > 0:
+        write_validation(metadata[-args.test_size:], out_dir, filename='test.txt')
 
 
 def write_metadata(metadata, out_dir, filename='train.txt'):
@@ -66,6 +75,7 @@ def main():
     parser.add_argument('--hparams', default='',
                         help='Hyperparameter overrides as a comma-separated list of name=value pairs')
     parser.add_argument('--validation_size', type=int, default=0)
+    parser.add_argument('--test_size', type=int, default=0)
 
     args = parser.parse_args()
     hparams.parse(args.hparams)

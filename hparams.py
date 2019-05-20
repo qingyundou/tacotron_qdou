@@ -16,9 +16,12 @@ hparams = tf.contrib.training.HParams(
     preemphasis=0.97,
     min_level_db=-100,
     ref_level_db=20,
-    pml_dimension=86,
     rescale=True,  # Whether to rescale audio prior to preprocessing
     rescaling_max=0.999,  # Rescaling value
+
+    # PML Vocoder Features
+    pml_dimension=86,
+    spec_type='mcep',
 
     # Model:
     outputs_per_step=5,

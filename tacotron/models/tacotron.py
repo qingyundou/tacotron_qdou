@@ -16,7 +16,7 @@ class TacotronPMLExtendedLocSens():
 
 
   def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None,
-                 is_training=False, gta=False):
+                 is_training=False, gta=False, eal=False):
     '''Initializes the model for inference.
 
     Sets "mel_outputs", "linear_outputs", and "alignments" fields.
@@ -37,6 +37,7 @@ class TacotronPMLExtendedLocSens():
         features. Only needed for training.
       is_training: boolean flag that is set to True during training
       gta: boolean flag that is set to True when ground truth alignment is required
+      eal: boolean flag that is set to True when explicit attention alignment is required
     '''
     with tf.variable_scope('inference') as scope:
       batch_size = tf.shape(inputs)[0]

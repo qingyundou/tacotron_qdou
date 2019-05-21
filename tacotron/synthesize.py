@@ -3,7 +3,7 @@ import re
 from lib import sigproc as sp
 from hparams import hparams_debug_string
 from tacotron.synthesizer import Synthesizer
-from tacotron.pml_synthesizer import PMLSynthesizer, cfg
+from tacotron.pml_synthesizer import PMLSynthesizer
 from infolog import log
 from tqdm import tqdm
 import numpy as np
@@ -35,7 +35,7 @@ def run_eval(args, checkpoint_path, output_dir, hparams, sentences):
         wav = synth.synthesize(text, to_wav=True)
 
         if args.variant not in ['tacotron']:
-            sp.wavwrite(path, wav, cfg.wav_sr, norm_max_ifneeded=True, verbose=0)
+            sp.wavwrite(path, wav, hparams.sample_rate, norm_max_ifneeded=True, verbose=0)
         else:
             with open(path, 'wb') as f:
                 f.write(wav)
@@ -43,15 +43,18 @@ def run_eval(args, checkpoint_path, output_dir, hparams, sentences):
 
 def run_synthesis(args, checkpoint_path, output_dir, hparams):
     gta = (args.gta == 'True')
+    eal = (args.eal == 'True')
 
     if gta:
-        synth_dir = os.path.join(args.base_dir, output_dir, 'gta')
-        # create the output path if it does not exist
-        os.makedirs(synth_dir, exist_ok=True)
+        synth_dir = 'gta'
+    elif eal:
+        synth_dir = 'eal'
     else:
-        synth_dir = os.path.join(args.base_dir, output_dir, 'natural')
-        # create the output path if it does not exist
-        os.makedirs(synth_dir, exist_ok=True)
+        synth_dir = 'natural'
+
+    synth_dir = os.path.join(args.base_dir, output_dir, synth_dir)
+    # create the output path if it does not exist
+    os.makedirs(synth_dir, exist_ok=True)
 
     metadata_filename = os.path.join(args.base_dir, args.input_dir, 'train.txt')
     log(hparams_debug_string())

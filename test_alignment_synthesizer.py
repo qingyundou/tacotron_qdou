@@ -40,7 +40,7 @@ def main():
     # reset the graph after the first synthesise call
     tf.reset_default_graph()
 
-    synth.load(args.taco_checkpoint, model_name='tacotron_orig', forced_alignments=first_alignment)
+    synth.load(args.taco_checkpoint, model_name='tacotron_orig', locked_alignments=first_alignment)
     fixed_sentence = 'and district attorney henry m. wade both testified that they saw it later that day.'
     second_alignment = synth.synthesize(fixed_sentence)
     print('First Synthesized Alignment: {}'.format(first_alignment))

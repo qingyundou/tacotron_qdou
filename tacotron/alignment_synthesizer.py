@@ -6,14 +6,14 @@ from tacotron.utils.text import text_to_sequence
 
 
 class AlignmentSynthesizer:
-    def load(self, checkpoint, model_name='tacotron_pml', forced_alignments=None):
+    def load(self, checkpoint, gta=False, model_name='tacotron_pml', locked_alignments=None):
         print('Constructing model: %s' % model_name)
         inputs = tf.placeholder(tf.int32, [1, None], 'inputs')
         input_lengths = tf.placeholder(tf.int32, [1], 'input_lengths')
 
         with tf.variable_scope('model', reuse=tf.AUTO_REUSE) as scope:
-            self.model = create_model(model_name, hparams, forced_alignments)
-            self.model.initialize(inputs, input_lengths)
+            self.model = create_model(model_name, hparams)
+            self.model.initialize(inputs, input_lengths, gta=gta, locked_alignments=locked_alignments)
             self.alignment = self.model.alignments[0]
 
         print('Loading checkpoint: %s' % checkpoint)

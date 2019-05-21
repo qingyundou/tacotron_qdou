@@ -1,3 +1,4 @@
+import numpy as np
 import tensorflow as tf
 from tensorflow.contrib.rnn import GRUCell, MultiRNNCell, OutputProjectionWrapper, ResidualWrapper
 from tensorflow.contrib.seq2seq import BasicDecoder, BahdanauAttention
@@ -7,20 +8,14 @@ from tacotron.models.helpers import TacoTestHelper, TacoTrainingHelper
 from tacotron.models.lockable_attention_wrapper import LockableAttentionWrapper
 from tacotron.models.modules import encoder_cbhg, post_cbhg, prenet
 from tacotron.models.rnn_wrappers import DecoderPrenetWrapper, ConcatOutputAndAttentionWrapper
-from tacotron.models.base_tacotron import _BaseTacotron
 
 
-class Tacotron(_BaseTacotron):
-    def __init__(self, hparams, alignments=None):
-        """
-        Initialises Tacotron instance
+class Tacotron:
+    def __init__(self, hparams):
+        self._hparams = hparams
 
-        :param hparams:
-        :param alignments: expects alignments in shape (encoder_steps, decoder_steps) which is internal
-        """
-        super().__init__(hparams, alignments)
-
-    def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None):
+    def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None,
+                   gta=False, locked_alignments=None):
         '''Initializes the model for inference.
 
         Sets "mel_outputs", "linear_outputs", and "alignments" fields.
@@ -39,7 +34,18 @@ class Tacotron(_BaseTacotron):
           pml_targets: float32 Tensor with shape [N, T_out, P] where N is batch_size, T_out is number of
             steps in the PML vocoder features trajectories, P is pml_dimension, and values are PML vocoder
             features. Only needed for training.
+          gta: boolean flag that is set to True when ground truth alignment is required
+          locked_alignments: when explicit attention alignment is required, the locked alignments are passed in this
+            parameter and the attention alignments are locked to these values
         '''
+        # fix the alignments shape to (batch_size, encoder_steps, decoder_steps) if not already including
+        # batch dimension
+        locked_alignments_ = locked_alignments
+
+        if locked_alignments_ is not None:
+            if np.ndim(locked_alignments_) < 3:
+                locked_alignments_ = np.expand_dims(locked_alignments_, 0)
+
         with tf.variable_scope('inference') as scope:
             is_training = linear_targets is not None
             batch_size = tf.shape(inputs)[0]
@@ -63,7 +69,7 @@ class Tacotron(_BaseTacotron):
                 GRUCell(hp.attention_depth),
                 attention_mechanism,
                 alignment_history=True,
-                locked_alignments=self._alignments,
+                locked_alignments=locked_alignments_,
                 output_attention=False,
                 name='attention_wrapper')  # [N, T_in, attention_depth=256]
 

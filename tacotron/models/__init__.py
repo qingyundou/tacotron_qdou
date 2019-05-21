@@ -10,7 +10,7 @@ from tacotron.models.variants.tacotron_simpl_lstm import TacotronPMLSimplifiedLo
 from .tacotron import TacotronPMLExtendedLocSens
 
 
-def create_model(name, hparams, forced_alignments=None):
+def create_model(name, hparams):
   if name == 'tacotron':
     return TacotronPMLExtendedLocSens(hparams)
   elif name == 'tacotron_lstm_short':
@@ -18,9 +18,9 @@ def create_model(name, hparams, forced_alignments=None):
   elif name == 'tacotron_simpl':
     return TacotronPMLSimplifiedLocSens(hparams)
   elif name == 'tacotron_orig':
-    return Tacotron(hparams, alignments=forced_alignments)
+    return Tacotron(hparams)
   elif name == 'tacotron_pml':
-    return TacotronPML(hparams, alignments=forced_alignments)
+    return TacotronPML(hparams)
   elif name == 'tacotron_pml_x':
     return TacotronPMLExtended(hparams)
   elif name == 'tacotron_mel_pml':

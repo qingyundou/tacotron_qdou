@@ -106,6 +106,8 @@ def train(log_dir, args, input):
     # Set up denormalisation parameters for synthesis
     mean_path = os.path.abspath(os.path.join(args.base_dir, input, '..', 'pml_data/mean.dat'))
     std_path = os.path.abspath(os.path.join(args.base_dir, input, '..', 'pml_data/std.dat'))
+    log('Loading normalisation mean from: {}'.format(mean_path))
+    log('Loading normalisation standard deviation from: {}'.format(std_path))
     mean_norm = None
     std_norm = None
 

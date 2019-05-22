@@ -36,8 +36,8 @@ def main():
             mean_norm = np.fromfile(mean_path, 'float32')
             std_norm = np.fromfile(std_path, 'float32')
 
-        # pml_cmp = np.fromfile('/home/josh/tacotron/LJSpeech-1.1/pml/LJ010-0018.cmp', dtype=np.float32)
         pml_cmp = np.fromfile('/home/josh/tacotron/LJSpeech-1.1/pml/LJ029-0088.cmp', dtype=np.float32)
+        # pml_cmp = np.fromfile('/home/josh/tacotron/LJSpeech-1.1/bck_pml/LJ029-0088.cmp', dtype=np.float32)
         pml_features = pml_cmp.reshape((-1, hparams.pml_dimension))
         cfg = Configuration(hparams.sample_rate, hparams.pml_dimension)
         synth = PMLSynthesizer(cfg)

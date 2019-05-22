@@ -42,6 +42,7 @@ def build_from_path(in_dir, out_dir, hparams, num_workers=1, tqdm=lambda x: x):
 
     # copy the data files, if they exist
     files = glob.iglob(os.path.join(in_dir, 'pml', '*.dat'))
+    os.makedirs(os.path.join(out_dir, pml_data_dir), exist_ok=True)
 
     for file in files:
         if os.path.isfile(file):

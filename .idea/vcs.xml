@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/notebooks/sigproc" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sampleRNN" vcs="Git" />
   </component>
 </project>

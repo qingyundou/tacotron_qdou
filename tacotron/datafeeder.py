@@ -137,7 +137,7 @@ def _prepare_inputs(inputs):
 
 
 def _prepare_targets(targets, outputs_per_step):
-    max_len = max((len(t) for t in targets)) + 50
+    max_len = max((len(t) for t in targets)) + 1
     return np.stack([_pad_target(t, _round_up(max_len, outputs_per_step)) for t in targets])
 
 

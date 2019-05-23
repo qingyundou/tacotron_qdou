@@ -16,7 +16,7 @@ class TacotronPMLExtendedLocSens:
         self._hparams = hparams
 
     def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None,
-                   is_training=False, gta=False, locked_alignments=None):
+                   is_training=False, gta=False, locked_alignments=None, logs_enabled=True, cut_lengths=True):
         '''Initializes the model for inference.
 
         Sets "mel_outputs", "linear_outputs", and "alignments" fields.
@@ -39,6 +39,8 @@ class TacotronPMLExtendedLocSens:
           gta: boolean flag that is set to True when ground truth alignment is required
           locked_alignments: when explicit attention alignment is required, the locked alignments are passed in this
             parameter and the attention alignments are locked to these values
+          logs_enabled: boolean flag that defaults to True, if False no construction logs output
+          cut_lengths: boolean flag that controls whether to cut output sequence lengths from the target data
         '''
         # fix the alignments shape to (batch_size, encoder_steps, decoder_steps) if not already including
         # batch dimension
@@ -73,10 +75,10 @@ class TacotronPMLExtendedLocSens:
                 name='attention_wrapper')  # [N, T_in, attention_depth=256]
 
             # Apply prenet before concatenation in AttentionWrapper.
-            attention_cell = DecoderPrenetWrapper(attention_cell, is_training, hp.prenet_depths)
+            prenet_cell = DecoderPrenetWrapper(attention_cell, is_training, hp.prenet_depths)
 
             # Concatenate attention context vector and RNN cell output into a 2*attention_depth=512D vector.
-            concat_cell = ConcatOutputAndAttentionWrapper(attention_cell)  # [N, T_in, 2*attention_depth=512]
+            concat_cell = ConcatOutputAndAttentionWrapper(prenet_cell)  # [N, T_in, 2*attention_depth=512]
 
             # Decoder (layers specified bottom to top):
             decoder_cell = MultiRNNCell([
@@ -90,7 +92,7 @@ class TacotronPMLExtendedLocSens:
             decoder_init_state = output_cell.zero_state(batch_size=batch_size, dtype=tf.float32)
 
             if is_training or gta:
-                helper = TacoTrainingHelper(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step)
+                helper = TacoTrainingHelper(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step, cut_lengths)
             else:
                 helper = TacoTestHelper(batch_size, hp.pml_dimension, hp.outputs_per_step)
 
@@ -115,19 +117,22 @@ class TacotronPMLExtendedLocSens:
             self.pml_outputs = pml_outputs
             self.alignments = alignments
             self.pml_targets = pml_targets
-            log('Initialized Tacotron model. Dimensions: ')
-            log('  Train mode:              {}'.format(is_training))
-            log('  GTA mode:                {}'.format(is_training))
-            log('  Embedding:               {}'.format(embedded_inputs.shape[-1]))
-            log('  Prenet out:              {}'.format(prenet_outputs.shape[-1]))
-            log('  Encoder out:             {}'.format(encoder_outputs.shape[-1]))
-            log('  Attention out:           {}'.format(attention_cell.output_size))
-            log('  Concat attn & out:       {}'.format(concat_cell.output_size))
-            log('  Decoder cell out:        {}'.format(decoder_cell.output_size))
-            log('  Decoder out ({} frames):  {}'.format(hp.outputs_per_step, decoder_outputs.shape[-1]))
-            log('  Decoder out (1 frame):   {}'.format(pml_intermediates.shape[-1]))
-            log('  Postnet out:             {}'.format(post_outputs.shape[-1]))
-            log('  PML out:                 {}'.format(pml_outputs.shape[-1]))
+            self.attention_cell = attention_cell
+
+            if logs_enabled:
+                log('Initialized Tacotron model. Dimensions: ')
+                log('  Train mode:              {}'.format(is_training))
+                log('  GTA mode:                {}'.format(is_training))
+                log('  Embedding:               {}'.format(embedded_inputs.shape[-1]))
+                log('  Prenet out:              {}'.format(prenet_outputs.shape[-1]))
+                log('  Encoder out:             {}'.format(encoder_outputs.shape[-1]))
+                log('  Attention out:           {}'.format(attention_cell.output_size))
+                log('  Concat attn & out:       {}'.format(concat_cell.output_size))
+                log('  Decoder cell out:        {}'.format(decoder_cell.output_size))
+                log('  Decoder out ({} frames):  {}'.format(hp.outputs_per_step, decoder_outputs.shape[-1]))
+                log('  Decoder out (1 frame):   {}'.format(pml_intermediates.shape[-1]))
+                log('  Postnet out:             {}'.format(post_outputs.shape[-1]))
+                log('  PML out:                 {}'.format(pml_outputs.shape[-1]))
 
     def add_loss(self):
         '''Adds loss to the model. Sets "loss" field. initialize must have been called.'''
@@ -159,6 +164,15 @@ class TacotronPMLExtendedLocSens:
             with tf.control_dependencies(tf.get_collection(tf.GraphKeys.UPDATE_OPS)):
                 self.optimize = optimizer.apply_gradients(zip(clipped_gradients, variables),
                                                           global_step=global_step)
+
+    def set_locked_alignments(self, locked_alignments=None):
+        """
+        Sets the lockable alignments to a different value.
+
+        :param locked_alignments: Alignments to lock the attention mechanism to.
+        :return: None
+        """
+        pass
 
 
 def _learning_rate_decay(init_lr, global_step):

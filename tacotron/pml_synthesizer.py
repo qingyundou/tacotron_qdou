@@ -60,20 +60,25 @@ class PMLSynthesizer:
         else:
             self.cfg = cfg
 
+    def load(self, checkpoint_path, hparams, gta=False, model_name='tacotron_pml', locked_alignments=None,
+             logs_enabled=False):
+        if logs_enabled:
+            log('Constructing model: %s' % model_name)
 
-    def load(self, checkpoint_path, hparams, gta=False, model_name='tacotron_pml'):
-        print('Constructing model: %s' % model_name)
         inputs = tf.placeholder(tf.int32, [None, None], 'inputs')
         input_lengths = tf.placeholder(tf.int32, [None], 'input_lengths')
         targets = tf.placeholder(tf.float32, [None, None, hparams.pml_dimension], 'pml_targets')
 
-        with tf.variable_scope('model') as scope:
+        with tf.variable_scope('model', reuse=tf.AUTO_REUSE) as scope:
             self.model = create_model(model_name, hparams)
 
             if gta:
-                self.model.initialize(inputs, input_lengths, pml_targets=targets, gta=gta)
+                self.model.initialize(inputs, input_lengths, pml_targets=targets, gta=gta, logs_enabled=logs_enabled)
+            elif locked_alignments is not None:
+                self.model.initialize(inputs, input_lengths, locked_alignments=locked_alignments,
+                                      logs_enabled=logs_enabled)
             else:
-                self.model.initialize(inputs, input_lengths)
+                self.model.initialize(inputs, input_lengths, logs_enabled=logs_enabled)
 
             self.pml_outputs = self.model.pml_outputs
 
@@ -84,7 +89,8 @@ class PMLSynthesizer:
         self.input_lengths = input_lengths
         self.targets = targets
 
-        log('Loading checkpoint: %s' % checkpoint_path)
+        if logs_enabled:
+            log('Loading checkpoint: %s' % checkpoint_path)
 
         self.session = tf.Session()
         self.session.run(tf.global_variables_initializer())
@@ -93,22 +99,19 @@ class PMLSynthesizer:
         saver.restore(self.session, checkpoint_path)
 
     def synthesize(self, texts, pml_filenames=None, to_wav=False, **kwargs):
-        hparams = self._hparams
-        cleaner_names = [x.strip() for x in hparams.cleaners.split(',')]
-
-        seqs = []
-
-        for text in texts:
-            seqs.append(text_to_sequence(text, cleaner_names))
+        hp = self._hparams
+        cleaner_names = [x.strip() for x in hp.cleaners.split(',')]
+        seqs = [np.asarray(text_to_sequence(text, cleaner_names), dtype=np.int32) for text in texts]
+        input_seqs = self._prepare_inputs(seqs)
 
         feed_dict = {
-            self.model.inputs: np.asarray(seqs, dtype=np.int32),
+            self.model.inputs: np.asarray(input_seqs, dtype=np.int32),
             self.model.input_lengths: np.asarray([len(seq) for seq in seqs], dtype=np.int32)
         }
 
         if self.gta:
             np_targets = [np.load(pml_filename) for pml_filename in pml_filenames]
-            prepared_targets = self._prepare_targets(np_targets, hparams.outputs_per_step)
+            prepared_targets = self._prepare_targets(np_targets, hp.outputs_per_step)
             feed_dict[self.targets] = prepared_targets
             assert len(np_targets) == len(texts)
 
@@ -167,10 +170,17 @@ class PMLSynthesizer:
         # return the raw wav data
         return wav
 
+    def _prepare_inputs(self, inputs):
+        max_len = max((len(x) for x in inputs))
+        return np.stack([self._pad_input(x, max_len) for x in inputs])
+
     def _prepare_targets(self, targets, outputs_per_step):
         max_len = max((len(t) for t in targets)) + 50
         data_len = self._round_up(max_len, outputs_per_step)
         return np.stack([self._pad_target(t, data_len) for t in targets])
+
+    def _pad_input(self, x, length):
+        return np.pad(x, (0, length - x.shape[0]), mode='constant', constant_values=_pad)
 
     def _pad_target(self, t, length):
         return np.pad(t, [(0, length - t.shape[0]), (0, 0)], mode='constant', constant_values=_pad)

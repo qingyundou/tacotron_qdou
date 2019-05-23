@@ -39,6 +39,8 @@ def main():
     parser.add_argument('--output_dir', default='output', help='Folder to contain synthesized PML features')
     parser.add_argument('--input_dir', default='training', help='folder to contain inputs sentences/targets')
     parser.add_argument('--base_dir', default=os.path.expanduser('~/tacotron'))
+    parser.add_argument('--batch_size', default=100, help='Number of PML vocoder feature trajectories to '
+                                                          'synthesize at once')
     args = parser.parse_args()
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     hparams.parse(args.hparams)

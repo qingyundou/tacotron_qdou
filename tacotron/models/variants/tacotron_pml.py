@@ -74,10 +74,10 @@ class TacotronPML:
                 name='attention_wrapper')  # [N, T_in, attention_depth=256]
 
             # Apply prenet before concatenation in AttentionWrapper.
-            attention_cell = DecoderPrenetWrapper(attention_cell, is_training, hp.prenet_depths)
+            prenet_cell = DecoderPrenetWrapper(attention_cell, is_training, hp.prenet_depths)
 
             # Concatenate attention context vector and RNN cell output into a 2*attention_depth=512D vector.
-            concat_cell = ConcatOutputAndAttentionWrapper(attention_cell)  # [N, T_in, 2*attention_depth=512]
+            concat_cell = ConcatOutputAndAttentionWrapper(prenet_cell)  # [N, T_in, 2*attention_depth=512]
 
             # Decoder (layers specified bottom to top):
             decoder_cell = MultiRNNCell([
@@ -110,6 +110,7 @@ class TacotronPML:
             self.pml_outputs = pml_outputs
             self.alignments = alignments
             self.pml_targets = pml_targets
+            self.attention_cell = attention_cell
             log('Initialized Tacotron model. Dimensions: ')
             log('  embedding:               %d' % embedded_inputs.shape[-1])
             log('  prenet out:              %d' % prenet_outputs.shape[-1])
@@ -149,6 +150,15 @@ class TacotronPML:
             with tf.control_dependencies(tf.get_collection(tf.GraphKeys.UPDATE_OPS)):
                 self.optimize = optimizer.apply_gradients(zip(clipped_gradients, variables),
                                                           global_step=global_step)
+
+    def set_locked_alignments(self, locked_alignments=None):
+        """
+        Sets the lockable alignments to a different value.
+
+        :param locked_alignments: Alignments to lock the attention mechanism to.
+        :return: None
+        """
+        pass
 
 
 def _learning_rate_decay(init_lr, global_step):

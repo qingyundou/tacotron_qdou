@@ -1,3 +1,4 @@
+import numpy as np
 import tensorflow as tf
 from tensorflow.contrib.rnn import GRUCell, LSTMBlockCell, MultiRNNCell, OutputProjectionWrapper, ResidualWrapper
 from tensorflow.contrib.seq2seq import BasicDecoder, AttentionWrapper
@@ -14,7 +15,7 @@ class TacotronPMLSimplifiedLocSensLSTM():
         self._hparams = hparams
 
     def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None,
-                   is_training=False, gta=False):
+                   is_training=False, gta=False, locked_alignments=None):
         """
         Initializes the model for inference.
 
@@ -36,7 +37,17 @@ class TacotronPMLSimplifiedLocSensLSTM():
             features. Only needed for training.
           is_training: boolean flag that is set to True during training
           gta: boolean flag that is set to True when ground truth alignment is required
+          locked_alignments: when explicit attention alignment is required, the locked alignments are passed in this
+            parameter and the attention alignments are locked to these values
         """
+        # fix the alignments shape to (batch_size, encoder_steps, decoder_steps) if not already including
+        # batch dimension
+        locked_alignments_ = locked_alignments
+
+        if locked_alignments_ is not None:
+            if np.ndim(locked_alignments_) < 3:
+                locked_alignments_ = np.expand_dims(locked_alignments_, 0)
+
         with tf.variable_scope('inference') as scope:
             batch_size = tf.shape(inputs)[0]
             hp = self._hparams

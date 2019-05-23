@@ -1,4 +1,5 @@
 import argparse
+from hparams import hparams
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib import cm
@@ -18,7 +19,7 @@ def main():
     args = parser.parse_args()
 
     synth = AlignmentSynthesizer()
-    synth.load(args.taco_pml_checkpoint, model_name='tacotron_pml')
+    synth.load(args.taco_pml_checkpoint, hparams, model_name='tacotron_pml')
     fixed_sentence = 'and district attorney henry m. wade both testified that they saw it later that day.'
     first_alignment = synth.synthesize(fixed_sentence)  # of shape (encoder_steps, decoder_steps)
     print('First Synthesized Alignment Shape: {}'.format(first_alignment.shape))
@@ -40,7 +41,7 @@ def main():
     # reset the graph after the first synthesise call
     tf.reset_default_graph()
 
-    synth.load(args.taco_checkpoint, model_name='tacotron_orig', locked_alignments=first_alignment)
+    synth.load(args.taco_checkpoint, hparams, model_name='tacotron_orig', locked_alignments=first_alignment)
     fixed_sentence = 'and district attorney henry m. wade both testified that they saw it later that day.'
     second_alignment = synth.synthesize(fixed_sentence)
     print('First Synthesized Alignment: {}'.format(first_alignment))
@@ -58,7 +59,7 @@ def main():
     # generate the image
     second_image = Image.fromarray(np.uint8(wistia(second_alignment) * 255))
     height, width = second_alignment.shape
-    second_image = second_image.resize((round(width * 12.5 / 5), height))
+    # second_image = second_image.resize((round(width * 12.5 / 5), height))
     second_image = np.array(second_image)[:, :cutoff]
 
     fig, ax = plt.subplots()

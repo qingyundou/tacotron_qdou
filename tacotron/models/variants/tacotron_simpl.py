@@ -1,11 +1,13 @@
+import numpy as np
 import tensorflow as tf
 from tensorflow.contrib.rnn import GRUCell, MultiRNNCell, OutputProjectionWrapper, ResidualWrapper
-from tensorflow.contrib.seq2seq import BasicDecoder, AttentionWrapper
+from tensorflow.contrib.seq2seq import BasicDecoder
 from tacotron.utils.symbols import symbols
 from infolog import log
 from tacotron.models.attention import LocationSensitiveAttention
 from tacotron.models.helpers import TacoTestHelper, TacoTrainingHelper, TacoScheduledOutputTrainingHelper
-from tacotron.models.modules import conv_and_gru, encoder_cbhg, post_cbhg, prenet
+from tacotron.models.lockable_attention_wrapper import LockableAttentionWrapper
+from tacotron.models.modules import conv_and_gru
 from tacotron.models.rnn_wrappers import DecoderPrenetWrapper, ConcatOutputAndAttentionWrapper
 
 
@@ -14,7 +16,7 @@ class TacotronPMLSimplifiedLocSens():
         self._hparams = hparams
 
     def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None,
-                   is_training=False, gta=False):
+                   is_training=False, gta=False, locked_alignments=None, logs_enabled=True):
         """
         Initializes the model for inference.
 
@@ -36,7 +38,18 @@ class TacotronPMLSimplifiedLocSens():
             features. Only needed for training.
           is_training: boolean flag that is set to True during training
           gta: boolean flag that is set to True when ground truth alignment is required
+          locked_alignments: when explicit attention alignment is required, the locked alignments are passed in this
+            parameter and the attention alignments are locked to these values
+          logs_enabled: boolean flag that defaults to True, if False no construction logs output
         """
+        # fix the alignments shape to (batch_size, encoder_steps, decoder_steps) if not already including
+        # batch dimension
+        locked_alignments_ = locked_alignments
+
+        if locked_alignments_ is not None:
+            if np.ndim(locked_alignments_) < 3:
+                locked_alignments_ = np.expand_dims(locked_alignments_, 0)
+
         with tf.variable_scope('inference') as scope:
             batch_size = tf.shape(inputs)[0]
             hp = self._hparams
@@ -60,11 +73,13 @@ class TacotronPMLSimplifiedLocSens():
             )
 
             # Attention
-            attention_cell = AttentionWrapper(  # [N, T_in, attention_depth=256]
-                DecoderPrenetWrapper(GRUCell(hp.attention_depth), is_training, hp.prenet_depths),
+            attention_cell = LockableAttentionWrapper(
+                GRUCell(hp.attention_depth),
                 LocationSensitiveAttention(hp.attention_depth, encoder_outputs),
                 alignment_history=True,
-                output_attention=False)
+                locked_alignments=locked_alignments_,
+                output_attention=False,
+                name='attention_wrapper')  # [N, T_in, attention_depth=256]
 
             # Concatenate attention context vector and RNN cell output into a
             # 2*attention_depth=512D vector.
@@ -119,18 +134,20 @@ class TacotronPMLSimplifiedLocSens():
             self.pml_outputs = pml_outputs
             self.alignments = alignments
             self.pml_targets = pml_targets
-            log('Initialized Tacotron model. Dimensions: ')
-            log('  Train mode:              {}'.format(is_training))
-            log('  GTA mode:                {}'.format(is_training))
-            log('  Embedding:               {}'.format(embedded_inputs.shape[-1]))
-            log('  Encoder out:             {}'.format(encoder_outputs.shape[-1]))
-            log('  Attention out:           {}'.format(attention_cell.output_size))
-            log('  Concat attn & out:       {}'.format(concat_cell.output_size))
-            log('  Decoder cell out:        {}'.format(decoder_cell.output_size))
-            log('  Decoder out ({} frames):  {}'.format(hp.outputs_per_step, decoder_outputs.shape[-1]))
-            log('  Decoder out (1 frame):   {}'.format(pml_intermediates.shape[-1]))
-            log('  Expand out:              {}'.format(expand_outputs.shape[-1]))
-            log('  PML out:                 {}'.format(pml_outputs.shape[-1]))
+
+            if logs_enabled:
+                log('Initialized Tacotron model. Dimensions: ')
+                log('  Train mode:              {}'.format(is_training))
+                log('  GTA mode:                {}'.format(is_training))
+                log('  Embedding:               {}'.format(embedded_inputs.shape[-1]))
+                log('  Encoder out:             {}'.format(encoder_outputs.shape[-1]))
+                log('  Attention out:           {}'.format(attention_cell.output_size))
+                log('  Concat attn & out:       {}'.format(concat_cell.output_size))
+                log('  Decoder cell out:        {}'.format(decoder_cell.output_size))
+                log('  Decoder out ({} frames):  {}'.format(hp.outputs_per_step, decoder_outputs.shape[-1]))
+                log('  Decoder out (1 frame):   {}'.format(pml_intermediates.shape[-1]))
+                log('  Expand out:              {}'.format(expand_outputs.shape[-1]))
+                log('  PML out:                 {}'.format(pml_outputs.shape[-1]))
 
     def add_loss(self):
         """Adds loss to the model. Sets "loss" field. initialize must have been called."""

@@ -122,7 +122,7 @@ class TacoScheduledOutputTrainingHelper(TacoTrainingHelper):
                 )
             )
 
-            sample_ids = math_ops.cast(sample_ids, tf.dtypes.bool)
+            sample_ids = math_ops.cast(sample_ids, tf.bool)
 
             def maybe_sample():
                 """Perform scheduled sampling."""

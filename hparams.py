@@ -3,6 +3,10 @@ import tensorflow as tf
 
 # Default hyperparameters:
 hparams = tf.contrib.training.HParams(
+    ###########################################################################################################################################
+    # Tacotron/Feature Prediction
+    ###########################################################################################################################################
+
     # Comma-separated list of cleaners to run on text prior to training and eval. For non-English
     # text, you may want to use "basic_cleaners" or "transliteration_cleaners" See TRAINING_DATA.md.
     cleaners='english_cleaners',
@@ -47,7 +51,7 @@ hparams = tf.contrib.training.HParams(
     postnet_conv_layers=5,
     postnet_conv_width=5,
     postnet_conv_channels=512,
-    # Expand Network
+    # Expand Network:
     expand_conv_layers=5,
     expand_conv_width=5,
     expand_conv_channels=512,
@@ -60,6 +64,10 @@ hparams = tf.contrib.training.HParams(
     initial_learning_rate=0.002,
     decay_learning_rate=True,
     use_cmudict=False,  # Use CMUDict during training to learn pronunciation of ARPAbet phonemes
+    # Scheduled Sampling:
+    scheduled_sampling=False,
+    scheduled_sampling_probability=0.5,
+    scheduled_sampling_mode='constant',
 
     # Eval:
     max_iters=800,
@@ -80,8 +88,9 @@ hparams = tf.contrib.training.HParams(
     ],
 
     ###########################################################################################################################################
-
     # Wavenet
+    ###########################################################################################################################################
+
     # Input type:
     # 1. raw [-1, 1]
     # 2. mulaw [-1, 1]

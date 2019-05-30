@@ -4,7 +4,7 @@ from tensorflow.contrib.seq2seq import BasicDecoder, AttentionWrapper
 from tacotron.utils.symbols import symbols
 from infolog import log
 from tacotron.models.attention import LocationSensitiveAttention
-from tacotron.models.helpers import TacoTestHelper, TacoTrainingHelper
+from tacotron.models.helpers import TacoTestHelper, TacoTrainingHelper, TacoScheduledOutputTrainingHelper
 from tacotron.models.modules import conv_and_gru, encoder_cbhg, post_cbhg, prenet
 from tacotron.models.rnn_wrappers import DecoderPrenetWrapper, ConcatOutputAndAttentionWrapper
 
@@ -78,7 +78,12 @@ class TacotronPMLSimplifiedLocSens():
             output_cell = OutputProjectionWrapper(decoder_cell, hp.pml_dimension * hp.outputs_per_step)
 
             if is_training or gta:
-                helper = TacoTrainingHelper(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step)
+                if hp.scheduled_sampling:
+                    helper = TacoScheduledOutputTrainingHelper(
+                        inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step,
+                        hp.scheduled_sampling_probability)
+                else:
+                    helper = TacoTrainingHelper(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step)
             else:
                 helper = TacoTestHelper(batch_size, hp.pml_dimension, hp.outputs_per_step)
 

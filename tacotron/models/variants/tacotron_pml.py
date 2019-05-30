@@ -15,7 +15,7 @@ class TacotronPML:
         self._hparams = hparams
 
     def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None,
-                   gta=False, locked_alignments=None):
+                   gta=False, locked_alignments=None, logs_enabled=True):
         '''Initializes the model for inference.
 
         Sets "pml_outputs", and "alignments" fields.
@@ -37,6 +37,7 @@ class TacotronPML:
           gta: boolean flag that is set to True when ground truth alignment is required
           locked_alignments: when explicit attention alignment is required, the locked alignments are passed in this
             parameter and the attention alignments are locked to these values
+          logs_enabled: boolean flag that defaults to True, if False no construction logs output
         '''
         # fix the alignments shape to (batch_size, encoder_steps, decoder_steps) if not already including
         # batch dimension
@@ -90,7 +91,7 @@ class TacotronPML:
             output_cell = OutputProjectionWrapper(decoder_cell, hp.pml_dimension * hp.outputs_per_step)
             decoder_init_state = output_cell.zero_state(batch_size=batch_size, dtype=tf.float32)
 
-            if is_training:
+            if is_training or gta:
                 helper = TacoTrainingHelper(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step)
             else:
                 helper = TacoTestHelper(batch_size, hp.pml_dimension, hp.outputs_per_step)
@@ -111,15 +112,17 @@ class TacotronPML:
             self.alignments = alignments
             self.pml_targets = pml_targets
             self.attention_cell = attention_cell
-            log('Initialized Tacotron model. Dimensions: ')
-            log('  embedding:               %d' % embedded_inputs.shape[-1])
-            log('  prenet out:              %d' % prenet_outputs.shape[-1])
-            log('  encoder out:             %d' % encoder_outputs.shape[-1])
-            log('  attention out:           %d' % attention_cell.output_size)
-            log('  concat attn & out:       %d' % concat_cell.output_size)
-            log('  decoder cell out:        %d' % decoder_cell.output_size)
-            log('  decoder out (%d frames):  %d' % (hp.outputs_per_step, decoder_outputs.shape[-1]))
-            log('  decoder out (1 frame):   %d' % pml_outputs.shape[-1])
+
+            if logs_enabled:
+                log('Initialized Tacotron model. Dimensions: ')
+                log('  embedding:               %d' % embedded_inputs.shape[-1])
+                log('  prenet out:              %d' % prenet_outputs.shape[-1])
+                log('  encoder out:             %d' % encoder_outputs.shape[-1])
+                log('  attention out:           %d' % attention_cell.output_size)
+                log('  concat attn & out:       %d' % concat_cell.output_size)
+                log('  decoder cell out:        %d' % decoder_cell.output_size)
+                log('  decoder out (%d frames):  %d' % (hp.outputs_per_step, decoder_outputs.shape[-1]))
+                log('  decoder out (1 frame):   %d' % pml_outputs.shape[-1])
 
     def add_loss(self):
         '''Adds loss to the model. Sets "loss" field. initialize must have been called.'''

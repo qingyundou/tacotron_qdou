@@ -8,6 +8,15 @@ _pad = 0
 
 class AlignmentSynthesizer:
     def load(self, checkpoint, hparams, gta=False, model_name='tacotron_pml', locked_alignments=None, cut_lengths=True):
+        """
+        :param checkpoint:
+        :param hparams:
+        :param gta:
+        :param model_name:
+        :param locked_alignments:
+        :param cut_lengths: boolean flag that controls whether to cut output sequence lengths from the target data
+        :return:
+        """
         print('Constructing model: %s' % model_name)
         inputs = tf.placeholder(tf.int32, [None, None], 'inputs')
         input_lengths = tf.placeholder(tf.int32, [None], 'input_lengths')
@@ -18,7 +27,7 @@ class AlignmentSynthesizer:
 
             if gta:
                 self.model.initialize(inputs, input_lengths, pml_targets=targets,
-                                      gta=gta, locked_alignments=locked_alignments, cut_lengths=cut_lengths)
+                                      gta=gta, locked_alignments=locked_alignments)
             else:
                 self.model.initialize(inputs, input_lengths, locked_alignments=locked_alignments)
 
@@ -27,6 +36,7 @@ class AlignmentSynthesizer:
         self.gta = gta
         self._hparams = hparams
         self.targets = targets
+        self.cut_lengths = cut_lengths
 
         print('Loading checkpoint: %s' % checkpoint)
         self.session = tf.Session()
@@ -60,10 +70,26 @@ class AlignmentSynthesizer:
 
         alignments, = self.session.run([self.alignments], feed_dict=feed_dict)
 
+        if not self.cut_lengths:
+            max_length = hp.max_iters
+            alignments = self.pad_along_axis(alignments, max_length, axis=2)
+
         if len(alignments) == 1:
             return alignments[0]
 
         return alignments
+
+    def pad_along_axis(self, matrix, target_length, axis=0):
+        pad_size = target_length - matrix.shape[axis]
+        axis_nb = len(matrix.shape)
+
+        if pad_size < 0:
+            return matrix
+
+        npad = [(0, 0) for x in range(axis_nb)]
+        npad[axis] = (0, pad_size)
+        b = np.pad(matrix, pad_width=npad, mode='constant', constant_values=0)
+        return b
 
     def _prepare_inputs(self, inputs):
         max_len = max((len(x) for x in inputs))

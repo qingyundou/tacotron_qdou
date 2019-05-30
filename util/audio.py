@@ -16,9 +16,9 @@ def remove_silence(y, top_db=18):
     return librosa.effects.trim(y, top_db=top_db)[0]  # returns [trimmed_signal, intervals]
 
 
-def save_wav(wav, path):
+def save_wav(wav, path, sr=hparams.sample_rate):
     wav *= 32767 / max(0.01, np.max(np.abs(wav)))
-    wavfile.write(path, hparams.sample_rate, wav.astype(np.int16))
+    wavfile.write(path, sr, wav.astype(np.int16))
 
 
 def save_wavenet_wav(wav, path, sr, inv_preemphasize, k):

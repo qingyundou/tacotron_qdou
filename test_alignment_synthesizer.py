@@ -10,16 +10,9 @@ from tacotron.alignment_synthesizer import AlignmentSynthesizer
 import tensorflow as tf
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--taco_pml_checkpoint',
-                        default='/media/josh/Store/tacotron-remote-logs/remote-logs/tacotron-lj-pml-500k/model.ckpt-352000')
-    parser.add_argument('--taco_checkpoint',
-                        default='/media/josh/Store/tacotron-remote-logs/remote-logs/tacotron-lj-500k/model.ckpt-195000')
-    args = parser.parse_args()
-
+def original_tacotron_vs_tacopml(taco_checkpoint, tacopml_checkpoint):
     synth = AlignmentSynthesizer()
-    synth.load(args.taco_pml_checkpoint, hparams, model_name='tacotron_pml')
+    synth.load(tacopml_checkpoint, hparams, model_name='tacotron_pml')
     fixed_sentence = 'and district attorney henry m. wade both testified that they saw it later that day.'
     first_alignment = synth.synthesize(fixed_sentence)  # of shape (encoder_steps, decoder_steps)
     print('First Synthesized Alignment Shape: {}'.format(first_alignment.shape))
@@ -41,7 +34,7 @@ def main():
     # reset the graph after the first synthesise call
     tf.reset_default_graph()
 
-    synth.load(args.taco_checkpoint, hparams, model_name='tacotron_orig', locked_alignments=first_alignment)
+    synth.load(taco_checkpoint, hparams, model_name='tacotron_orig', locked_alignments=first_alignment)
     fixed_sentence = 'and district attorney henry m. wade both testified that they saw it later that day.'
     second_alignment = synth.synthesize(fixed_sentence)
     print('First Synthesized Alignment: {}'.format(first_alignment))
@@ -90,6 +83,19 @@ def main():
     plt.ylabel('Encoder Step (character index)')
     plt.tight_layout()
     plt.show()
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--first_checkpoint',
+                        default='/media/josh/Store/tacotron-remote-logs/remote-logs/tacotron-lj-pml-500k/model.ckpt-352000')
+    parser.add_argument('--second_checkpoint',
+                        default='/media/josh/Store/tacotron-remote-logs/remote-logs/tacotron-lj-500k/model.ckpt-195000')
+    parser.add_argument('--experiment', default='original')
+    args = parser.parse_args()
+
+    if args.experiment == 'original':
+        original_tacotron_vs_tacopml(args.first_checkpoint, args.second_checkpoint)
 
 
 if __name__ == '__main__':

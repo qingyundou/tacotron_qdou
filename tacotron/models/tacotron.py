@@ -5,7 +5,7 @@ from tensorflow.contrib.seq2seq import BasicDecoder
 from tacotron.utils.symbols import symbols
 from infolog import log
 from .attention import LocationSensitiveAttention
-from .helpers import TacoTestHelper, TacoTrainingHelper
+from .helpers import TacoTestHelper, TacoTrainingHelper, TacoScheduledOutputTrainingHelper
 from .lockable_attention_wrapper import LockableAttentionWrapper
 from .modules import encoder_cbhg, post_cbhg, prenet
 from .rnn_wrappers import DecoderPrenetWrapper, ConcatOutputAndAttentionWrapper
@@ -16,7 +16,7 @@ class TacotronPMLExtendedLocSens:
         self._hparams = hparams
 
     def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None,
-                   is_training=False, gta=False, locked_alignments=None, logs_enabled=True, cut_lengths=True):
+                   is_training=False, gta=False, locked_alignments=None, logs_enabled=True):
         '''Initializes the model for inference.
 
         Sets "mel_outputs", "linear_outputs", and "alignments" fields.
@@ -40,7 +40,6 @@ class TacotronPMLExtendedLocSens:
           locked_alignments: when explicit attention alignment is required, the locked alignments are passed in this
             parameter and the attention alignments are locked to these values
           logs_enabled: boolean flag that defaults to True, if False no construction logs output
-          cut_lengths: boolean flag that controls whether to cut output sequence lengths from the target data
         '''
         # fix the alignments shape to (batch_size, encoder_steps, decoder_steps) if not already including
         # batch dimension
@@ -92,7 +91,12 @@ class TacotronPMLExtendedLocSens:
             decoder_init_state = output_cell.zero_state(batch_size=batch_size, dtype=tf.float32)
 
             if is_training or gta:
-                helper = TacoTrainingHelper(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step, cut_lengths)
+                if hp.scheduled_sampling:
+                    helper = TacoScheduledOutputTrainingHelper(
+                        inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step,
+                        hp.scheduled_sampling_probability)
+                else:
+                    helper = TacoTrainingHelper(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step)
             else:
                 helper = TacoTestHelper(batch_size, hp.pml_dimension, hp.outputs_per_step)
 

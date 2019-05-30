@@ -46,7 +46,7 @@ def build_from_path(in_dir, out_dir, hparams, num_workers=1, tqdm=lambda x: x):
 
     for file in files:
         if os.path.isfile(file):
-            shutil.copy2(file, os.path.join(out_dir, pml_data_dir))
+            shutil.copyfile(file, os.path.join(out_dir, pml_data_dir, os.path.basename(file)))
 
     return [future.result() for future in tqdm(futures)]
 
@@ -78,7 +78,7 @@ def _process_utterance(out_dir, index, wav_path, text, pml_cmp, hparams):
     os.makedirs(os.path.join(out_dir, linear_dir), exist_ok=True)
 
     # Copy the wav into the training directory
-    shutil.copy2(wav_path, os.path.join(out_dir, wav_dir)) # just dir name needed
+    shutil.copyfile(wav_path, os.path.join(out_dir, wav_dir, os.path.basename(wav_path)))
 
     # Write the PML features to disk
     pml_filename = 'ljspeech-pml-%05d.npy' % index

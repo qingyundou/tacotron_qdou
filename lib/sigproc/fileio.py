@@ -89,7 +89,7 @@ def wavwrite(filename, wav, fs, enc=None, norm_max_ifneeded=False, norm_max=Fals
         if enc==None: enc = np.int16
         elif enc=='pcm16':
             enc = np.int16
-        elif enc=='float32' or enc==dtype('float32'):
+        elif enc=='float32':
             raise ValueError('float not supported by scipy.io.wavfile')
         wav = wav.copy()
         wav = enc(np.iinfo(enc).max*wav)

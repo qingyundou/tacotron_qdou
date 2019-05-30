@@ -5,6 +5,9 @@ from tacotron.utils.text import text_to_sequence
 from util import audio
 from lib import sigproc as sp
 from infolog import log
+from concurrent.futures import ProcessPoolExecutor
+from functools import partial
+from lib.pulsemodel.synthesis import synthesize
 
 
 # simplified port of the configuration from Merlin proper
@@ -12,6 +15,7 @@ class Configuration(object):
     def __init__(self, wav_sr=16000, pml_dimension=86):
         self.acoustic_feature_type = 'PML'
         self.acoustic_features = ['mgc', 'lf0', 'bap']
+        self.pp_mcep = False
 
         if pml_dimension == 86:
             self.acoustic_in_dimension_dict = {'mgc': 60, 'lf0': 1, 'bap': 25}
@@ -31,6 +35,8 @@ class Configuration(object):
                 'mgc': self.acoustic_out_dimension_dict['lf0'],
                 'bap': self.acoustic_out_dimension_dict['mgc'] + self.acoustic_out_dimension_dict['lf0']
             }
+
+            self.pp_mcep = True
 
         self.acoustic_file_ext_dict = {
             'mgc': '.mcep', 'lf0': '.lf0', 'bap': '.bndnm'}
@@ -98,8 +104,12 @@ class PMLSynthesizer:
         saver = tf.train.Saver()
         saver.restore(self.session, checkpoint_path)
 
-    def synthesize(self, texts, pml_filenames=None, to_wav=False, **kwargs):
+    def synthesize(self, texts, pml_filenames=None, to_wav=False, num_workers=4, **kwargs):
         hp = self._hparams
+
+        kwargs.setdefault('pp_mcep', self.cfg.pp_mcep)
+        kwargs.setdefault('spec_type', hp.spec_type)
+
         cleaner_names = [x.strip() for x in hp.cleaners.split(',')]
         seqs = [np.asarray(text_to_sequence(text, cleaner_names), dtype=np.int32) for text in texts]
         input_seqs = self._prepare_inputs(seqs)
@@ -118,57 +128,22 @@ class PMLSynthesizer:
         pml_features_matrix = self.session.run(self.pml_outputs, feed_dict=feed_dict)
 
         if to_wav:
-            wavs = []
+            executor = ProcessPoolExecutor(max_workers=num_workers)
+            futures = []
 
             for pml_features in pml_features_matrix:
-                wav = self.pml_to_wav(pml_features, **kwargs)
-                wav = wav[:audio.find_endpoint(wav, threshold_db=0)]
-                wavs.append(wav)
+                futures.append(executor.submit(partial(_pml_to_wav, pml_features, self.cfg, **kwargs)))
 
+            wavs = [future.result() for future in futures]
             return wavs
 
         return pml_features_matrix
 
     def pml_to_wav(self, pml_features, shift=0.005, dftlen=4096, nm_cont=False, verbose_level=0, mean_norm=None,
-                   std_norm=None, spec_type='mcep'):
-        from lib.pulsemodel.synthesis import synthesize
-
-        # get the mean and variance, and denormalise
-        if mean_norm is not None and std_norm is not None:
-            std_tiled = np.tile(std_norm, (pml_features.shape[0], 1))
-            mean_tiled = np.tile(mean_norm, (pml_features.shape[0], 1))
-            pml_features = pml_features * std_tiled + mean_tiled
-
-        # f0s is from flf0
-        f0 = pml_features[:, self.cfg.acoustic_start_index['lf0']:
-                             self.cfg.acoustic_start_index['lf0'] + self.cfg.acoustic_in_dimension_dict['lf0']]
-
-        f0 = np.squeeze(f0)  # remove the extra 1 dimension here
-        f0[f0 > 0] = np.exp(f0[f0 > 0])
-        ts = shift * np.arange(len(f0))
-        f0s = np.vstack((ts, f0)).T
-
-        # spec comes from fmcep or something else fwbnd
-        if spec_type == 'mcep':
-            mcep = pml_features[:, self.cfg.acoustic_start_index['mgc']:
-                                   self.cfg.acoustic_start_index['mgc'] + self.cfg.acoustic_in_dimension_dict['mgc']]
-            spec = sp.mcep2spec(mcep, sp.bark_alpha(self.cfg.wav_sr), dftlen)
-        elif spec_type == 'fwbnd':
-            compspec = pml_features[:, self.cfg.acoustic_start_index['mgc']:
-                                   self.cfg.acoustic_start_index['mgc'] + self.cfg.acoustic_in_dimension_dict['mgc']]
-            spec = np.exp(sp.fwbnd2linbnd(compspec, self.cfg.wav_sr, dftlen))
-
-        # NM comes from bap
-        fwnm = pml_features[:, self.cfg.acoustic_start_index['bap']:
-                               self.cfg.acoustic_start_index['bap'] + self.cfg.acoustic_in_dimension_dict['bap']]
-
-        nm = sp.fwbnd2linbnd(fwnm, self.cfg.wav_sr, dftlen)
-
-        # use standard PML vocoder
-        wav = synthesize(self.cfg.wav_sr, f0s, spec, NM=nm, nm_cont=nm_cont, verbose=verbose_level)
-
+                   std_norm=None, spec_type='mcep', pp_mcep=False):
         # return the raw wav data
-        return wav
+        return _pml_to_wav(pml_features, self.cfg, shift, dftlen, nm_cont, verbose_level,
+                           mean_norm, std_norm, spec_type, pp_mcep)
 
     def _prepare_inputs(self, inputs):
         max_len = max((len(x) for x in inputs))
@@ -188,3 +163,58 @@ class PMLSynthesizer:
     def _round_up(self, x, multiple):
         remainder = x % multiple
         return x if remainder == 0 else x + multiple - remainder
+
+
+def _pml_to_wav(pml_features, cfg, shift=0.005, dftlen=4096, nm_cont=False, verbose_level=0, mean_norm=None,
+               std_norm=None, spec_type='mcep', pp_mcep=False, find_endpoint=False, threshold_db=0):
+    # get the mean and variance, and denormalise
+    if mean_norm is not None and std_norm is not None:
+        std_tiled = np.tile(std_norm, (pml_features.shape[0], 1))
+        mean_tiled = np.tile(mean_norm, (pml_features.shape[0], 1))
+        pml_features = pml_features * std_tiled + mean_tiled
+
+    # f0s is from flf0
+    f0 = pml_features[:, cfg.acoustic_start_index['lf0']:
+                         cfg.acoustic_start_index['lf0'] + cfg.acoustic_in_dimension_dict['lf0']]
+
+    f0 = np.squeeze(f0)  # remove the extra 1 dimension here
+    f0[f0 > 0] = np.exp(f0[f0 > 0])
+    ts = shift * np.arange(len(f0))
+    f0s = np.vstack((ts, f0)).T
+
+    # spec comes from fmcep or something else fwbnd
+    if spec_type == 'mcep':
+        mcep = pml_features[:, cfg.acoustic_start_index['mgc']:
+                               cfg.acoustic_start_index['mgc'] + cfg.acoustic_in_dimension_dict['mgc']]
+
+        if pp_mcep:
+            from lib.merlin import generate_pp
+            mcep = generate_pp.mcep_postproc_sptk(mcep, cfg.wav_sr, dftlen=dftlen)
+
+        spec = sp.mcep2spec(mcep, sp.bark_alpha(cfg.wav_sr), dftlen)
+    elif spec_type == 'fwbnd':
+        compspec = pml_features[:, cfg.acoustic_start_index['mgc']:
+                               cfg.acoustic_start_index['mgc'] + cfg.acoustic_in_dimension_dict['mgc']]
+        spec = np.exp(sp.fwbnd2linbnd(compspec, cfg.wav_sr, dftlen))
+
+        if pp_mcep:
+            from lib.merlin import generate_pp
+            mcep = sp.spec2mcep(spec * cfg.wav_sr, sp.bark_alpha(cfg.wav_sr), 256)
+            mcep_pp = generate_pp.mcep_postproc_sptk(mcep, cfg.wav_sr, dftlen=dftlen)
+            spec = sp.mcep2spec(mcep_pp, sp.bark_alpha(cfg.wav_sr), dftlen=dftlen) / cfg.wav_sr
+
+    # NM comes from bap
+    fwnm = pml_features[:, cfg.acoustic_start_index['bap']:
+                           cfg.acoustic_start_index['bap'] + cfg.acoustic_in_dimension_dict['bap']]
+
+    nm = sp.fwbnd2linbnd(fwnm, cfg.wav_sr, dftlen)
+
+    # use standard PML vocoder
+    wav = synthesize(cfg.wav_sr, f0s, spec, NM=nm, nm_cont=nm_cont, verbose=verbose_level)
+
+    # clip the wav to the endpoint if required
+    if find_endpoint:
+        wav = wav[:audio.find_endpoint(wav, threshold_db=threshold_db)]
+
+    # return the raw wav data
+    return wav

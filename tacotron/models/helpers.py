@@ -126,7 +126,9 @@ class TacoScheduledOutputTrainingHelper(TacoTrainingHelper):
 
             def maybe_sample():
                 """Perform scheduled sampling."""
-                return array_ops.where(sample_ids, outputs, base_next_inputs)
+                # Feed last output frame as next input. outputs is [N, output_dim * r]
+                last_output_frame = outputs[:, -self._output_dim:]
+                return array_ops.where(sample_ids, last_output_frame, base_next_inputs)
 
             all_finished = math_ops.reduce_all(finished)
             no_samples = math_ops.logical_not(math_ops.reduce_any(sample_ids))

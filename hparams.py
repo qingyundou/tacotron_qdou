@@ -66,7 +66,7 @@ hparams = tf.contrib.training.HParams(
     use_cmudict=False,  # Use CMUDict during training to learn pronunciation of ARPAbet phonemes
     # Scheduled Sampling:
     scheduled_sampling=False,
-    scheduled_sampling_probability=0.5,
+    scheduled_sampling_probability=0.5,  # this is the probability that recurrence used at iteration 0
     scheduled_sampling_mode='constant',
 
     # Eval:

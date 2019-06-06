@@ -37,11 +37,17 @@ def main():
     parser.add_argument('--text_list', default='',
                         help='Text file contains list of texts to be synthesized. Valid if mode=eval')
     parser.add_argument('--output_dir', default='output', help='Folder to contain synthesized PML features')
-    parser.add_argument('--input_dir', default='training', help='folder to contain inputs sentences/targets')
+    parser.add_argument('--training_dir', default='training', help='Folder that contains training data')
     parser.add_argument('--base_dir', default=os.path.expanduser('~/tacotron'))
     parser.add_argument('--batch_size', default=100, help='Number of PML vocoder feature trajectories to '
                                                           'synthesize at once')
+    parser.add_argument('--dataset', default='train', help='Data set to use, can be either train, validation or test.')
     args = parser.parse_args()
+
+    # cover off accidentally typing in training
+    if args.dataset == 'training':
+        args.dataset = 'train'
+
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     hparams.parse(args.hparams)
 

@@ -50,35 +50,10 @@ def build_from_path(in_dir, out_dir, hparams, num_workers=1, tqdm=lambda x: x):
 
     return [future.result() for future in tqdm(futures)]
 
-
+# qd212
 def _process_utterance(out_dir, index, wav_path, text, pml_cmp, hparams):
-    '''Preprocesses a single utterance audio/text pair.
-
-    This writes the mel and linear scale spectrograms to disk and returns a tuple to write
-    to the train.txt file.
-
-    Args:
-      out_dir: The directory to write the spectrograms into
-      index: The numeric index to use in the spectrogram filenames.
-      wav_path: Path to the audio file containing the speech input
-      text: The text spoken in the input audio file
-      pml_cmp: One dimensional array containing vocoder features read from .cmp file
-
-    Returns:
-      A (spectrogram_filename, mel_filename, n_frames, text) tuple to write to train.txt
-    '''
-
-    # Load the audio to a numpy array:
-    wav = audio.load_wav(wav_path)
-
     # Create directories if they do not exist
-    os.makedirs(os.path.join(out_dir, wav_dir), exist_ok=True)
     os.makedirs(os.path.join(out_dir, pml_dir), exist_ok=True)
-    os.makedirs(os.path.join(out_dir, mel_dir), exist_ok=True)
-    os.makedirs(os.path.join(out_dir, linear_dir), exist_ok=True)
-
-    # Copy the wav into the training directory
-    shutil.copyfile(wav_path, os.path.join(out_dir, wav_dir, os.path.basename(wav_path)))
 
     # Write the PML features to disk
     pml_filename = 'ljspeech-pml-%05d.npy' % index
@@ -87,28 +62,67 @@ def _process_utterance(out_dir, index, wav_path, text, pml_cmp, hparams):
     pml_frames = pml_features.shape[0]
     np.save(os.path.join(out_dir, pml_dir, pml_filename), pml_features, allow_pickle=False)
 
-    # Compute the linear-scale spectrogram from the wav:
-    spectrogram = audio.spectrogram(wav).astype(np.float32)
-    n_frames = spectrogram.shape[1]
+    return None
+    
 
-    # Compute a mel-scale spectrogram from the wav:
-    mel_spectrogram = audio.melspectrogram(wav).astype(np.float32)
-    mel_frames = mel_spectrogram.shape[1]
+# def _process_utterance(out_dir, index, wav_path, text, pml_cmp, hparams):
+#     '''Preprocesses a single utterance audio/text pair.
 
-    # Ensure lengths of spectrograms and PML features are the same
-    if n_frames > pml_frames:
-        spectrogram = spectrogram[:, :pml_frames]
+#     This writes the mel and linear scale spectrograms to disk and returns a tuple to write
+#     to the train.txt file.
 
-    # Check the shape of the mel target
-    if mel_frames > pml_frames:
-        mel_spectrogram = mel_spectrogram[:, :pml_frames]
+#     Args:
+#       out_dir: The directory to write the spectrograms into
+#       index: The numeric index to use in the spectrogram filenames.
+#       wav_path: Path to the audio file containing the speech input
+#       text: The text spoken in the input audio file
+#       pml_cmp: One dimensional array containing vocoder features read from .cmp file
 
-    # Write the spectrograms to disk:
-    spectrogram_filename = 'ljspeech-spec-%05d.npy' % index
-    mel_filename = 'ljspeech-mel-%05d.npy' % index
-    np.save(os.path.join(out_dir, linear_dir, spectrogram_filename), spectrogram.T, allow_pickle=False)
-    np.save(os.path.join(out_dir, mel_dir, mel_filename), mel_spectrogram.T, allow_pickle=False)
+#     Returns:
+#       A (spectrogram_filename, mel_filename, n_frames, text) tuple to write to train.txt
+#     '''
 
-    # Return a tuple describing this training example:
-    return spectrogram_filename, mel_filename, n_frames, pml_filename, pml_frames, \
-        text, os.path.basename(wav_path)
+#     # Load the audio to a numpy array:
+#     wav = audio.load_wav(wav_path)
+
+#     # Create directories if they do not exist
+#     os.makedirs(os.path.join(out_dir, wav_dir), exist_ok=True)
+#     os.makedirs(os.path.join(out_dir, pml_dir), exist_ok=True)
+#     os.makedirs(os.path.join(out_dir, mel_dir), exist_ok=True)
+#     os.makedirs(os.path.join(out_dir, linear_dir), exist_ok=True)
+
+#     # Copy the wav into the training directory
+#     shutil.copyfile(wav_path, os.path.join(out_dir, wav_dir, os.path.basename(wav_path)))
+
+#     # Write the PML features to disk
+#     pml_filename = 'ljspeech-pml-%05d.npy' % index
+#     pml_dimension = hparams.pml_dimension
+#     pml_features = pml_cmp.reshape((-1, pml_dimension))
+#     pml_frames = pml_features.shape[0]
+#     np.save(os.path.join(out_dir, pml_dir, pml_filename), pml_features, allow_pickle=False)
+
+#     # Compute the linear-scale spectrogram from the wav:
+#     spectrogram = audio.spectrogram(wav).astype(np.float32)
+#     n_frames = spectrogram.shape[1]
+
+#     # Compute a mel-scale spectrogram from the wav:
+#     mel_spectrogram = audio.melspectrogram(wav).astype(np.float32)
+#     mel_frames = mel_spectrogram.shape[1]
+
+#     # Ensure lengths of spectrograms and PML features are the same
+#     if n_frames > pml_frames:
+#         spectrogram = spectrogram[:, :pml_frames]
+
+#     # Check the shape of the mel target
+#     if mel_frames > pml_frames:
+#         mel_spectrogram = mel_spectrogram[:, :pml_frames]
+
+#     # Write the spectrograms to disk:
+#     spectrogram_filename = 'ljspeech-spec-%05d.npy' % index
+#     mel_filename = 'ljspeech-mel-%05d.npy' % index
+#     np.save(os.path.join(out_dir, linear_dir, spectrogram_filename), spectrogram.T, allow_pickle=False)
+#     np.save(os.path.join(out_dir, mel_dir, mel_filename), mel_spectrogram.T, allow_pickle=False)
+
+#     # Return a tuple describing this training example:
+#     return spectrogram_filename, mel_filename, n_frames, pml_filename, pml_frames, \
+#         text, os.path.basename(wav_path)

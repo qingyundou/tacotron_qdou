@@ -25,9 +25,9 @@ def runCMD(cmd):
     return output,err
 
 # (1) copy logs, checkpoints and alignments to cloud
-base_dir = '/scratch/je369/results/'
+base_dir = '/scratch/qd212/tacotron/results/'
 log_directory = f'logs-{args.name}'
-tgt_directory = f'/home/miproj/4thyr.oct2018/je369/results/{args.name}'
+tgt_directory = f'/home/dawna/tts/qd212/models/tacotron/results/{args.name}'
 
 # (1.1.2) copy logs to cloud
 s = os.path.join(base_dir, log_directory)

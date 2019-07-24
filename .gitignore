@@ -1,3 +1,11 @@
+results/
+lib/bkup/
+scripts/asup_tsbd.py
+scripts/run/asup/
+scripts/run/bkup/
+tacotron/bkup/
+tacotron/models/bkup/
+
 # generic gitignore files
 __pycache__/
 .cache/

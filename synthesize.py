@@ -21,7 +21,7 @@ def get_sentences(args, hparams):
 
 
 def main():
-    accepted_modes = ['eval', 'synthesis']
+    accepted_modes = ['eval', 'synthesis', 'alignment']
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--checkpoint', required=True, help='Path to model checkpoint')
@@ -42,6 +42,7 @@ def main():
     parser.add_argument('--batch_size', default=100, help='Number of PML vocoder feature trajectories to '
                                                           'synthesize at once')
     parser.add_argument('--dataset', default='train', help='Data set to use, can be either train, validation or test.')
+    parser.add_argument('--checkpoint_eal', default=None, help='Path to model checkpoint, for pml features instead of alignments')
     args = parser.parse_args()
 
     # cover off accidentally typing in training
@@ -63,9 +64,11 @@ def main():
         raise ValueError('Ground truth alignment option must be either True or False')
 
     sentences = get_sentences(args, hparams)
+#     import pdb
+#     pdb.set_trace()
 
     if args.model == 'tacotron':
-        _ = tacotron_synthesize(args, hparams, args.checkpoint, sentences)
+        _ = tacotron_synthesize(args, hparams, args.checkpoint, sentences, args.checkpoint_eal)
 
 
 if __name__ == '__main__':

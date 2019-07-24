@@ -5,7 +5,7 @@ from tensorflow.contrib.seq2seq import BasicDecoder
 from tacotron.utils.symbols import symbols
 from infolog import log
 from .attention import LocationSensitiveAttention
-from .helpers import TacoTestHelper, TacoTrainingHelper, TacoScheduledOutputTrainingHelper
+from .helpers import TacoTestHelper, TacoTrainingHelper, TacoTrainingHelper_EAL, TacoScheduledOutputTrainingHelper
 from .lockable_attention_wrapper import LockableAttentionWrapper
 from .modules import encoder_cbhg, post_cbhg, prenet
 from .rnn_wrappers import DecoderPrenetWrapper, ConcatOutputAndAttentionWrapper
@@ -16,7 +16,7 @@ class TacotronPMLExtendedLocSens:
         self._hparams = hparams
 
     def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None,
-                   is_training=False, gta=False, locked_alignments=None, logs_enabled=True):
+                   is_training=False, gta=False, eal=False, locked_alignments=None, logs_enabled=True):
         '''Initializes the model for inference.
 
         Sets "mel_outputs", "linear_outputs", and "alignments" fields.
@@ -44,9 +44,11 @@ class TacotronPMLExtendedLocSens:
         # fix the alignments shape to (batch_size, encoder_steps, decoder_steps) if not already including
         # batch dimension
         locked_alignments_ = locked_alignments
-
+        
         if locked_alignments_ is not None:
-            if np.ndim(locked_alignments_) < 3:
+            if is_training and eal:
+                pass
+            elif np.ndim(locked_alignments_) < 3:
                 locked_alignments_ = np.expand_dims(locked_alignments_, 0)
 
         with tf.variable_scope('inference') as scope:
@@ -90,15 +92,23 @@ class TacotronPMLExtendedLocSens:
             output_cell = OutputProjectionWrapper(decoder_cell, hp.pml_dimension * hp.outputs_per_step)
             decoder_init_state = output_cell.zero_state(batch_size=batch_size, dtype=tf.float32)
 
-            if is_training or gta:
-                if hp.scheduled_sampling:
-                    helper = TacoScheduledOutputTrainingHelper(
-                        inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step,
-                        hp.scheduled_sampling_probability)
-                else:
+            if is_training:
+                if gta:
                     helper = TacoTrainingHelper(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step)
+                elif eal:
+                    helper = TacoTrainingHelper_EAL(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step)
+                elif hp.scheduled_sampling:
+                    helper = TacoScheduledOutputTrainingHelper(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step,
+                                                               hp.scheduled_sampling_probability)
+                else:
+                    log('For training, one of these should be true: gta, eal, hp.scheduled_sampling')
             else:
-                helper = TacoTestHelper(batch_size, hp.pml_dimension, hp.outputs_per_step)
+                if gta:
+                    helper = TacoTrainingHelper(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step)
+                elif eal:
+                    helper = TacoTrainingHelper_EAL(inputs, pml_targets, hp.pml_dimension, hp.outputs_per_step)
+                else:
+                    helper = TacoTestHelper(batch_size, hp.pml_dimension, hp.outputs_per_step)
 
             (decoder_outputs, _), final_decoder_state, _ = tf.contrib.seq2seq.dynamic_decode(
                 BasicDecoder(output_cell, helper, decoder_init_state),
@@ -126,7 +136,8 @@ class TacotronPMLExtendedLocSens:
             if logs_enabled:
                 log('Initialized Tacotron model. Dimensions: ')
                 log('  Train mode:              {}'.format(is_training))
-                log('  GTA mode:                {}'.format(is_training))
+                log('  GTA mode:                {}'.format(gta))
+                log('  EAL mode:                {}'.format(eal))
                 log('  Embedding:               {}'.format(embedded_inputs.shape[-1]))
                 log('  Prenet out:              {}'.format(prenet_outputs.shape[-1]))
                 log('  Encoder out:             {}'.format(encoder_outputs.shape[-1]))

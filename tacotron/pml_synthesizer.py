@@ -66,8 +66,10 @@ class PMLSynthesizer:
         else:
             self.cfg = cfg
 
-    def load(self, checkpoint_path, hparams, gta=False, model_name='tacotron_pml', locked_alignments=None,
-             logs_enabled=False):
+    def load(self, checkpoint_path, hparams, gta=False, eal=False, model_name='tacotron_pml', locked_alignments=None,
+             logs_enabled=False, checkpoint_eal=None):
+        if locked_alignments is not None:
+            eal = True
         if logs_enabled:
             log('Constructing model: %s' % model_name)
 
@@ -79,16 +81,17 @@ class PMLSynthesizer:
             self.model = create_model(model_name, hparams)
 
             if gta:
-                self.model.initialize(inputs, input_lengths, pml_targets=targets, gta=gta, logs_enabled=logs_enabled)
-            elif locked_alignments is not None:
-                self.model.initialize(inputs, input_lengths, locked_alignments=locked_alignments,
-                                      logs_enabled=logs_enabled)
+                self.model.initialize(inputs, input_lengths, pml_targets=targets, gta=True, logs_enabled=logs_enabled)
+            elif eal:
+#                 self.model.initialize(inputs, input_lengths, eal=True, locked_alignments=locked_alignments, logs_enabled=logs_enabled)
+                self.model.initialize(inputs, input_lengths, pml_targets=targets, eal=True, 
+                                      locked_alignments=locked_alignments, logs_enabled=logs_enabled)
             else:
                 self.model.initialize(inputs, input_lengths, logs_enabled=logs_enabled)
 
             self.pml_outputs = self.model.pml_outputs
 
-        self.gta = gta
+        self.gta, self.eal = gta, eal
         self._hparams = hparams
 
         self.inputs = inputs
@@ -101,10 +104,74 @@ class PMLSynthesizer:
         self.session = tf.Session()
         self.session.run(tf.global_variables_initializer())
 
-        saver = tf.train.Saver()
-        saver.restore(self.session, checkpoint_path)
+        if checkpoint_eal is None:
+            saver = tf.train.Saver()
+            saver.restore(self.session, checkpoint_path)
+        else:
+#             import pdb
+#             pdb.set_trace()
+            
+            list_var = [var for var in tf.global_variables() if 'Location_Sensitive_Attention' in var.name and 'Adam' not in var.name]
+            list_var += [var for var in tf.global_variables() if 'memory_layer' in var.name and 'Adam' not in var.name]
+#             list_var_value = []
+#             for v in list_var+tf.global_variables()[10:13]:
+#                 list_var_value.append(self.session.run([v]))
+                
+            saver_eal = tf.train.Saver()
+            saver_eal.restore(self.session, checkpoint_eal)
+            
+#             for i,v in enumerate(list_var+tf.global_variables()[10:13]):
+#                 print(v)
+#                 print(np.array_equal(list_var_value[i], self.session.run([v])))
+#                 list_var_value[i] = self.session.run([v])
+#             pdb.set_trace()
+            
+            saver = tf.train.Saver(list_var)
+            saver.restore(self.session, checkpoint_path)
+            
+#             for i,v in enumerate(list_var+tf.global_variables()[10:13]):
+#                 print(v)
+#                 print(np.array_equal(list_var_value[i], self.session.run([v])))
+#             pdb.set_trace()
+            
 
     def synthesize(self, texts, pml_filenames=None, to_wav=False, num_workers=4, **kwargs):
+        hp = self._hparams
+
+        kwargs.setdefault('pp_mcep', self.cfg.pp_mcep)
+        kwargs.setdefault('spec_type', hp.spec_type)
+
+        cleaner_names = [x.strip() for x in hp.cleaners.split(',')]
+        seqs = [np.asarray(text_to_sequence(text, cleaner_names), dtype=np.int32) for text in texts]
+        input_seqs = self._prepare_inputs(seqs)
+
+        feed_dict = {
+            self.model.inputs: np.asarray(input_seqs, dtype=np.int32),
+            self.model.input_lengths: np.asarray([len(seq) for seq in seqs], dtype=np.int32)
+        }
+
+#         if self.gta:
+        if self.gta or self.eal:
+            np_targets = [np.load(pml_filename) for pml_filename in pml_filenames]
+            prepared_targets = self._prepare_targets(np_targets, hp.outputs_per_step)
+            feed_dict[self.targets] = prepared_targets
+            assert len(np_targets) == len(texts)
+
+        pml_features_matrix = self.session.run(self.pml_outputs, feed_dict=feed_dict)
+
+        if to_wav:
+            executor = ProcessPoolExecutor(max_workers=num_workers)
+            futures = []
+
+            for pml_features in pml_features_matrix:
+                futures.append(executor.submit(partial(_pml_to_wav, pml_features, self.cfg, **kwargs)))
+
+            wavs = [future.result() for future in futures]
+            return wavs
+
+        return pml_features_matrix
+    
+    def synthesize_check(self, texts, pml_filenames=None, to_wav=False, num_workers=4, **kwargs):
         hp = self._hparams
 
         kwargs.setdefault('pp_mcep', self.cfg.pp_mcep)
@@ -125,19 +192,31 @@ class PMLSynthesizer:
             feed_dict[self.targets] = prepared_targets
             assert len(np_targets) == len(texts)
 
-        pml_features_matrix = self.session.run(self.pml_outputs, feed_dict=feed_dict)
+        alignments, = self.session.run([self.model.alignments], feed_dict=feed_dict)
+#         alignments, pml_intermediates = self.session.run([self.model.alignments, self.model.pml_intermediates], feed_dict=feed_dict)
 
-        if to_wav:
-            executor = ProcessPoolExecutor(max_workers=num_workers)
-            futures = []
+        if True: # not self.cut_lengths
+            max_length = hp.max_iters
+            alignments = self.pad_along_axis(alignments, max_length, axis=2)
 
-            for pml_features in pml_features_matrix:
-                futures.append(executor.submit(partial(_pml_to_wav, pml_features, self.cfg, **kwargs)))
+        if len(alignments) == 1:
+            return alignments[0]
 
-            wavs = [future.result() for future in futures]
-            return wavs
+        return alignments
+#         return alignments, pml_intermediates
+    
+    def pad_along_axis(self, matrix, target_length, axis=0):
+        pad_size = target_length - matrix.shape[axis]
+        axis_nb = len(matrix.shape)
 
-        return pml_features_matrix
+        if pad_size < 0:
+            return matrix
+
+        npad = [(0, 0) for x in range(axis_nb)]
+        npad[axis] = (0, pad_size)
+        b = np.pad(matrix, pad_width=npad, mode='constant', constant_values=0)
+        return b
+    
 
     def pml_to_wav(self, pml_features, shift=0.005, dftlen=4096, nm_cont=False, verbose_level=0, mean_norm=None,
                    std_norm=None, spec_type='mcep', pp_mcep=False):

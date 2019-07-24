@@ -3,6 +3,8 @@ from tensorflow.contrib.seq2seq import AttentionWrapper, AttentionWrapperState
 from tensorflow.python.framework import ops
 from tensorflow.python.ops import array_ops, math_ops
 
+import numpy as np
+
 
 class LockableAttentionWrapper(AttentionWrapper):
     def __init__(self,
@@ -207,10 +209,13 @@ class LockableAttentionWrapper(AttentionWrapper):
             cell_output, state=attention_state)
 
         if self._locked_alignments is not None:
-            # alignments come in with shape: (batch_size, encoder_steps, decoder_steps)
-            alignments = tf.constant(self._locked_alignments, dtype=tf.float32)
-            # select the relevant time step
-            alignments = alignments[:, :, time_step]
+            if type(self._locked_alignments) is np.ndarray:
+                # alignments come in with shape: (batch_size, encoder_steps, decoder_steps)
+                alignments = tf.constant(self._locked_alignments, dtype=tf.float32)
+                # select the relevant time step
+                alignments = alignments[:, :, time_step]
+            else:
+                alignments = self._locked_alignments[:, :, time_step]
 
         # Reshape from [batch_size, memory_time] to [batch_size, 1, memory_time]
         expanded_alignments = array_ops.expand_dims(alignments, 1)

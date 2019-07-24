@@ -30,6 +30,9 @@ def main():
     parser.add_argument('--num_steps', type=int, default=100000, help='Maximum number of steps to run training for.')
     parser.add_argument('--wavenet_num_steps', type=int, default=500000,
                         help='Maximum number of steps to run wavenet training for')
+    parser.add_argument('--eal_dir', default='')
+    parser.add_argument('--eal_ckpt', default='')
+    parser.add_argument('--eal_ft', default=False, action='store_true', help='load the weights, not Adam / BatchNorm history')
     args = parser.parse_args()
 
     accepted_models = ['tacotron', 'wavenet']

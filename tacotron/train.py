@@ -9,7 +9,7 @@ import tensorflow as tf
 import traceback
 
 from tacotron.alignment_synthesizer import AlignmentSynthesizer
-from tacotron.datafeeder import DataFeeder
+
 from hparams import hparams, hparams_debug_string
 from tacotron.models import create_model
 from tacotron.pml_synthesizer import Configuration, PMLSynthesizer
@@ -29,7 +29,7 @@ def get_git_commit():
     return commit
 
 
-def add_stats(model):
+def add_stats(model, eal_dir=''):
     with tf.variable_scope('stats') as scope:
         if hasattr(model, 'linear_targets'):
             tf.summary.histogram('linear_outputs', model.linear_outputs)
@@ -56,7 +56,13 @@ def add_stats(model):
 
         tf.summary.scalar('learning_rate', model.learning_rate)
         tf.summary.scalar('loss', model.loss)
-        gradient_norms = [tf.norm(grad) for grad in model.gradients]
+
+        if eal_dir:
+            # in eal training mode, some grad is None
+            gradient_norms = [tf.norm(grad) for grad in model.gradients if grad is not None]
+        else:
+            gradient_norms = [tf.norm(grad) for grad in model.gradients]
+            
         tf.summary.histogram('gradient_norm', gradient_norms)
         tf.summary.scalar('max_gradient_norm', tf.reduce_max(gradient_norms))
         return tf.summary.merge_all()
@@ -78,18 +84,27 @@ def train(log_dir, args, input):
     # Set up DataFeeder:
     coord = tf.train.Coordinator()
     with tf.variable_scope('datafeeder') as scope:
-        feeder = DataFeeder(coord, input_path, hparams)
+        if args.eal_dir:
+            from tacotron.datafeeder import DataFeeder_EAL
+            feeder = DataFeeder_EAL(coord, input_path, hparams, args.eal_dir)
+        else:
+            from tacotron.datafeeder import DataFeeder
+            feeder = DataFeeder(coord, input_path, hparams)
 
     # Set up model:
     global_step = tf.Variable(0, name='global_step', trainable=False)
     with tf.variable_scope('model') as scope:
         model = create_model(args.variant, hparams)
-        model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets,
-                         feeder.linear_targets, feeder.pml_targets, is_training=True)
-
+        if args.eal_dir:
+            model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets,
+                             feeder.linear_targets, feeder.pml_targets, is_training=True, 
+                             eal=True, locked_alignments=feeder.locked_alignments)
+        else:
+            model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets,
+                             feeder.linear_targets, feeder.pml_targets, is_training=True)
         model.add_loss()
         model.add_optimizer(global_step)
-        stats = add_stats(model)
+        stats = add_stats(model, eal_dir=args.eal_dir)
 
     # Bookkeeping:
     step = 0
@@ -116,23 +131,43 @@ def train(log_dir, args, input):
         std_norm = np.fromfile(std_path, 'float32')
 
     # Train!
+#     import pdb
+#     pdb.set_trace()
+#     args.checkpoint_interval = 5
+    
     with tf.Session() as sess:
         try:
             summary_writer = tf.summary.FileWriter(log_dir, sess.graph)
             sess.run(tf.global_variables_initializer())
-
+            
+#             pdb.set_trace()
+            
             if args.restore_step:
                 # Restore from a checkpoint if the user requested it.
                 restore_path = '%s-%d' % (checkpoint_path, args.restore_step)
                 saver.restore(sess, restore_path)
                 log('Resuming from checkpoint: %s at commit: %s' % (restore_path, commit), slack=True)
+            elif args.eal_dir and args.eal_ckpt:
+                if args.eal_ft:
+                    saver.restore(sess, args.eal_ckpt)
+                    log('Refining the model from checkpoint: %s at commit: %s' % (args.eal_ckpt, commit), slack=True)
+                else:
+                    list_var = [var for var in tf.global_variables() if 'optimizer' not in var.name]
+                    saver_eal = tf.train.Saver(list_var)
+                    saver_eal.restore(sess, args.eal_ckpt)
+                    log('Initializing the weights from checkpoint: %s at commit: %s' % (args.eal_ckpt, commit), slack=True)
+#                 args.num_steps *= 2
+#                 sess.run(global_step.assign(0))
             else:
                 log('Starting new training run at commit: %s' % commit, slack=True)
 
             feeder.start_in_session(sess)
             step = 0  # initialise step variable so can use in while condition
-
+            
             while not coord.should_stop() and step <= args.num_steps:
+                
+#                 pdb.set_trace()
+                                
                 start_time = time.time()
                 step, loss, opt = sess.run([global_step, model.loss, model.optimize])
                 time_window.append(time.time() - start_time)
@@ -140,7 +175,7 @@ def train(log_dir, args, input):
                 message = 'Step %-7d [%.03f sec/step, loss=%.05f, avg_loss=%.05f]' % (
                     step, time_window.average, loss, loss_window.average)
                 log(message, slack=(step % args.checkpoint_interval == 0))
-
+                
                 if loss > 100 or math.isnan(loss):
                     log('Loss exploded to %.05f at step %d!' % (loss, step), slack=True)
                     raise Exception('Loss Exploded')

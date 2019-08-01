@@ -16,7 +16,7 @@ class TacotronPMLExtendedLocSens:
         self._hparams = hparams
 
     def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None, pml_targets=None,
-                   is_training=False, gta=False, eal=False, locked_alignments=None, logs_enabled=True):
+                   is_training=False, gta=False, eal=False, locked_alignments=None, logs_enabled=True, flag_trainAlign=False):
         '''Initializes the model for inference.
 
         Sets "mel_outputs", "linear_outputs", and "alignments" fields.
@@ -44,6 +44,7 @@ class TacotronPMLExtendedLocSens:
         # fix the alignments shape to (batch_size, encoder_steps, decoder_steps) if not already including
         # batch dimension
         locked_alignments_ = locked_alignments
+        self.flag_trainAlign = flag_trainAlign
         
         if locked_alignments_ is not None:
             if is_training and eal:
@@ -73,7 +74,8 @@ class TacotronPMLExtendedLocSens:
                 alignment_history=True,
                 locked_alignments=locked_alignments_,
                 output_attention=False,
-                name='attention_wrapper')  # [N, T_in, attention_depth=256]
+                name='attention_wrapper',
+                flag_trainAlign=self.flag_trainAlign)  # [N, T_in, attention_depth=256]
 
             # Apply prenet before concatenation in AttentionWrapper.
             prenet_cell = DecoderPrenetWrapper(attention_cell, is_training, hp.prenet_depths)
@@ -132,6 +134,7 @@ class TacotronPMLExtendedLocSens:
             self.alignments = alignments
             self.pml_targets = pml_targets
             self.attention_cell = attention_cell
+            self.locked_alignments = locked_alignments_
 
             if logs_enabled:
                 log('Initialized Tacotron model. Dimensions: ')
@@ -156,6 +159,15 @@ class TacotronPMLExtendedLocSens:
             self.pml_intermediate_loss = tf.reduce_mean(tf.abs(self.pml_targets - self.pml_intermediates))
             self.pml_loss = tf.reduce_mean(tf.abs(self.pml_targets - self.pml_outputs))
             self.loss = self.pml_intermediate_loss + self.pml_loss
+            
+            # avg kl
+            if self.locked_alignments is not None:
+                tmp = self.locked_alignments[:,:,:tf.shape(self.alignments)[-1]]
+                self.alignments_ref = tf.clip_by_value(tmp, np.finfo(np.float32).tiny, np.finfo(np.float32).max)
+                self.loss_align = tf.reduce_mean(self.alignments_ref*tf.log(self.alignments_ref/self.alignments))
+#                 self.loss_joint = self.loss + self.loss_align
+#                 self.loss_align = tf.reduce_mean(self.alignments_ref*tf.log(self.alignments_ref) - 
+#                                                  self.alignments_ref*tf.log(self.alignments))
 
     def add_optimizer(self, global_step):
         '''Adds optimizer. Sets "gradients" and "optimize" fields. add_loss must have been called.
@@ -170,7 +182,13 @@ class TacotronPMLExtendedLocSens:
             else:
                 self.learning_rate = tf.convert_to_tensor(hp.initial_learning_rate)
             optimizer = tf.train.AdamOptimizer(self.learning_rate, hp.adam_beta1, hp.adam_beta2)
-            gradients, variables = zip(*optimizer.compute_gradients(self.loss))
+            
+            if self.flag_trainAlign:
+                var_list = [v for v in tf.trainable_variables() if 'Location_Sensitive_Attention' in v.name or 'memory_layer' in v.name]
+                gradients, variables = zip(*optimizer.compute_gradients(self.loss_align, var_list=var_list))
+            else:
+                gradients, variables = zip(*optimizer.compute_gradients(self.loss))
+                
             self.gradients = gradients
             clipped_gradients, _ = tf.clip_by_global_norm(gradients, 1.0)
 

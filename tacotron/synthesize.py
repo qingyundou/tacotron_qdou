@@ -111,8 +111,8 @@ def run_synthesis(args, checkpoint_path, output_dir, hparams, synthesis_mode='tr
     pml_path = os.path.join(args.base_dir, args.training_dir, pml_dir)
     wav_path = os.path.join(args.base_dir, args.training_dir, wav_dir)
 
-#     import pdb
-#     pdb.set_trace()
+    import pdb
+    pdb.set_trace()
     
     with open(os.path.join(synth_dir, 'map.txt'), 'w') as file:
         for i in tqdm(range(0, len(metadata), args.batch_size)):
@@ -131,7 +131,7 @@ def run_synthesis(args, checkpoint_path, output_dir, hparams, synthesis_mode='tr
             basenames = [os.path.basename(p).replace('.npy', '').replace('pml-', '') for p in pml_filenames]
             
             print(i)
-#             pdb.set_trace()
+            pdb.set_trace()
 
             if eal:
                 locked_alignments = align_synth.synthesize(texts, pml_filenames=pml_filenames)

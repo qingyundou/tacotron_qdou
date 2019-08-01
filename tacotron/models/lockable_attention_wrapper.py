@@ -18,7 +18,8 @@ class LockableAttentionWrapper(AttentionWrapper):
                  name=None,
                  attention_layer=None,
                  attention_fn=None,
-                 locked_alignments=None):
+                 locked_alignments=None,
+                 flag_trainAlign=False):
         """Construct the `AttentionWrapper`.
         **NOTE** If you are using the `BeamSearchDecoder` with a cell wrapped in
         `AttentionWrapper`, then you must ensure that:
@@ -115,6 +116,7 @@ class LockableAttentionWrapper(AttentionWrapper):
 
         self._attention_fn = attention_fn
         self._locked_alignments = locked_alignments
+        self._flag_trainAlign = flag_trainAlign
 
     def call(self, inputs, state):
         """Perform a step of attention-wrapped RNN.
@@ -208,17 +210,22 @@ class LockableAttentionWrapper(AttentionWrapper):
         alignments, next_attention_state = attention_mechanism(
             cell_output, state=attention_state)
 
-        if self._locked_alignments is not None:
+        if self._locked_alignments is None:
+            # Reshape from [batch_size, memory_time] to [batch_size, 1, memory_time]
+            expanded_alignments = array_ops.expand_dims(alignments, 1)
+        else:
             if type(self._locked_alignments) is np.ndarray:
                 # alignments come in with shape: (batch_size, encoder_steps, decoder_steps)
-                alignments = tf.constant(self._locked_alignments, dtype=tf.float32)
+                tmp_alignments = tf.constant(self._locked_alignments, dtype=tf.float32)
                 # select the relevant time step
-                alignments = alignments[:, :, time_step]
+                tmp_alignments = tmp_alignments[:, :, time_step]
             else:
-                alignments = self._locked_alignments[:, :, time_step]
-
-        # Reshape from [batch_size, memory_time] to [batch_size, 1, memory_time]
-        expanded_alignments = array_ops.expand_dims(alignments, 1)
+                tmp_alignments = self._locked_alignments[:, :, time_step]
+            expanded_alignments = array_ops.expand_dims(tmp_alignments, 1)
+            # not elegant but safe; this keeps the old eal implementation as it was
+            if not self._flag_trainAlign:
+                alignments = tmp_alignments
+            
         # Context is the inner product of alignments and values along the
         # memory time dimension.
         # alignments shape is

@@ -33,6 +33,7 @@ def main():
     parser.add_argument('--eal_dir', default='')
     parser.add_argument('--eal_ckpt', default='')
     parser.add_argument('--eal_ft', default=False, action='store_true', help='load the weights, not Adam / BatchNorm history')
+    parser.add_argument('--eal_trainAlign', default=False, action='store_true', help='train attention mechanism')
     args = parser.parse_args()
 
     accepted_models = ['tacotron', 'wavenet']

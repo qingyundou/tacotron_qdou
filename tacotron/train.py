@@ -21,6 +21,9 @@ import infolog
 
 log = infolog.log
 
+# tf.set_random_seed(1234)
+# np.random.seed(1234)
+import sys
 
 def get_git_commit():
     subprocess.check_output(['git', 'diff-index', '--quiet', 'HEAD'])  # Verify client is clean
@@ -53,6 +56,9 @@ def add_stats(model, eal_dir=''):
 
         if hasattr(model, 'pml_intermediate_loss'):
             tf.summary.scalar('pml_intermediate_loss', model.pml_intermediate_loss)
+            
+        if hasattr(model, 'loss_align'):
+            tf.summary.scalar('loss_align', model.loss_align)
 
         tf.summary.scalar('learning_rate', model.learning_rate)
         tf.summary.scalar('loss', model.loss)
@@ -98,10 +104,11 @@ def train(log_dir, args, input):
         if args.eal_dir:
             model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets,
                              feeder.linear_targets, feeder.pml_targets, is_training=True, 
-                             eal=True, locked_alignments=feeder.locked_alignments)
+                             eal=True, locked_alignments=feeder.locked_alignments, flag_trainAlign=args.eal_trainAlign)
         else:
             model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets,
-                             feeder.linear_targets, feeder.pml_targets, is_training=True)
+                             feeder.linear_targets, feeder.pml_targets, is_training=True, 
+                             gta=True)
         model.add_loss()
         model.add_optimizer(global_step)
         stats = add_stats(model, eal_dir=args.eal_dir)
@@ -132,6 +139,7 @@ def train(log_dir, args, input):
 
     # Train!
 #     import pdb
+#     flag_pdb = False
 #     pdb.set_trace()
 #     args.checkpoint_interval = 5
     
@@ -148,7 +156,12 @@ def train(log_dir, args, input):
                 saver.restore(sess, restore_path)
                 log('Resuming from checkpoint: %s at commit: %s' % (restore_path, commit), slack=True)
             elif args.eal_dir and args.eal_ckpt:
-                if args.eal_ft:
+                if args.eal_trainAlign:
+                    list_var = tf.trainable_variables() + [v for v in tf.global_variables() if 'moving' in v.name]
+                    saver_eal = tf.train.Saver(list_var)
+                    saver_eal.restore(sess, args.eal_ckpt)
+                    log('Training the attention mechanism of checkpoint: %s at commit: %s' % (args.eal_ckpt, commit), slack=True)
+                elif args.eal_ft:
                     saver.restore(sess, args.eal_ckpt)
                     log('Refining the model from checkpoint: %s at commit: %s' % (args.eal_ckpt, commit), slack=True)
                 else:
@@ -169,11 +182,27 @@ def train(log_dir, args, input):
 #                 pdb.set_trace()
                                 
                 start_time = time.time()
-                step, loss, opt = sess.run([global_step, model.loss, model.optimize])
-                time_window.append(time.time() - start_time)
-                loss_window.append(loss)
-                message = 'Step %-7d [%.03f sec/step, loss=%.05f, avg_loss=%.05f]' % (
-                    step, time_window.average, loss, loss_window.average)
+                if args.eal_trainAlign:
+                    step, loss, loss_align, opt = sess.run([global_step, model.loss, model.loss_align, model.optimize])
+#                     try:
+#                         step, loss, loss_align, opt, tmp_a, tmp_ar = sess.run([global_step, model.loss, model.loss_align, model.optimize, 
+#                                                                                model.alignments, model.alignments_ref])
+#                     except:
+#                         print("Oops!",sys.exc_info()[0],"occured.")
+#                         flag_pdb = True
+#                     if flag_pdb or np.isnan(loss_align):
+#                         pdb.set_trace()
+#                         flag_pdb = False
+                    time_window.append(time.time() - start_time)
+                    loss_window.append(loss_align)
+                    message = 'Step %-7d [%.03f sec/step, loss=%.05f, loss_align=%.05f, avg_loss_align=%.05f]' % (
+                        step, time_window.average, loss, loss_align, loss_window.average)
+                else:
+                    step, loss, opt = sess.run([global_step, model.loss, model.optimize])
+                    time_window.append(time.time() - start_time)
+                    loss_window.append(loss)
+                    message = 'Step %-7d [%.03f sec/step, loss=%.05f, avg_loss=%.05f]' % (
+                        step, time_window.average, loss, loss_window.average)
                 log(message, slack=(step % args.checkpoint_interval == 0))
                 
                 if loss > 100 or math.isnan(loss):

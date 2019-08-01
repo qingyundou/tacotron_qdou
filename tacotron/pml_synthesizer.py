@@ -105,6 +105,7 @@ class PMLSynthesizer:
         self.session.run(tf.global_variables_initializer())
 
         if checkpoint_eal is None:
+            log('Loading all vars from checkpoint: %s' % checkpoint_path)
             saver = tf.train.Saver()
             saver.restore(self.session, checkpoint_path)
         else:
@@ -117,6 +118,7 @@ class PMLSynthesizer:
 #             for v in list_var+tf.global_variables()[10:13]:
 #                 list_var_value.append(self.session.run([v]))
                 
+            log('Loading all vars from checkpoint: %s' % checkpoint_eal)
             saver_eal = tf.train.Saver()
             saver_eal.restore(self.session, checkpoint_eal)
             
@@ -126,6 +128,7 @@ class PMLSynthesizer:
 #                 list_var_value[i] = self.session.run([v])
 #             pdb.set_trace()
             
+            log('Overwriting attention mechanism weights from checkpoint: %s' % checkpoint_path)
             saver = tf.train.Saver(list_var)
             saver.restore(self.session, checkpoint_path)
             

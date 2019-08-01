@@ -52,7 +52,8 @@ export PATH=${PATH}:${ProjectDir}/lib/straight/analysis:${ProjectDir}/lib/SPTK-3
 dataDir=/scratch/je369/tacotron
 cd /home/dawna/tts/qd212/models/tacotron/
 
-NAME=tacotron-pml-x-163-asup
+# NAME=tacotron-pml-x-163-asup
+NAME=tacotron-pml-x-163
 
 # python synthesize.py --variant tacotron_pml_x_locsens --mode synthesis --gta True --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${dataDir}/163-lj-training/test.txt --dataset train --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000
 
@@ -79,6 +80,12 @@ NAME=tacotron-pml-x-163-eal-scratch
 # python synthesize.py --variant tacotron_pml_x_locsens --mode synthesis --eal True --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${dataDir}/163-lj-training/test.txt --dataset train --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000 --checkpoint_eal /scratch/qd212/tacotron/results/logs-${NAME}/model.ckpt-120000
 
 # python synthesize.py --variant tacotron_pml_x_locsens --mode eval --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --dataset train --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000 --checkpoint_eal /scratch/qd212/tacotron/results/logs-${NAME}/model.ckpt-120000
+
+
+NAME=tacotron-pml-x-163-eal-align
+# python synthesize.py --variant tacotron_pml_x_locsens --mode eval --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --dataset train --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${ProjectDir}/results/logs-${NAME}/model.ckpt-5000
+
+python synthesize.py --variant tacotron_pml_x_locsens --mode synthesis --eal True --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --dataset test --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000 --checkpoint_eal ${ProjectDir}/results/logs-${NAME}/model.ckpt-5000
 
 
 

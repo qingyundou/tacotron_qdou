@@ -1,32 +1,13 @@
-# Tacotron
-
-An implementation of Tacotron speech synthesis in TensorFlow.
+# Attention forcing - speech synthesis
 
 
-### Audio Samples
-
-  * **[Audio Samples](https://keithito.github.io/audio-samples/)** from models trained using this repo.
-    * The first set was trained for 441K steps on the [LJ Speech Dataset](https://keithito.com/LJ-Speech-Dataset/)
-      * Speech started to become intelligble around 20K steps.
-    * The second set was trained by [@MXGray](https://github.com/MXGray) for 140K steps on the [Nancy Corpus](http://www.cstr.ed.ac.uk/projects/blizzard/2011/lessac_blizzard2011/).
-
-
-### Recent Updates
-
-1. @npuichigo [fixed](https://github.com/keithito/tacotron/pull/205) a bug where dropout was not being applied in the prenet.
-
-2. @begeekmyfriend created a [fork](https://github.com/begeekmyfriend/tacotron) that adds location-sensitive attention and the stop token from the [Tacotron 2](https://arxiv.org/abs/1712.05884) paper. This can greatly reduce the amount of data required to train a model.
+An implementation of attention forcing, in the context of speech synthesis, in TensorFlow.
 
 
 ## Background
+Auto-regressive sequence-to-sequence models with attention mechanism have achieved state-of-the-art performance in many tasks such as machine translation and speech synthesis. These models can be difficult to train. The standard approach, teacher forcing, guides a model with reference output history during training. The problem is that the model is unlikely to recover from its mistakes during inference, where the reference output is replaced by generated output. Several approaches deal with this problem, largely by guiding the model with generated output history. To make training stable, these approaches often require a heuristic schedule or an auxiliary classifier. This paper introduces attention forcing, which guides the model with generated output history and reference attention. This approach can train the model to recover from its mistakes, in a stable fashion, without the need for a schedule or a classifier. In addition, it allows the model to generate output sequences aligned with the references, which can be important for cascaded systems like many speech synthesis systems.
 
-In April 2017, Google published a paper, [Tacotron: Towards End-to-End Speech Synthesis](https://arxiv.org/pdf/1703.10135.pdf),
-where they present a neural text-to-speech model that learns to synthesize speech directly from
-(text, audio) pairs. However, they didn't release their source code or training data. This is an
-independent attempt to provide an open-source implementation of the model described in their paper.
-
-The quality isn't as good as Google's demo yet, but hopefully it will get there someday :-).
-Pull requests are welcome!
+Experiments on speech synthesis show that attention forcing yields significant performance gain. The frame-level model is described in [Tacotron: Towards End-to-End Speech Synthesis](https://arxiv.org/pdf/1703.10135.pdf); the code is in the current repo. The waveform-level model is described in [Hierarchical RNNs for Waveform-Level Speech Synthesis](https://ieeexplore.ieee.org/document/8639588) and [SampleRNN: An Unconditional End-to-End Neural Audio Generation Model](https://arxiv.org/abs/1612.07837); the code is in this repo: https://github.com/qingyundou/sampleRNN_QDOU
 
 
 
@@ -43,22 +24,6 @@ Pull requests are welcome!
    ```
    pip install -r requirements.txt
    ```
-
-
-### Using a pre-trained model
-
-1. **Download and unpack a model**:
-   ```
-   curl http://data.keithito.com/data/speech/tacotron-20180906.tar.gz | tar xzC /tmp
-   ```
-
-2. **Run the demo server**:
-   ```
-   python3 demo_server.py --checkpoint /tmp/tacotron-20180906/model.ckpt
-   ```
-
-3. **Point your browser at localhost:9000**
-   * Type what you want to synthesize
 
 
 
@@ -106,6 +71,7 @@ Pull requests are welcome!
      * Use `--dataset blizzard` for Blizzard data
 
 4. **Train a model**
+    In general:
    ```
    python3 train.py
    ```
@@ -115,6 +81,16 @@ Pull requests are welcome!
    Hyperparameters should generally be set to the same values at both training and eval time.
    The default hyperparameters are recommended for LJ Speech and other English-language data.
    See [TRAINING_DATA.md](TRAINING_DATA.md) for other languages.
+   
+   Example of training with teacher forcing:
+   ```
+   python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-x-163-merlin --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd"
+   ```
+   
+   Example of training with attention forcing:
+   ```
+   python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-x-163-eal-joint50-scratch-merlin --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163-merlin/gta/alignment/npy/ --eal_trainJoint --eal_alignScale 50
+   ```
 
 
 5. **Monitor with Tensorboard** (optional)
@@ -126,24 +102,24 @@ Pull requests are welcome!
    `~/tacotron/logs-tacotron`.
 
 6. **Synthesize from a checkpoint**
-   ```
-   python3 demo_server.py --checkpoint ~/tacotron/logs-tacotron/model.ckpt-185000
-   ```
-   Replace "185000" with the checkpoint number that you want to use, then open a browser
-   to `localhost:9000` and type what you want to speak. Alternately, you can
-   run [synthesize.py](tacotron/synthesize.py) at the command line:
+   In general, you can run [synthesize.py](tacotron/synthesize.py) at the command line:
    ```
    python3 synthesize.py --checkpoint ~/tacotron/logs-tacotron/model.ckpt-185000
    ```
    If you set the `--hparams` flag when training, set the same value here.
+   
+   Example of synthesizing in free running mode (with either a teacher forcing model or an attention forcing model):
+   ```
+   python synthesize.py --variant tacotron_pml_x_locsens --mode eval --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${ProjectDir}/results/logs-${NAME}/model.ckpt-75000
+   ```
 
 
-### Training on Air
+### Training on server
 
-Only the machines `air208` and `air209` have CUDA 9.0 installed, which seems to be required to run this code. To run on either machine, run the command:
+The machines `air208` and `air209` have CUDA 9.0 installed, which is required to run this code. To run on either machine, run the command:
 
 ```
-qsub -M je369@cam.ac.uk -m bea -S /bin/bash -l queue_priority=cuda-low,tests=0,mem_grab=0M,gpuclass=*,osrel=*,hostname=air209 /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts/run/pml_tacotron.sh
+qsub -M YOUREMAIL -m bea -S /bin/bash -l queue_priority=cuda-low,tests=0,mem_grab=0M,gpuclass=*,osrel=*,hostname=air209 /home/miproj/4thyr.oct2018/je369/workspace/implementations/tacotron/scripts/run/onesixthree_locsens_pml_x_lj.sh
 ```
 
 
@@ -181,8 +157,3 @@ qsub -M je369@cam.ac.uk -m bea -S /bin/bash -l queue_priority=cuda-low,tests=0,m
     
   * Here is the expected loss curve when training on LJ Speech with the default hyperparameters:
     ![Loss curve](https://user-images.githubusercontent.com/1945356/36077599-c0513e4a-0f21-11e8-8525-07347847720c.png)
-
-
-## Other Implementations
-  * By Alex Barron: https://github.com/barronalex/Tacotron
-  * By Kyubyong Park: https://github.com/Kyubyong/tacotron

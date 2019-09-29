@@ -34,6 +34,8 @@ def main():
     parser.add_argument('--eal_ckpt', default='')
     parser.add_argument('--eal_ft', default=False, action='store_true', help='load the weights, not Adam / BatchNorm history')
     parser.add_argument('--eal_trainAlign', default=False, action='store_true', help='train attention mechanism')
+    parser.add_argument('--eal_trainJoint', default=False, action='store_true', help='train all weight in EAL mode with joint cost')
+    parser.add_argument('--eal_alignScale', type=float, default=1.0, help='scaler for loss_align')
     args = parser.parse_args()
 
     accepted_models = ['tacotron', 'wavenet']

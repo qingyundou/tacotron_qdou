@@ -52,6 +52,7 @@ export PATH=${PATH}:${ProjectDir}/lib/straight/analysis:${ProjectDir}/lib/SPTK-3
 dataDir=/scratch/je369/tacotron
 cd /home/dawna/tts/qd212/models/tacotron/
 
+########################### taco-pml trained with gta
 # NAME=tacotron-pml-x-163-asup
 NAME=tacotron-pml-x-163
 
@@ -61,10 +62,13 @@ NAME=tacotron-pml-x-163
 
 # python synthesize.py --variant tacotron_pml_x_locsens --mode eval --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --dataset train --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000
 
+# python synthesize.py --variant tacotron_pml_x_locsens --mode eval --base_dir /scratch/qd212/tacotron --output_dir ${ProjectDir}/results/${NAME}-CDI/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences_10.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000
+
 # gen all alignments
-# python synthesize.py --variant tacotron_pml_x_locsens --mode alignment --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${dataDir}/163-lj-training/test.txt --dataset train --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000
+# python synthesize.py --variant tacotron_pml_x_locsens --mode alignment --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${dataDir}/163-lj-training/test.txt --dataset test --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000
 
 
+########################### taco-pml trained with gta and then scheduled sampling
 # new check point
 NAME=tacotron-schedsamp-pml-x-163
 CKPT=/home/dawna/tts/qd212/models/tacotron/results/tacotron-schedsamp-pml-x-163/model.ckpt-240000
@@ -74,6 +78,8 @@ CKPT=/home/dawna/tts/qd212/models/tacotron/results/tacotron-schedsamp-pml-x-163/
 # python synthesize.py --variant tacotron_pml_x_locsens --mode synthesis --eal True --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${dataDir}/163-lj-training/test.txt --dataset train --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${CKPT}
 
 
+
+########################### taco-pml trained with eal
 # train with EAL
 NAME=tacotron-pml-x-163-eal-scratch
 
@@ -85,8 +91,45 @@ NAME=tacotron-pml-x-163-eal-scratch
 NAME=tacotron-pml-x-163-eal-align
 # python synthesize.py --variant tacotron_pml_x_locsens --mode eval --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --dataset train --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${ProjectDir}/results/logs-${NAME}/model.ckpt-5000
 
-python synthesize.py --variant tacotron_pml_x_locsens --mode synthesis --eal True --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --dataset test --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000 --checkpoint_eal ${ProjectDir}/results/logs-${NAME}/model.ckpt-5000
+# python synthesize.py --variant tacotron_pml_x_locsens --mode synthesis --eal True --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --dataset test --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000 --checkpoint_eal ${ProjectDir}/results/logs-${NAME}/model.ckpt-5000
 
+
+NAME=tacotron-pml-x-163-eal-joint1000
+# python synthesize.py --variant tacotron_pml_x_locsens --mode eval --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}-10k/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --dataset train --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${ProjectDir}/results/logs-${NAME}/model.ckpt-10000
+
+
+NAME=tacotron-pml-x-163-eal-joint50-scratch
+# python synthesize.py --variant tacotron_pml_x_locsens --mode eval --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --dataset train --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${ProjectDir}/results/logs-${NAME}/model.ckpt-85000
+# ${ProjectDir}/results/logs-${NAME}/model.ckpt-145000 overfit!!!
+
+# python synthesize.py --variant tacotron_pml_x_locsens --mode synthesis --eal True --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --dataset train --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000 --checkpoint_eal ${ProjectDir}/results/logs-${NAME}/model.ckpt-85000
+
+
+########################### taco-pml CDI: clean data initiaitve
+dataDir=/scratch/qd212/tacotron
+NAME=tacotron-pml-x-163-merlin
+# python synthesize.py --variant tacotron_pml_x_locsens --mode eval --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${ProjectDir}/results/logs-${NAME}/model.ckpt-66000
+# 101000
+
+python synthesize.py --variant tacotron_pml_x_locsens --mode synthesis --gta True --base_dir /scratch/qd212/tacotron --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --dataset train_merlin --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${ProjectDir}/results/logs-${NAME}/model.ckpt-75000
+
+# gen all alignments
+# python synthesize.py --variant tacotron_pml_x_locsens --mode alignment --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --dataset train_merlin --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${ProjectDir}/results/logs-${NAME}/model.ckpt-75000
+
+NAME=tacotron-pml-x-163-eal-joint50-scratch-merlin
+# python synthesize.py --variant tacotron_pml_x_locsens --mode synthesis --eal True --base_dir /scratch/qd212/tacotron --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --dataset train_merlin --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${ProjectDir}/results/logs-tacotron-pml-x-163-merlin/model.ckpt-75000  --checkpoint_eal ${ProjectDir}/results/logs-${NAME}/model.ckpt-75000
+
+# python synthesize.py --variant tacotron_pml_x_locsens --mode eval --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${ProjectDir}/tests/sentences.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${ProjectDir}/results/logs-${NAME}/model.ckpt-75000
+
+
+
+
+
+###########################
+########################### taco classic trained with gta
+# gen all alignments
+NAME=tacotron-bk2orig
+# python synthesize.py --variant tacotron_bk2orig --mode alignment --base_dir ${dataDir} --output_dir ${ProjectDir}/results/${NAME}/ --training_dir 163-lj-training/ --text_list ${dataDir}/163-lj-training/test.txt --dataset test --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --checkpoint ${ProjectDir}/results/logs-${NAME}/model.ckpt-120000
 
 
 # # 3.3 move the logs and results back to the home directory

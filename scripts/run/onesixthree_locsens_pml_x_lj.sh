@@ -52,18 +52,21 @@ python create_log_dir.py
 cd ${ProjectDir}
 URL=https://hooks.slack.com/services/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
 
+
+############################ train with gta
 # python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/qd212/tacotron/results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url https://hooks.slack.com/services/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
 
 # python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/qd212/tacotron/results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url https://hooks.slack.com/services/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 --restore_step 98000
 
-# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name tacotron-pml-x-163-asup --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL}
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-x-163-merlin --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --restore_step 104000
+
+
+# python train.py --variant tacotron_bk2orig --base_dir /scratch/je369/tacotron --name tacotron-bk2orig --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --restore_step 111000
 
 
 
-# train with eal
+############################ train with eal
 # python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name tacotron-pml-x-163-eal-init --log_dir /scratch/qd212/tacotron/results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/ --eal_ckpt /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000
-
-# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name tacotron-pml-x-163-eal-init --log_dir ${ProjectDir}results --num_steps 300000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/ --eal_ckpt /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000
 
 # python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name tacotron-pml-x-163-eal-initFT --log_dir ${ProjectDir}results --num_steps 300000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/ --eal_ckpt /home/miproj/4thyr.oct2018/je369/results/tacotron-schedsamp-pml-x-163/model.ckpt-150000
 
@@ -71,7 +74,24 @@ URL=https://hooks.slack.com/services/TFWLCHX3M/BFWQQSH19/61uTuvUaykiX2GvraXvmpq7
 # python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name tacotron-pml-x-163-eal-scratch --log_dir /scratch/qd212/tacotron/results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/
 # --restore_step 90000
 
-python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name tacotron-pml-x-163-eal-align --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/ --eal_trainAlign --eal_ckpt /scratch/qd212/tacotron/results/logs-tacotron-pml-x-163-eal-scratch/model.ckpt-120000
+# python train.py --variant tacotron_bk2orig --base_dir /scratch/je369/tacotron --name tacotron-bk2orig-eal-scratch --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/
+
+
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name tacotron-pml-x-163-eal-align --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/ --eal_trainAlign --eal_ckpt /scratch/qd212/tacotron/results/logs-tacotron-pml-x-163-eal-scratch/model.ckpt-120000
+
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name tacotron-pml-x-163-eal-joint1 --log_dir ${ProjectDir}results --num_steps 10000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/ --eal_trainJoint --eal_alignScale 1 --eal_ckpt ${ProjectDir}results/logs-tacotron-pml-x-163-eal-align/model.ckpt-5000
+
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name tacotron-pml-x-163-eal-joint1000 --log_dir ${ProjectDir}results --num_steps 10000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/ --eal_trainJoint --eal_alignScale 1000 --eal_ckpt ${ProjectDir}results/logs-tacotron-pml-x-163-eal-align/model.ckpt-5000
+
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name tacotron-pml-x-163-eal-joint50-scratch --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/ --eal_trainJoint --eal_alignScale 50 --restore_step 96000
+
+
+python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-x-163-eal-joint50-scratch-merlin --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163-merlin/gta/alignment/npy/ --eal_trainJoint --eal_alignScale 50 --restore_step 107000
+
+
+
+
+
 
 
 

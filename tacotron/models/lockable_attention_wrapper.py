@@ -19,7 +19,8 @@ class LockableAttentionWrapper(AttentionWrapper):
                  attention_layer=None,
                  attention_fn=None,
                  locked_alignments=None,
-                 flag_trainAlign=False):
+                 flag_trainAlign=False,
+                 flag_trainJoint=False):
         """Construct the `AttentionWrapper`.
         **NOTE** If you are using the `BeamSearchDecoder` with a cell wrapped in
         `AttentionWrapper`, then you must ensure that:
@@ -117,6 +118,7 @@ class LockableAttentionWrapper(AttentionWrapper):
         self._attention_fn = attention_fn
         self._locked_alignments = locked_alignments
         self._flag_trainAlign = flag_trainAlign
+        self._flag_trainJoint = flag_trainJoint
 
     def call(self, inputs, state):
         """Perform a step of attention-wrapped RNN.
@@ -222,8 +224,8 @@ class LockableAttentionWrapper(AttentionWrapper):
             else:
                 tmp_alignments = self._locked_alignments[:, :, time_step]
             expanded_alignments = array_ops.expand_dims(tmp_alignments, 1)
-            # not elegant but safe; this keeps the old eal implementation as it was
-            if not self._flag_trainAlign:
+            # not elegant but safe; this keeps the old eal implementation as it was, which helps checking the locked alignments
+            if not (self._flag_trainAlign or self._flag_trainJoint):
                 alignments = tmp_alignments
             
         # Context is the inner product of alignments and values along the

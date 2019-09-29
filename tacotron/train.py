@@ -104,7 +104,8 @@ def train(log_dir, args, input):
         if args.eal_dir:
             model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets,
                              feeder.linear_targets, feeder.pml_targets, is_training=True, 
-                             eal=True, locked_alignments=feeder.locked_alignments, flag_trainAlign=args.eal_trainAlign)
+                             eal=True, locked_alignments=feeder.locked_alignments, 
+                             flag_trainAlign=args.eal_trainAlign, flag_trainJoint=args.eal_trainJoint, alignScale=args.eal_alignScale)
         else:
             model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets,
                              feeder.linear_targets, feeder.pml_targets, is_training=True, 
@@ -141,7 +142,8 @@ def train(log_dir, args, input):
 #     import pdb
 #     flag_pdb = False
 #     pdb.set_trace()
-#     args.checkpoint_interval = 5
+#     args.checkpoint_interval = 2
+#     args.num_steps = 5
     
     with tf.Session() as sess:
         try:
@@ -156,11 +158,11 @@ def train(log_dir, args, input):
                 saver.restore(sess, restore_path)
                 log('Resuming from checkpoint: %s at commit: %s' % (restore_path, commit), slack=True)
             elif args.eal_dir and args.eal_ckpt:
-                if args.eal_trainAlign:
+                if args.eal_trainAlign or args.eal_trainJoint:
                     list_var = tf.trainable_variables() + [v for v in tf.global_variables() if 'moving' in v.name]
                     saver_eal = tf.train.Saver(list_var)
                     saver_eal.restore(sess, args.eal_ckpt)
-                    log('Training the attention mechanism of checkpoint: %s at commit: %s' % (args.eal_ckpt, commit), slack=True)
+                    log('Loaded weights and batchNorm cache of checkpoint: %s at commit: %s' % (args.eal_ckpt, commit), slack=True)
                 elif args.eal_ft:
                     saver.restore(sess, args.eal_ckpt)
                     log('Refining the model from checkpoint: %s at commit: %s' % (args.eal_ckpt, commit), slack=True)
@@ -197,6 +199,13 @@ def train(log_dir, args, input):
                     loss_window.append(loss_align)
                     message = 'Step %-7d [%.03f sec/step, loss=%.05f, loss_align=%.05f, avg_loss_align=%.05f]' % (
                         step, time_window.average, loss, loss_align, loss_window.average)
+                elif args.eal_trainJoint:
+                    step, loss, loss_align, loss_joint, opt = sess.run([global_step, model.loss, model.loss_align, 
+                                                                        model.loss_joint, model.optimize])
+                    time_window.append(time.time() - start_time)
+                    loss_window.append(loss_joint)
+                    message = 'Step %-7d [%.03f sec/step, loss=%.05f, loss_align=%.05f, avg_loss_joint=%.05f]' % (
+                        step, time_window.average, loss, loss_align, loss_window.average)
                 else:
                     step, loss, opt = sess.run([global_step, model.loss, model.optimize])
                     time_window.append(time.time() - start_time)
@@ -227,6 +236,7 @@ def train(log_dir, args, input):
                         output_waveform = audio.inv_spectrogram(spectrogram.T)
                         target_waveform = audio.inv_spectrogram(target_spectrogram.T)
                         audio.save_wav(output_waveform, os.path.join(log_dir, 'step-%d-audio.wav' % step))
+                        audio.save_wav(target_waveform, os.path.join(log_dir, 'step-%d-target-audio.wav' % step))
                     # otherwise, synthesize audio from PML vocoder features
                     elif hasattr(model, 'pml_targets'):
                         input_seq, alignment, target_pml_features, pml_features = sess.run([

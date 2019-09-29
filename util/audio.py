@@ -16,7 +16,14 @@ def remove_silence(y, top_db=18):
     return librosa.effects.trim(y, top_db=top_db)[0]  # returns [trimmed_signal, intervals]
 
 
-def save_wav(wav, path, sr=hparams.sample_rate):
+# def save_wav(wav, path, sr=hparams.sample_rate):
+#     import pdb; pdb.set_trace()
+#     wav *= 32767 / max(0.01, np.max(np.abs(wav)))
+#     wavfile.write(path, sr, wav.astype(np.int16))
+
+# 201908, fix arg passing bug
+def save_wav(wav, path):
+    sr=hparams.sample_rate
     wav *= 32767 / max(0.01, np.max(np.abs(wav)))
     wavfile.write(path, sr, wav.astype(np.int16))
 

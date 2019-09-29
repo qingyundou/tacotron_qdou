@@ -20,14 +20,19 @@ class AlignmentSynthesizer:
         print('Constructing model: %s' % model_name)
         inputs = tf.placeholder(tf.int32, [None, None], 'inputs')
         input_lengths = tf.placeholder(tf.int32, [None], 'input_lengths')
-        targets = tf.placeholder(tf.float32, [None, None, hparams.pml_dimension], 'pml_targets')
+        if model_name in ['tacotron_bk2orig']:
+            targets = tf.placeholder(tf.float32, [None, None, hparams.num_mels], 'mel_targets')
+        else:
+            targets = tf.placeholder(tf.float32, [None, None, hparams.pml_dimension], 'pml_targets')
 
         with tf.variable_scope('model', reuse=tf.AUTO_REUSE) as scope:
             self.model = create_model(model_name, hparams)
 
             if gta:
-                self.model.initialize(inputs, input_lengths, pml_targets=targets,
-                                      gta=gta, locked_alignments=locked_alignments)
+                if model_name in ['tacotron_bk2orig']:
+                    self.model.initialize(inputs, input_lengths, mel_targets=targets, gta=gta, locked_alignments=locked_alignments)
+                else:
+                    self.model.initialize(inputs, input_lengths, pml_targets=targets, gta=gta, locked_alignments=locked_alignments)
             else:
                 self.model.initialize(inputs, input_lengths, locked_alignments=locked_alignments)
 
@@ -44,7 +49,8 @@ class AlignmentSynthesizer:
         saver = tf.train.Saver()
         saver.restore(self.session, checkpoint)
 
-    def synthesize(self, texts, is_sequence=False, pml_filenames=None):
+    def synthesize(self, texts, is_sequence=False, pml_filenames=None, tgt_filenames=None):
+        if tgt_filenames: pml_filenames = tgt_filenames # hacky way to handle tgts other than pml
         hp = self._hparams
         cleaner_names = [x.strip() for x in hp.cleaners.split(',')]
 

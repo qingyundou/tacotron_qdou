@@ -11,7 +11,8 @@ from infolog import log
 from datasets import linear_dir, mel_dir, pml_dir
 
 _batches_per_group = 32
-_p_cmudict = 0.5
+# _p_cmudict = 0.5
+_p_cmudict = 1.0
 _pad = 0
 
 
@@ -111,7 +112,7 @@ class DataFeeder(threading.Thread):
         linear_target = np.load(os.path.join(self._datadir, linear_dir, meta[0]))
         mel_target = np.load(os.path.join(self._datadir, mel_dir, meta[1]))
         pml_target = np.load(os.path.join(self._datadir, pml_dir, meta[3]))
-
+        
         return input_data, mel_target, linear_target, len(linear_target), pml_target, \
                len(pml_target)  # we use the length of the PML target as a sort key
 
@@ -222,7 +223,7 @@ class DataFeeder_EAL(threading.Thread):
         mel_target = np.load(os.path.join(self._datadir, mel_dir, meta[1]))
         pml_target = np.load(os.path.join(self._datadir, pml_dir, meta[3]))
         locked_alignments = np.load(os.path.join(self._eal_dir, meta[6].replace('.wav','_align.npy')))
-
+        
         return input_data, mel_target, linear_target, len(linear_target), pml_target, locked_alignments, \
                len(pml_target)  # we use the length of the PML target as a sort key
 
@@ -239,6 +240,7 @@ def _prepare_batch(batch, outputs_per_step):
     mel_targets = _prepare_targets([x[1] for x in batch], outputs_per_step)
     linear_targets = _prepare_targets([x[2] for x in batch], outputs_per_step)
     pml_targets = _prepare_targets([x[4] for x in batch], outputs_per_step)
+    
     return inputs, input_lengths, mel_targets, linear_targets, pml_targets
 
 def _prepare_batch_EAL(batch, outputs_per_step):

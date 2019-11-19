@@ -58,7 +58,12 @@ URL=https://hooks.slack.com/services/TFWLCHX3M/BFWQQSH19/61uTuvUaykiX2GvraXvmpq7
 
 # python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name $NAME --log_dir /scratch/qd212/tacotron/results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url https://hooks.slack.com/services/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 --restore_step 98000
 
-# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-x-163-merlin --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --restore_step 104000
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-x-163-merlin --log_dir ${ProjectDir}results --num_steps 300000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --restore_step 150000
+
+
+
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name asup --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL}
+
 
 
 # python train.py --variant tacotron_bk2orig --base_dir /scratch/je369/tacotron --name tacotron-bk2orig --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --restore_step 111000
@@ -86,9 +91,46 @@ URL=https://hooks.slack.com/services/TFWLCHX3M/BFWQQSH19/61uTuvUaykiX2GvraXvmpq7
 # python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/je369/tacotron --name tacotron-pml-x-163-eal-joint50-scratch --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/ --eal_trainJoint --eal_alignScale 50 --restore_step 96000
 
 
-python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-x-163-eal-joint50-scratch-merlin --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163-merlin/gta/alignment/npy/ --eal_trainJoint --eal_alignScale 50 --restore_step 107000
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-x-163-eal-joint50-scratch-merlin --log_dir ${ProjectDir}results --num_steps 300000 --checkpoint_interval 10000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163-merlin/gta/alignment/npy/ --eal_trainJoint --eal_alignScale 50 --restore_step 150000
 
 
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-eal-joint50-scratch-merlin-cmudict --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-merlin-cmudict/gta/alignment/npy/ --eal_trainJoint --eal_alignScale 50
+
+
+
+
+############################ phone2pml
+
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-merlin-cmudict --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd,use_cmudict=True" --slack_url ${URL}
+
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-merlin-phone --log_dir ${ProjectDir}results --num_steps 150000 --tacotron_input 163-lj-training/train_merlin_phone.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --restore_step 97000
+
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-merlin-phone-punc --log_dir ${ProjectDir}results --num_steps 300000 --checkpoint_interval 10000 --tacotron_input 163-lj-training/train_merlin_phone_punc.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --restore_step 150000
+
+
+
+# python train.py --variant tacotron_pml_x_locsens --base_dir /scratch/qd212/tacotron --name tacotron-pml-eal-joint50-scratch-merlin-phone-punc --log_dir ${ProjectDir}results --num_steps 300000 --checkpoint_interval 10000 --tacotron_input 163-lj-training/train_merlin_phone_punc.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-merlin-phone-punc/gta/alignment/npy/ --eal_trainJoint --eal_alignScale 50 --restore_step 100000
+
+
+
+
+
+
+
+############################ train with eal - online
+
+# python train_online.py --variant tacotron_pml_x_locsens_online --base_dir /scratch/qd212/tacotron --name tacotron-pml-eal-joint50-merlin-online-tfpre-tflock --log_dir ${ProjectDir}results --num_steps 150000 --checkpoint_interval 5000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir online --eal_trainJoint --eal_alignScale 50 --eal_ckpt ${ProjectDir}/results/logs-tacotron-pml-x-163-merlin/model.ckpt-75000 --restore_step 54000  --eal_only_start 54000
+
+python train_online.py --variant tacotron_pml_x_locsens_online --base_dir /scratch/qd212/tacotron --name tacotron-pml-eal-joint50-merlin-online --log_dir ${ProjectDir}results --num_steps 300000 --checkpoint_interval 10000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir online --eal_trainJoint --eal_alignScale 50 --restore_step 150000
+
+
+# python train_online.py --variant tacotron_pml_x_locsens_online --base_dir /scratch/qd212/tacotron --name asup --log_dir ${ProjectDir}results --num_steps 150000 --checkpoint_interval 10 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir online --eal_trainJoint --eal_alignScale 50 --eal_only_start 3
+# --eal_ckpt ${ProjectDir}/results/logs-tacotron-pml-x-163-merlin/model.ckpt-75000
+
+# python train_online.py --variant tacotron_pml_x_locsens_online --base_dir /scratch/qd212/tacotron --name asup --log_dir ${ProjectDir}results --num_steps 150000 --checkpoint_interval 20000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL} --eal_dir ${ProjectDir}results/tacotron-pml-x-163/gta/alignment/npy/ --eal_trainJoint --eal_alignScale 50
+
+
+# python train_online.py --variant tacotron_pml_x_locsens_online --base_dir /scratch/qd212/tacotron --name asup --log_dir ${ProjectDir}results --num_steps 150000 --checkpoint_interval 20000 --tacotron_input 163-lj-training/train_merlin.txt --hparams "sample_rate=16000,frame_length_ms=20,frame_shift_ms=5,pml_dimension=163,spec_type=fwbnd" --slack_url ${URL}
 
 
 

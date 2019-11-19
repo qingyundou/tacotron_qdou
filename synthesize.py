@@ -33,6 +33,7 @@ def main():
                         help='Ground truth aligned synthesis, defaults to True, only considered in synthesis mode')
     parser.add_argument('--eal', default='False',
                         help='Explicit alignment locking, defaults to False, only considered in synthesis mode')
+    parser.add_argument('--online', default=False, action='store_true', help='should be on if the model was trained by online eal')
     parser.add_argument('--mode', default='eval', help='Mode of synthesis run, can be one of {}'.format(accepted_modes))
     parser.add_argument('--text_list', default='',
                         help='Text file contains list of texts to be synthesized. Valid if mode=eval')

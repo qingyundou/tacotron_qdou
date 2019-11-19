@@ -67,7 +67,7 @@ class Synthesizer:
             self.cfg = cfg
 
     def load(self, checkpoint_path, hparams, gta=False, eal=False, model_name='tacotron_pml', locked_alignments=None,
-             logs_enabled=False, checkpoint_eal=None):
+             logs_enabled=False, checkpoint_eal=None, flag_online=False):
         if locked_alignments is not None:
             eal = True
         if logs_enabled:

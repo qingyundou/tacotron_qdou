@@ -67,7 +67,7 @@ class PMLSynthesizer:
             self.cfg = cfg
 
     def load(self, checkpoint_path, hparams, gta=False, eal=False, model_name='tacotron_pml', locked_alignments=None,
-             logs_enabled=False, checkpoint_eal=None):
+             logs_enabled=False, checkpoint_eal=None, flag_online=False):
         if locked_alignments is not None:
             eal = True
         if logs_enabled:
@@ -83,15 +83,23 @@ class PMLSynthesizer:
             if gta:
                 self.model.initialize(inputs, input_lengths, pml_targets=targets, gta=True, logs_enabled=logs_enabled)
             elif eal:
-#                 self.model.initialize(inputs, input_lengths, eal=True, locked_alignments=locked_alignments, logs_enabled=logs_enabled)
-                self.model.initialize(inputs, input_lengths, pml_targets=targets, eal=True, 
-                                      locked_alignments=locked_alignments, logs_enabled=logs_enabled)
+                # self.model.initialize(inputs, input_lengths, eal=True, locked_alignments=locked_alignments, logs_enabled=logs_enabled)
+                if flag_online:
+                    self.model.initialize(inputs, input_lengths, pml_targets=targets, eal=True,
+                                          locked_alignments=None, logs_enabled=logs_enabled)
+                else:
+                    self.model.initialize(inputs, input_lengths, pml_targets=targets, eal=True,
+                                          locked_alignments=locked_alignments, logs_enabled=logs_enabled)
             else:
-                self.model.initialize(inputs, input_lengths, logs_enabled=logs_enabled)
+                if flag_online:
+                    self.model.initialize(inputs, input_lengths, logs_enabled=logs_enabled, flag_online_eal_eval=True)
+                else:
+                    self.model.initialize(inputs, input_lengths, logs_enabled=logs_enabled)
 
             self.pml_outputs = self.model.pml_outputs
+            if flag_online: self.pml_outputs_eal = self.model.pml_outputs_eal
 
-        self.gta, self.eal = gta, eal
+        self.gta, self.eal, self.flag_online = gta, eal, flag_online
         self._hparams = hparams
 
         self.inputs = inputs
@@ -160,7 +168,10 @@ class PMLSynthesizer:
             feed_dict[self.targets] = prepared_targets
             assert len(np_targets) == len(texts)
 
-        pml_features_matrix = self.session.run(self.pml_outputs, feed_dict=feed_dict)
+        if self.flag_online:
+            pml_features_matrix = self.session.run(self.pml_outputs_eal, feed_dict=feed_dict)
+        else:
+            pml_features_matrix = self.session.run(self.pml_outputs, feed_dict=feed_dict)
 
         if to_wav:
             executor = ProcessPoolExecutor(max_workers=num_workers)

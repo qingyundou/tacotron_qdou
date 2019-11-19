@@ -14,6 +14,7 @@ class TacoTestHelper(Helper):
             self._batch_size = batch_size
             self._output_dim = output_dim
             self._end_token = tf.tile([0.0], [output_dim * r])
+#             self._end_token_relax = tf.tile([0.5], [output_dim * r])
 
     @property
     def batch_size(self):
@@ -37,6 +38,10 @@ class TacoTestHelper(Helper):
         '''Stop on EOS. Otherwise, pass the last output as the next input and pass through state.'''
         with tf.name_scope(name, "TacoTestHelper"):
             finished = tf.reduce_all(tf.equal(outputs, self._end_token), axis=1)
+#             finished = tf.reduce_all(tf.equal(outputs, self._end_token_relax), axis=1)
+#             finished = tf.less(tf.reduce_mean(tf.abs(outputs - self._end_token), axis=1), 0.05) # 0.0005
+#             import pdb; pdb.set_trace()
+
             # Feed last output frame as next input. outputs is [N, output_dim * r]
             next_inputs = outputs[:, -self._output_dim:]
             return finished, next_inputs, state

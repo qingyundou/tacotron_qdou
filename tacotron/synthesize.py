@@ -17,7 +17,8 @@ sys.path.append('/home/dawna/tts/qd212/lib_QDOU/')
 from IO_wav_lab import get_file_list
 
 ################# strict synthesis
-def run_eval(args, checkpoint_path, output_dir, hparams, sentences, flag_to_wav=False, checkpoint_eal=None, flag_check=False):
+def run_eval(args, checkpoint_path, output_dir, hparams, sentences, flag_to_wav=False, checkpoint_eal=None, 
+             flag_check=False, cmu_dict=None):
 #     import pdb
 #     pdb.set_trace()
 #     sentences = sentences[:3]
@@ -29,9 +30,14 @@ def run_eval(args, checkpoint_path, output_dir, hparams, sentences, flag_to_wav=
         synth = PMLSynthesizer(cfg)
     else:
         synth = Synthesizer()
-    synth.load(checkpoint_path, hparams, model_name=args.variant, checkpoint_eal=checkpoint_eal)
+    synth.load(checkpoint_path, hparams, model_name=args.variant, checkpoint_eal=checkpoint_eal, flag_online=args.online)
     
+    if hparams.use_cmudict: sentences = sentences_2_phones(sentences, cmu_dict)
+#     import pdb; pdb.set_trace()
+#     with open('/home/dawna/tts/qd212/models/tacotron/tests/sentences_asup.txt','w') as f:
+#         f.write("\n".join(sentences))
 #     pdb.set_trace()
+    
     if flag_check:
         _eval_check(synth, args, checkpoint_path, output_dir, hparams, sentences, flag_to_wav, checkpoint_eal)
     else:
@@ -42,9 +48,13 @@ def _eval_check(synth, args, checkpoint_path, output_dir, hparams, sentences, fl
     synth_dir = os.path.join(output_dir, 'eval','alignment_check/npy')
     os.makedirs(synth_dir, exist_ok=True)
     
-    tmp_alignment = synth.synthesize_check(sentences)    
+    tmp_alignment = synth.synthesize_check(sentences)
+    name_list = get_file_list('/home/dawna/tts/qd212/data/lj/merlinData/file_id_list.scp')[13050:13050+50]
     for j, a in enumerate(tmp_alignment):
-        np.save(os.path.join(synth_dir, 'eval-%d.npy' % j), a)
+        if j<50: path = os.path.join(synth_dir, '%s.npy' % name_list[j])
+        else: path = os.path.join(synth_dir, 'eval-%d.npy' % j)
+        print('Writing {}...'.format(path))
+        np.save(path, a)
 
 def _eval_tgt(synth, args, checkpoint_path, output_dir, hparams, sentences, flag_to_wav, checkpoint_eal):
     synth_dir = os.path.join(output_dir, 'eval','wav') if flag_to_wav else os.path.join(output_dir, 'eval','npy')
@@ -76,6 +86,7 @@ def _eval_tgt(synth, args, checkpoint_path, output_dir, hparams, sentences, flag
                     f.write(wav)
     
     else:
+        import pdb; pdb.set_trace()
         tgt_features_matrix = synth.synthesize(sentences, to_wav=False, mean_norm=mean_norm, std_norm=std_norm,
                                 spec_type=hparams.spec_type)
         name_list = get_file_list('/home/dawna/tts/qd212/data/lj/merlinData/file_id_list.scp')[13050:13050+50]
@@ -88,7 +99,7 @@ def _eval_tgt(synth, args, checkpoint_path, output_dir, hparams, sentences, flag
 
 
 ################# gta / eal synthesis
-def run_synthesis(args, checkpoint_path, output_dir, hparams, flag_connect_NV=False, checkpoint_eal=None, flag_check=False):
+def run_synthesis(args, checkpoint_path, output_dir, hparams, flag_connect_NV=False, checkpoint_eal=None, flag_check=False, cmu_dict=None):
     gta = (args.gta == 'True')
     eal = (args.eal == 'True')
 
@@ -142,7 +153,6 @@ def run_synthesis(args, checkpoint_path, output_dir, hparams, flag_connect_NV=Fa
         mel_filenames = []
         tgt_filenames_NV = []
 
-#         for meta in metadata[i:min(i + args.batch_size, len(metadata) - 1)]:
         for meta in metadata[i:min(i + args.batch_size, len(metadata))]:
             texts.append(meta[5])
             pml_filenames.append(os.path.join(pml_path, meta[3]))
@@ -152,15 +162,21 @@ def run_synthesis(args, checkpoint_path, output_dir, hparams, flag_connect_NV=Fa
 
         basenames = [os.path.basename(p).replace('.npy', '').replace('pml-', '') for p in pml_filenames]
         tgt_filenames = mel_filenames if args.variant in ['tacotron_orig', 'tacotron_bk2orig'] else pml_filenames
+        
+        if hparams.use_cmudict: texts = sentences_2_phones(texts, cmu_dict)
 
 #         print(i)
 #         pdb.set_trace()
 
         if eal:
-            locked_alignments = align_synth.synthesize(texts, tgt_filenames=tgt_filenames)
-            log('Alignments synthesized with shape: {}'.format(locked_alignments.shape))
+            if args.online:
+                locked_alignments = None
+                log('locked_alignments will be computed online')
+            else:
+                locked_alignments = align_synth.synthesize(texts, tgt_filenames=tgt_filenames)
+                log('Alignments synthesized with shape: {}'.format(locked_alignments.shape))
             synth.load(checkpoint_eal, hparams, eal=True, model_name=args.variant,
-                   logs_enabled=False, locked_alignments=locked_alignments)
+                   logs_enabled=False, locked_alignments=locked_alignments, flag_online=args.online)
         else:
             log('locked_alignments is None')
             synth.load(checkpoint_path, hparams, gta=True, model_name=args.variant,
@@ -196,7 +212,7 @@ def _synthesis_tgt(args, checkpoint_path, output_dir, hparams, flag_connect_NV, 
 
     
 #################
-def save_alignment(args, checkpoint_path, output_dir, hparams):
+def save_alignment(args, checkpoint_path, output_dir, hparams, cmu_dict=None):
     synth_dir = os.path.join(output_dir, 'gta', 'alignment/npy') # qd212
     os.makedirs(synth_dir, exist_ok=True)
 
@@ -216,8 +232,8 @@ def save_alignment(args, checkpoint_path, output_dir, hparams):
     wav_path = os.path.join(args.base_dir, args.training_dir, wav_dir)
     mel_path = os.path.join(args.base_dir, args.training_dir, mel_dir)
 
-    import pdb
-    pdb.set_trace()
+#     import pdb
+#     pdb.set_trace()
     
     for i in tqdm(range(0, len(metadata), args.batch_size)):
         texts = []
@@ -233,6 +249,8 @@ def save_alignment(args, checkpoint_path, output_dir, hparams):
             alignment_filenames.append(os.path.join(synth_dir, meta[6].replace('.wav','_align.npy')))
             mel_filenames.append(os.path.join(mel_path, meta[1]))
             
+        if hparams.use_cmudict: texts = sentences_2_phones(texts, cmu_dict)
+        
         tgt_filenames = mel_filenames if args.variant in ['tacotron_bk2orig'] else pml_filenames
         locked_alignments = align_synth.synthesize(texts, tgt_filenames=tgt_filenames)
         log('Alignments synthesized with shape: {}'.format(locked_alignments.shape))
@@ -245,6 +263,43 @@ def save_alignment(args, checkpoint_path, output_dir, hparams):
     return
 #################
 
+#################
+def _get_cmu_dict(datadir):
+    from tacotron.utils import cmudict
+    cmudict_path = os.path.join(datadir, 'cmudict-0.7b')
+    if not os.path.isfile(cmudict_path):
+        raise Exception('If use_cmudict=True, you must download ' +
+                        'http://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict/cmudict-0.7b to %s' % cmudict_path)
+    cmu_dict = cmudict.CMUDict(cmudict_path, keep_ambiguous=False)
+    log('Loaded CMUDict with %d unambiguous entries' % len(cmu_dict))
+    return cmu_dict
+
+def _do_get_arpabet(word, cmu_dict):
+    arpabet = cmu_dict.lookup(word)
+    return '{%s}' % arpabet[0] if arpabet is not None else word
+
+def sentences_2_phones(sentences, cmu_dict):
+#     cmu_dict = _get_cmu_dict(datadir)
+    phones = [' '.join([_do_get_arpabet(word, cmu_dict) for word in text.split(' ')]) for text in sentences]
+    return phones
+
+
+# import re
+# def sentences_2_phones(sentences, cmu_dict):
+# #     cmu_dict = _get_cmu_dict(datadir)
+#     phones = [' '.join([_do_get_arpabet(word, cmu_dict) for word in text.split(' ')]) for text in sentences]
+    
+#     rep_list = [['H',''], ['HH',''], ['AH','OH'], ['AA','OH'], ['IY','UW'], ['TH','S'], ['TH','Z'], ['DH','S'], ['DH','Z'], ['DH','D'], ['IH','IY'], ['AA','AE'], ['OW','OH'], ['EY','EH'], ['JH','ZH'], ['CH','SH'], ['Y','JH']]
+#     rep = {r[0]:r[1] for r in rep_list}
+#     # use these three lines to do the replacement
+#     rep = dict((re.escape(k), v) for k, v in rep.items()) 
+#     #Python 3 renamed dict.iteritems to dict.items so use rep.items() for latest versions
+#     pattern = re.compile("|".join(rep.keys()))
+#     phones = pattern.sub(lambda m: rep[re.escape(m.group(0))], phones)
+    
+#     return phones
+#################
+
 
 #################
 def tacotron_synthesize(args, hparams, checkpoint, sentences=None, checkpoint_eal=None):
@@ -253,15 +308,16 @@ def tacotron_synthesize(args, hparams, checkpoint, sentences=None, checkpoint_ea
     
 #     import pdb
 #     pdb.set_trace()
-#     return run_synthesis_check(args, checkpoint, output_dir, hparams, args.dataset, flag_connect_NV=True)
-#     return run_eval_check(args, checkpoint, output_dir, hparams, sentences,flag_to_wav=False, checkpoint_eal=checkpoint_eal)
-
-    flag_check = False
+    cmu_dict = _get_cmu_dict(os.path.join(args.base_dir,args.training_dir)) if hparams.use_cmudict else None
+    
+    flag_check = False # True False
     
     if args.mode == 'synthesis':
-        run_synthesis(args, checkpoint, output_dir, hparams, flag_connect_NV=True, checkpoint_eal=checkpoint_eal, flag_check=flag_check)
+        run_synthesis(args, checkpoint, output_dir, hparams, flag_connect_NV=True, checkpoint_eal=checkpoint_eal, flag_check=flag_check, 
+                      cmu_dict=cmu_dict)
     elif args.mode == 'eval':
-        run_eval(args, checkpoint, output_dir, hparams, sentences, checkpoint_eal=checkpoint_eal, flag_check=flag_check)
+        run_eval(args, checkpoint, output_dir, hparams, sentences, checkpoint_eal=checkpoint_eal, flag_check=flag_check, 
+                 cmu_dict=cmu_dict)
     elif args.mode == 'alignment':
-        save_alignment(args, checkpoint, output_dir, hparams)
+        save_alignment(args, checkpoint, output_dir, hparams, cmu_dict=cmu_dict)
 #################
